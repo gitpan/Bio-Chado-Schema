@@ -1,0 +1,344 @@
+---
+name: Bio-Chado-Schema
+version: 0.01_03
+author:
+  - 'Robert Buels, <rmb32@cornell.edu>'
+abstract: standard DBIx::Class layer for the Chado schema
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/rbuels/dbic_chado
+requires:
+  DBIx::Class: 0.07
+  perl: v5.8.0
+configure_requires:
+  Module::Build: 0.34
+provides:
+  Bio::Chado::Schema:
+    file: lib/Bio/Chado/Schema.pm
+  Bio::Chado::Schema::Companalysis::Analysis:
+    file: lib/Bio/Chado/Schema/Companalysis/Analysis.pm
+  Bio::Chado::Schema::Companalysis::Analysisfeature:
+    file: lib/Bio/Chado/Schema/Companalysis/Analysisfeature.pm
+  Bio::Chado::Schema::Companalysis::Analysisprop:
+    file: lib/Bio/Chado/Schema/Companalysis/Analysisprop.pm
+  Bio::Chado::Schema::Composite::AllFeatureNames:
+    file: lib/Bio/Chado/Schema/Composite/AllFeatureNames.pm
+  Bio::Chado::Schema::Composite::Dfeatureloc:
+    file: lib/Bio/Chado/Schema/Composite/Dfeatureloc.pm
+  Bio::Chado::Schema::Composite::FLoc:
+    file: lib/Bio/Chado/Schema/Composite/FLoc.pm
+  Bio::Chado::Schema::Composite::FType:
+    file: lib/Bio/Chado/Schema/Composite/FType.pm
+  Bio::Chado::Schema::Composite::FeatureContains:
+    file: lib/Bio/Chado/Schema/Composite/FeatureContains.pm
+  Bio::Chado::Schema::Composite::FeatureDifference:
+    file: lib/Bio/Chado/Schema/Composite/FeatureDifference.pm
+  Bio::Chado::Schema::Composite::FeatureDisjoint:
+    file: lib/Bio/Chado/Schema/Composite/FeatureDisjoint.pm
+  Bio::Chado::Schema::Composite::FeatureDistance:
+    file: lib/Bio/Chado/Schema/Composite/FeatureDistance.pm
+  Bio::Chado::Schema::Composite::FeatureIntersection:
+    file: lib/Bio/Chado/Schema/Composite/FeatureIntersection.pm
+  Bio::Chado::Schema::Composite::FeatureMeets:
+    file: lib/Bio/Chado/Schema/Composite/FeatureMeets.pm
+  Bio::Chado::Schema::Composite::FeatureMeetsOnSameStrand:
+    file: lib/Bio/Chado/Schema/Composite/FeatureMeetsOnSameStrand.pm
+  Bio::Chado::Schema::Composite::FeatureUnion:
+    file: lib/Bio/Chado/Schema/Composite/FeatureUnion.pm
+  Bio::Chado::Schema::Composite::FeaturesetMeets:
+    file: lib/Bio/Chado/Schema/Composite/FeaturesetMeets.pm
+  Bio::Chado::Schema::Composite::FnrType:
+    file: lib/Bio/Chado/Schema/Composite/FnrType.pm
+  Bio::Chado::Schema::Composite::FpKey:
+    file: lib/Bio/Chado/Schema/Composite/FpKey.pm
+  Bio::Chado::Schema::Composite::Gff3atts:
+    file: lib/Bio/Chado/Schema/Composite/Gff3atts.pm
+  Bio::Chado::Schema::Composite::Gff3view:
+    file: lib/Bio/Chado/Schema/Composite/Gff3view.pm
+  Bio::Chado::Schema::Composite::Gffatts:
+    file: lib/Bio/Chado/Schema/Composite/Gffatts.pm
+  Bio::Chado::Schema::Contact::Contact:
+    file: lib/Bio/Chado/Schema/Contact/Contact.pm
+  Bio::Chado::Schema::Contact::ContactRelationship:
+    file: lib/Bio/Chado/Schema/Contact/ContactRelationship.pm
+  Bio::Chado::Schema::Cv::CommonAncestorCvterm:
+    file: lib/Bio/Chado/Schema/Cv/CommonAncestorCvterm.pm
+  Bio::Chado::Schema::Cv::CommonDescendantCvterm:
+    file: lib/Bio/Chado/Schema/Cv/CommonDescendantCvterm.pm
+  Bio::Chado::Schema::Cv::Cv:
+    file: lib/Bio/Chado/Schema/Cv/Cv.pm
+  Bio::Chado::Schema::Cv::CvCvtermCount:
+    file: lib/Bio/Chado/Schema/Cv/CvCvtermCount.pm
+  Bio::Chado::Schema::Cv::CvCvtermCountWithObs:
+    file: lib/Bio/Chado/Schema/Cv/CvCvtermCountWithObs.pm
+  Bio::Chado::Schema::Cv::CvLeaf:
+    file: lib/Bio/Chado/Schema/Cv/CvLeaf.pm
+  Bio::Chado::Schema::Cv::CvLinkCount:
+    file: lib/Bio/Chado/Schema/Cv/CvLinkCount.pm
+  Bio::Chado::Schema::Cv::CvPathCount:
+    file: lib/Bio/Chado/Schema/Cv/CvPathCount.pm
+  Bio::Chado::Schema::Cv::CvRoot:
+    file: lib/Bio/Chado/Schema/Cv/CvRoot.pm
+  Bio::Chado::Schema::Cv::Cvterm:
+    file: lib/Bio/Chado/Schema/Cv/Cvterm.pm
+  Bio::Chado::Schema::Cv::CvtermDbxref:
+    file: lib/Bio/Chado/Schema/Cv/CvtermDbxref.pm
+  Bio::Chado::Schema::Cv::CvtermRelationship:
+    file: lib/Bio/Chado/Schema/Cv/CvtermRelationship.pm
+  Bio::Chado::Schema::Cv::Cvtermpath:
+    file: lib/Bio/Chado/Schema/Cv/Cvtermpath.pm
+  Bio::Chado::Schema::Cv::Cvtermprop:
+    file: lib/Bio/Chado/Schema/Cv/Cvtermprop.pm
+  Bio::Chado::Schema::Cv::Cvtermsynonym:
+    file: lib/Bio/Chado/Schema/Cv/Cvtermsynonym.pm
+  Bio::Chado::Schema::Cv::Dbxrefprop:
+    file: lib/Bio/Chado/Schema/Cv/Dbxrefprop.pm
+  Bio::Chado::Schema::Cv::StatsPathsToRoot:
+    file: lib/Bio/Chado/Schema/Cv/StatsPathsToRoot.pm
+  Bio::Chado::Schema::Expression::Eimage:
+    file: lib/Bio/Chado/Schema/Expression/Eimage.pm
+  Bio::Chado::Schema::Expression::Expression:
+    file: lib/Bio/Chado/Schema/Expression/Expression.pm
+  Bio::Chado::Schema::Expression::ExpressionCvterm:
+    file: lib/Bio/Chado/Schema/Expression/ExpressionCvterm.pm
+  Bio::Chado::Schema::Expression::ExpressionCvtermprop:
+    file: lib/Bio/Chado/Schema/Expression/ExpressionCvtermprop.pm
+  Bio::Chado::Schema::Expression::ExpressionImage:
+    file: lib/Bio/Chado/Schema/Expression/ExpressionImage.pm
+  Bio::Chado::Schema::Expression::ExpressionPub:
+    file: lib/Bio/Chado/Schema/Expression/ExpressionPub.pm
+  Bio::Chado::Schema::Expression::Expressionprop:
+    file: lib/Bio/Chado/Schema/Expression/Expressionprop.pm
+  Bio::Chado::Schema::Expression::FeatureExpression:
+    file: lib/Bio/Chado/Schema/Expression/FeatureExpression.pm
+  Bio::Chado::Schema::Expression::FeatureExpressionprop:
+    file: lib/Bio/Chado/Schema/Expression/FeatureExpressionprop.pm
+  Bio::Chado::Schema::General::Db:
+    file: lib/Bio/Chado/Schema/General/Db.pm
+  Bio::Chado::Schema::General::DbDbxrefCount:
+    file: lib/Bio/Chado/Schema/General/DbDbxrefCount.pm
+  Bio::Chado::Schema::General::Dbxref:
+    file: lib/Bio/Chado/Schema/General/Dbxref.pm
+  Bio::Chado::Schema::General::Project:
+    file: lib/Bio/Chado/Schema/General/Project.pm
+  Bio::Chado::Schema::General::Tableinfo:
+    file: lib/Bio/Chado/Schema/General/Tableinfo.pm
+  Bio::Chado::Schema::Genetic::Environment:
+    file: lib/Bio/Chado/Schema/Genetic/Environment.pm
+  Bio::Chado::Schema::Genetic::EnvironmentCvterm:
+    file: lib/Bio/Chado/Schema/Genetic/EnvironmentCvterm.pm
+  Bio::Chado::Schema::Genetic::FeatureGenotype:
+    file: lib/Bio/Chado/Schema/Genetic/FeatureGenotype.pm
+  Bio::Chado::Schema::Genetic::Genotype:
+    file: lib/Bio/Chado/Schema/Genetic/Genotype.pm
+  Bio::Chado::Schema::Genetic::Phendesc:
+    file: lib/Bio/Chado/Schema/Genetic/Phendesc.pm
+  Bio::Chado::Schema::Genetic::PhenotypeComparison:
+    file: lib/Bio/Chado/Schema/Genetic/PhenotypeComparison.pm
+  Bio::Chado::Schema::Genetic::PhenotypeComparisonCvterm:
+    file: lib/Bio/Chado/Schema/Genetic/PhenotypeComparisonCvterm.pm
+  Bio::Chado::Schema::Genetic::Phenstatement:
+    file: lib/Bio/Chado/Schema/Genetic/Phenstatement.pm
+  Bio::Chado::Schema::Library::Library:
+    file: lib/Bio/Chado/Schema/Library/Library.pm
+  Bio::Chado::Schema::Library::LibraryCvterm:
+    file: lib/Bio/Chado/Schema/Library/LibraryCvterm.pm
+  Bio::Chado::Schema::Library::LibraryDbxref:
+    file: lib/Bio/Chado/Schema/Library/LibraryDbxref.pm
+  Bio::Chado::Schema::Library::LibraryFeature:
+    file: lib/Bio/Chado/Schema/Library/LibraryFeature.pm
+  Bio::Chado::Schema::Library::LibraryPub:
+    file: lib/Bio/Chado/Schema/Library/LibraryPub.pm
+  Bio::Chado::Schema::Library::LibrarySynonym:
+    file: lib/Bio/Chado/Schema/Library/LibrarySynonym.pm
+  Bio::Chado::Schema::Library::Libraryprop:
+    file: lib/Bio/Chado/Schema/Library/Libraryprop.pm
+  Bio::Chado::Schema::Library::LibrarypropPub:
+    file: lib/Bio/Chado/Schema/Library/LibrarypropPub.pm
+  Bio::Chado::Schema::Mage::Acquisition:
+    file: lib/Bio/Chado/Schema/Mage/Acquisition.pm
+  Bio::Chado::Schema::Mage::AcquisitionRelationship:
+    file: lib/Bio/Chado/Schema/Mage/AcquisitionRelationship.pm
+  Bio::Chado::Schema::Mage::Acquisitionprop:
+    file: lib/Bio/Chado/Schema/Mage/Acquisitionprop.pm
+  Bio::Chado::Schema::Mage::Arraydesign:
+    file: lib/Bio/Chado/Schema/Mage/Arraydesign.pm
+  Bio::Chado::Schema::Mage::Arraydesignprop:
+    file: lib/Bio/Chado/Schema/Mage/Arraydesignprop.pm
+  Bio::Chado::Schema::Mage::Assay:
+    file: lib/Bio/Chado/Schema/Mage/Assay.pm
+  Bio::Chado::Schema::Mage::AssayBiomaterial:
+    file: lib/Bio/Chado/Schema/Mage/AssayBiomaterial.pm
+  Bio::Chado::Schema::Mage::AssayProject:
+    file: lib/Bio/Chado/Schema/Mage/AssayProject.pm
+  Bio::Chado::Schema::Mage::Assayprop:
+    file: lib/Bio/Chado/Schema/Mage/Assayprop.pm
+  Bio::Chado::Schema::Mage::Biomaterial:
+    file: lib/Bio/Chado/Schema/Mage/Biomaterial.pm
+  Bio::Chado::Schema::Mage::BiomaterialDbxref:
+    file: lib/Bio/Chado/Schema/Mage/BiomaterialDbxref.pm
+  Bio::Chado::Schema::Mage::BiomaterialRelationship:
+    file: lib/Bio/Chado/Schema/Mage/BiomaterialRelationship.pm
+  Bio::Chado::Schema::Mage::BiomaterialTreatment:
+    file: lib/Bio/Chado/Schema/Mage/BiomaterialTreatment.pm
+  Bio::Chado::Schema::Mage::Biomaterialprop:
+    file: lib/Bio/Chado/Schema/Mage/Biomaterialprop.pm
+  Bio::Chado::Schema::Mage::Channel:
+    file: lib/Bio/Chado/Schema/Mage/Channel.pm
+  Bio::Chado::Schema::Mage::Control:
+    file: lib/Bio/Chado/Schema/Mage/Control.pm
+  Bio::Chado::Schema::Mage::Element:
+    file: lib/Bio/Chado/Schema/Mage/Element.pm
+  Bio::Chado::Schema::Mage::ElementRelationship:
+    file: lib/Bio/Chado/Schema/Mage/ElementRelationship.pm
+  Bio::Chado::Schema::Mage::Elementresult:
+    file: lib/Bio/Chado/Schema/Mage/Elementresult.pm
+  Bio::Chado::Schema::Mage::ElementresultRelationship:
+    file: lib/Bio/Chado/Schema/Mage/ElementresultRelationship.pm
+  Bio::Chado::Schema::Mage::Magedocumentation:
+    file: lib/Bio/Chado/Schema/Mage/Magedocumentation.pm
+  Bio::Chado::Schema::Mage::Mageml:
+    file: lib/Bio/Chado/Schema/Mage/Mageml.pm
+  Bio::Chado::Schema::Mage::Protocol:
+    file: lib/Bio/Chado/Schema/Mage/Protocol.pm
+  Bio::Chado::Schema::Mage::Protocolparam:
+    file: lib/Bio/Chado/Schema/Mage/Protocolparam.pm
+  Bio::Chado::Schema::Mage::Quantification:
+    file: lib/Bio/Chado/Schema/Mage/Quantification.pm
+  Bio::Chado::Schema::Mage::QuantificationRelationship:
+    file: lib/Bio/Chado/Schema/Mage/QuantificationRelationship.pm
+  Bio::Chado::Schema::Mage::Quantificationprop:
+    file: lib/Bio/Chado/Schema/Mage/Quantificationprop.pm
+  Bio::Chado::Schema::Mage::Study:
+    file: lib/Bio/Chado/Schema/Mage/Study.pm
+  Bio::Chado::Schema::Mage::StudyAssay:
+    file: lib/Bio/Chado/Schema/Mage/StudyAssay.pm
+  Bio::Chado::Schema::Mage::Studydesign:
+    file: lib/Bio/Chado/Schema/Mage/Studydesign.pm
+  Bio::Chado::Schema::Mage::Studydesignprop:
+    file: lib/Bio/Chado/Schema/Mage/Studydesignprop.pm
+  Bio::Chado::Schema::Mage::Studyfactor:
+    file: lib/Bio/Chado/Schema/Mage/Studyfactor.pm
+  Bio::Chado::Schema::Mage::Studyfactorvalue:
+    file: lib/Bio/Chado/Schema/Mage/Studyfactorvalue.pm
+  Bio::Chado::Schema::Mage::Studyprop:
+    file: lib/Bio/Chado/Schema/Mage/Studyprop.pm
+  Bio::Chado::Schema::Mage::StudypropFeature:
+    file: lib/Bio/Chado/Schema/Mage/StudypropFeature.pm
+  Bio::Chado::Schema::Mage::Treatment:
+    file: lib/Bio/Chado/Schema/Mage/Treatment.pm
+  Bio::Chado::Schema::Map::Featuremap:
+    file: lib/Bio/Chado/Schema/Map/Featuremap.pm
+  Bio::Chado::Schema::Map::FeaturemapPub:
+    file: lib/Bio/Chado/Schema/Map/FeaturemapPub.pm
+  Bio::Chado::Schema::Map::Featurepos:
+    file: lib/Bio/Chado/Schema/Map/Featurepos.pm
+  Bio::Chado::Schema::Map::Featurerange:
+    file: lib/Bio/Chado/Schema/Map/Featurerange.pm
+  Bio::Chado::Schema::Organism::Organism:
+    file: lib/Bio/Chado/Schema/Organism/Organism.pm
+  Bio::Chado::Schema::Organism::OrganismDbxref:
+    file: lib/Bio/Chado/Schema/Organism/OrganismDbxref.pm
+  Bio::Chado::Schema::Organism::Organismprop:
+    file: lib/Bio/Chado/Schema/Organism/Organismprop.pm
+  Bio::Chado::Schema::Phenotype::FeaturePhenotype:
+    file: lib/Bio/Chado/Schema/Phenotype/FeaturePhenotype.pm
+  Bio::Chado::Schema::Phenotype::Phenotype:
+    file: lib/Bio/Chado/Schema/Phenotype/Phenotype.pm
+  Bio::Chado::Schema::Phenotype::PhenotypeCvterm:
+    file: lib/Bio/Chado/Schema/Phenotype/PhenotypeCvterm.pm
+  Bio::Chado::Schema::Phylogeny::Phylonode:
+    file: lib/Bio/Chado/Schema/Phylogeny/Phylonode.pm
+  Bio::Chado::Schema::Phylogeny::PhylonodeDbxref:
+    file: lib/Bio/Chado/Schema/Phylogeny/PhylonodeDbxref.pm
+  Bio::Chado::Schema::Phylogeny::PhylonodeOrganism:
+    file: lib/Bio/Chado/Schema/Phylogeny/PhylonodeOrganism.pm
+  Bio::Chado::Schema::Phylogeny::PhylonodePub:
+    file: lib/Bio/Chado/Schema/Phylogeny/PhylonodePub.pm
+  Bio::Chado::Schema::Phylogeny::PhylonodeRelationship:
+    file: lib/Bio/Chado/Schema/Phylogeny/PhylonodeRelationship.pm
+  Bio::Chado::Schema::Phylogeny::Phylonodeprop:
+    file: lib/Bio/Chado/Schema/Phylogeny/Phylonodeprop.pm
+  Bio::Chado::Schema::Phylogeny::Phylotree:
+    file: lib/Bio/Chado/Schema/Phylogeny/Phylotree.pm
+  Bio::Chado::Schema::Phylogeny::PhylotreePub:
+    file: lib/Bio/Chado/Schema/Phylogeny/PhylotreePub.pm
+  Bio::Chado::Schema::Pub::Pub:
+    file: lib/Bio/Chado/Schema/Pub/Pub.pm
+  Bio::Chado::Schema::Pub::PubDbxref:
+    file: lib/Bio/Chado/Schema/Pub/PubDbxref.pm
+  Bio::Chado::Schema::Pub::PubRelationship:
+    file: lib/Bio/Chado/Schema/Pub/PubRelationship.pm
+  Bio::Chado::Schema::Pub::Pubauthor:
+    file: lib/Bio/Chado/Schema/Pub/Pubauthor.pm
+  Bio::Chado::Schema::Pub::Pubprop:
+    file: lib/Bio/Chado/Schema/Pub/Pubprop.pm
+  Bio::Chado::Schema::Sequence::Cvtermsynonym:
+    file: lib/Bio/Chado/Schema/Sequence/Cvtermsynonym.pm
+  Bio::Chado::Schema::Sequence::Feature:
+    file: lib/Bio/Chado/Schema/Sequence/Feature.pm
+  Bio::Chado::Schema::Sequence::FeatureCvterm:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureCvterm.pm
+  Bio::Chado::Schema::Sequence::FeatureCvtermDbxref:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureCvtermDbxref.pm
+  Bio::Chado::Schema::Sequence::FeatureCvtermPub:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureCvtermPub.pm
+  Bio::Chado::Schema::Sequence::FeatureCvtermprop:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureCvtermprop.pm
+  Bio::Chado::Schema::Sequence::FeatureDbxref:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureDbxref.pm
+  Bio::Chado::Schema::Sequence::FeaturePub:
+    file: lib/Bio/Chado/Schema/Sequence/FeaturePub.pm
+  Bio::Chado::Schema::Sequence::FeaturePubprop:
+    file: lib/Bio/Chado/Schema/Sequence/FeaturePubprop.pm
+  Bio::Chado::Schema::Sequence::FeatureRelationship:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureRelationship.pm
+  Bio::Chado::Schema::Sequence::FeatureRelationshipPub:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureRelationshipPub.pm
+  Bio::Chado::Schema::Sequence::FeatureRelationshipprop:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureRelationshipprop.pm
+  Bio::Chado::Schema::Sequence::FeatureRelationshippropPub:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureRelationshippropPub.pm
+  Bio::Chado::Schema::Sequence::FeatureSynonym:
+    file: lib/Bio/Chado/Schema/Sequence/FeatureSynonym.pm
+  Bio::Chado::Schema::Sequence::Featureloc:
+    file: lib/Bio/Chado/Schema/Sequence/Featureloc.pm
+  Bio::Chado::Schema::Sequence::FeaturelocPub:
+    file: lib/Bio/Chado/Schema/Sequence/FeaturelocPub.pm
+  Bio::Chado::Schema::Sequence::Featureprop:
+    file: lib/Bio/Chado/Schema/Sequence/Featureprop.pm
+  Bio::Chado::Schema::Sequence::FeaturepropPub:
+    file: lib/Bio/Chado/Schema/Sequence/FeaturepropPub.pm
+  Bio::Chado::Schema::Sequence::Synonym:
+    file: lib/Bio/Chado/Schema/Sequence/Synonym.pm
+  Bio::Chado::Schema::Sequence::TypeFeatureCount:
+    file: lib/Bio/Chado/Schema/Sequence/TypeFeatureCount.pm
+  Bio::Chado::Schema::Stock::Stock:
+    file: lib/Bio/Chado/Schema/Stock/Stock.pm
+  Bio::Chado::Schema::Stock::StockCvterm:
+    file: lib/Bio/Chado/Schema/Stock/StockCvterm.pm
+  Bio::Chado::Schema::Stock::StockDbxref:
+    file: lib/Bio/Chado/Schema/Stock/StockDbxref.pm
+  Bio::Chado::Schema::Stock::StockGenotype:
+    file: lib/Bio/Chado/Schema/Stock/StockGenotype.pm
+  Bio::Chado::Schema::Stock::StockPub:
+    file: lib/Bio/Chado/Schema/Stock/StockPub.pm
+  Bio::Chado::Schema::Stock::StockRelationship:
+    file: lib/Bio/Chado/Schema/Stock/StockRelationship.pm
+  Bio::Chado::Schema::Stock::StockRelationshipPub:
+    file: lib/Bio/Chado/Schema/Stock/StockRelationshipPub.pm
+  Bio::Chado::Schema::Stock::Stockcollection:
+    file: lib/Bio/Chado/Schema/Stock/Stockcollection.pm
+  Bio::Chado::Schema::Stock::StockcollectionStock:
+    file: lib/Bio/Chado/Schema/Stock/StockcollectionStock.pm
+  Bio::Chado::Schema::Stock::Stockcollectionprop:
+    file: lib/Bio/Chado/Schema/Stock/Stockcollectionprop.pm
+  Bio::Chado::Schema::Stock::Stockprop:
+    file: lib/Bio/Chado/Schema/Stock/Stockprop.pm
+  Bio::Chado::Schema::Stock::StockpropPub:
+    file: lib/Bio/Chado/Schema/Stock/StockpropPub.pm
+generated_by: Module::Build version 0.34
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4

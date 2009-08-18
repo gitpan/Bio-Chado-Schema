@@ -1,0 +1,34 @@
+NAME
+    Bio::Chado::Schema - standard DBIx::Class layer for the Chado database
+    schema
+
+SYNOPSIS
+      use Bio::Chado::Schema;
+
+      my $chado = Bio::Chado::Schema->connect($dsn,$user,$password);
+
+      print "number of rows in feature table: ",
+            $chado->resultset('Sequence::Feature')->count,
+            "\n";
+
+DESCRIPTION
+    This is a standard object-relational mapping layer for use with the GMOD
+    Chado database schema. This layer is implemented with DBIx::Class,
+    generated with the help of the very fine DBIx::Class::Schema::Loader
+    module.
+
+    To learn how to use this DBIx::Class ORM layer, a good starting point is
+    the DBIx::Class::Manual.
+
+CONTRIBUTORS
+    Robert Buels, <rmb32@cornell.edu>
+
+AUTHOR
+    Robert Buels, <rmb32@cornell.edu>
+
+COPYRIGHT & LICENSE
+    Copyright 2009 Boyce Thompson Institute for Plant Research
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

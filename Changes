@@ -1,0 +1,11 @@
+dbic-chado (0.01_03)
+
+  * changed namespace to Bio::Chado instead of Chado
+
+ -- Robert Buels <rmb32@cornell.edu>  Sun, 16 Aug 2009 16:26:39 -0700
+
+dbic-chado (0.01_01)
+
+  * Initial release.
+
+ -- Robert Buels <rmb32@cornell.edu>  Sat, 15 Aug 2009 16:04:24 -0700
