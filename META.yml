@@ -1,6 +1,6 @@
 ---
 name: Bio-Chado-Schema
-version: 0.022
+version: 0.03
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 abstract: standard DBIx::Class layer for the Chado schema
@@ -16,6 +16,7 @@ configure_requires:
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
+    version: 0.03
   Bio::Chado::Schema::Companalysis::Analysis:
     file: lib/Bio/Chado/Schema/Companalysis/Analysis.pm
   Bio::Chado::Schema::Companalysis::Analysisfeature:
