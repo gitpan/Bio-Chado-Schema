@@ -2,7 +2,7 @@ use Module::Build;
 my $build = Module::Build->new
     (
      module_name => 'Bio::Chado::Schema',
-     dist_version => '0.01_03',
+     dist_version => '0.02',
      dist_name    => 'Bio-Chado-Schema',
      dist_abstract => 'standard DBIx::Class layer for the Chado schema',
      license  => 'perl',
@@ -17,7 +17,7 @@ my $build = Module::Build->new
                    },
      requires => {
                   'perl'          => '5.8.0',
-                  'DBIx::Class'   => '0.07',
+                  'DBIx::Class'   => '0.08100',
                  },
     );
 $build->create_build_script;

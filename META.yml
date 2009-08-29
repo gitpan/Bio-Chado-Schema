@@ -1,6 +1,6 @@
 ---
 name: Bio-Chado-Schema
-version: 0.01_03
+version: 0.02
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 abstract: standard DBIx::Class layer for the Chado schema
@@ -9,7 +9,7 @@ resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/dbic_chado
 requires:
-  DBIx::Class: 0.07
+  DBIx::Class: 0.08100
   perl: v5.8.0
 configure_requires:
   Module::Build: 0.34
