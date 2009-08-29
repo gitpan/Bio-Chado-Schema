@@ -1,6 +1,6 @@
 ---
 name: Bio-Chado-Schema
-version: 0.02
+version: 0.021
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 abstract: standard DBIx::Class layer for the Chado schema
