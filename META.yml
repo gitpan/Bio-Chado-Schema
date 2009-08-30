@@ -1,6 +1,6 @@
 ---
 name: Bio-Chado-Schema
-version: 0.03
+version: 0.03100
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 abstract: standard DBIx::Class layer for the Chado schema
@@ -12,11 +12,11 @@ requires:
   DBIx::Class: 0.08100
   perl: v5.8.0
 configure_requires:
-  Module::Build: 0.35
+  Module::Build: 0.34
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.03
+    version: 0.03100
   Bio::Chado::Schema::Companalysis::Analysis:
     file: lib/Bio/Chado/Schema/Companalysis/Analysis.pm
   Bio::Chado::Schema::Companalysis::Analysisfeature:
@@ -339,7 +339,7 @@ provides:
     file: lib/Bio/Chado/Schema/Stock/Stockprop.pm
   Bio::Chado::Schema::Stock::StockpropPub:
     file: lib/Bio/Chado/Schema/Stock/StockpropPub.pm
-generated_by: Module::Build version 0.35
+generated_by: Module::Build version 0.34
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
