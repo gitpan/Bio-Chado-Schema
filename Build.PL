@@ -16,7 +16,10 @@ my $build = Module::Build->new
                    },
      requires => {
                   'perl'          => '5.8.0',
-                  'DBIx::Class'   => '0.08100',
+                  'Carp'          => '1.08',
+                  'Carp::Clan'    => '6.00',
+                  'DBIx::Class'   => '0.08111',
+                  'Module::Find'  => 0,
                  },
     );
 $build->create_build_script;

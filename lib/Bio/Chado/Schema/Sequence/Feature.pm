@@ -107,6 +107,11 @@ __PACKAGE__->has_many(
   { "foreign.feature_id" => "self.feature_id" },
 );
 __PACKAGE__->has_many(
+  "cell_line_features",
+  "Bio::Chado::Schema::CellLine::CellLineFeature",
+  { "foreign.feature_id" => "self.feature_id" },
+);
+__PACKAGE__->has_many(
   "elements",
   "Bio::Chado::Schema::Mage::Element",
   { "foreign.feature_id" => "self.feature_id" },
@@ -244,8 +249,10 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-29 09:17:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vUlrYA81srV51UtYIO1ukw
+# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-31 08:24:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AhZ1E/MCI4Ike01bhmqL/A
+
+use Carp;
 
 =head1 ADDITIONAL RELATIONSHIPS
 
@@ -263,10 +270,22 @@ __PACKAGE__->belongs_to
 
 =head1 MANY-TO-MANY RELATIONSHIPS
 
+=head2 dbxrefs_mm
+
+Relation to L<Bio::Chado::Schema::General::Dbxref: (i.e. dbxref table)
+via the C<feature_dbxrefs> table.
+
+=cut
+
+__PACKAGE__->many_to_many
+    (
+     'dbxrefs_mm',
+     'feature_dbxrefs' => 'dbxref',
+    );
+
 =head2 secondary_dbxrefs
 
-Relation to Bio::Chado::Schema::General::Dbxref (i.e. dbxref table)
-via feature_dbxrefs
+Alias for dbxrefs_mm
 
 =cut
 
@@ -276,55 +295,150 @@ __PACKAGE__->many_to_many
      'feature_dbxrefs' => 'dbxref',
     );
 
+
 =head1 ADDITIONAL METHODS
 
 =head2 create_featureprops
 
-  Usage: $set->create_featureprops('cv_name', { baz => 2, foo => 'bar' });
+  Usage: $set->create_featureprops({ baz => 2, foo => 'bar' });
   Desc : convenience method to create feature properties using cvterms
           from the ontology with the given name
-  Args : CV name, hashref of { propname => value, ...}
+  Args : hashref of { propname => value, ...},
+         options hashref as:
+          {
+            autocreate => 0,
+               (optional) boolean, if passed, automatically create cv,
+               cvterm, and dbxref rows if one cannot be found for the
+               given featureprop name.  Default false.
+
+            cv_name => cv.name to use for the given featureprops.
+                       Defaults to 'feature_property',
+
+            db_name => db.name to use for autocreated dbxrefs,
+                       default 'null',
+
+            dbxref_accession_prefix => optional, default
+                                       'autocreated:',
+            definitions => optional hashref of:
+                { cvterm_name => definition,
+                }
+             to load into the cvterm table when autocreating cvterms
+
+             allow_duplicate_values => default false.
+                If true, allow duplicate instances of the same cvterm
+                and value in the properties of the feature.  Duplicate
+                values will have different ranks.
+          }
   Ret  : hashref of { propname => new featureprop object }
 
 =cut
 
 sub create_featureprops {
-    my ($self, $cv_name, $props) = @_;
-
-    foreach (values %$props) {
-        $_ = { value => $_ } unless ref;
-    }
-
-    my %propterms;
-    my $feature_prop_cv = $self->result_source->schema
-                               ->resultset('Cv::Cv')
-                               ->find_or_create({ name => $cv_name},{key => 'cv_c1'});
-
-    # find/create cvterms for each of our featureprops
-    foreach my $propname (keys %$props) {
-        $propterms{$propname} = $feature_prop_cv->find_or_create_related('cvterms',
-                                                                         { name => $propname,
-                                                                           is_obsolete => 0,
-                                                                         },
-                                                                         { key => 'cvterm_c1' },
-                                                                        );
-    }
-    my %props;
-    while( my ($propname,$propval) = each %$props ) {
-
-        my $data = ref $propval
-            ? {%$propval}
-            : { value => $propval };
-
-        $data->{type_id} = $propterms{$propname}->cvterm_id;
-
-        $props{$propname} = $self->create_related('featureprops',
-                                                  $data
-                                                 );
-    }
-
-    return \%props;
+    my ($self, $props, $opts) = @_;
+    
+    # process opts
+    $opts->{cv_name} = 'feature_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'featureprops',
+        );
 }
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+=head2 search_featureprops
+
+  Status  : public
+  Usage   : $feat->search_featureprops( 'description' )
+            # OR
+            $feat->search_featureprops({ name => 'description'})
+  Returns : DBIx::Class::ResultSet like other search() methods
+  Args    : single string to match cvterm name,
+            or hashref of search criteria.  This is passed
+            to $chado->resultset('Cv::Cvterm')
+                     ->search({ your criteria })
+
+  Convenience method to search featureprops for a feature that
+  match to Cvterms having the given criterion hash
+
+=cut
+
+sub search_featureprops {
+    my ( $self, $cvt_criteria ) = @_;
+
+    $cvt_criteria = { name => $cvt_criteria }
+        unless ref $cvt_criteria;
+
+     $self->result_source->schema
+          ->resultset('Cv::Cvterm')
+          ->search( $cvt_criteria )
+          ->search_related('featureprops',
+                           { feature_id => $self->feature_id },
+                          );
+}
+
+
+######### Bio::SeqI support ###########
+use base qw/ Bio::PrimarySeq /;
+
+sub seq {
+    shift()->residues;
+}
+
+sub accession_number {
+    my $self= shift;
+
+    my $pd = $self->primary_dbxref
+        || $self->secondary_dbxrefs->first
+      or return;
+
+    my $acc = $pd->accession;
+    my $v = $pd->version;
+    $v = $v ? ".$v" : '';
+
+    return $acc.$v;
+}
+
+sub length {
+    my $self = shift;
+    my $l = $self->seqlen;
+    return $l if defined $l;
+    return CORE::length( $self->get_column('residues')->length );
+}
+
+sub desc {
+    my $self = shift;
+    my $desc_fp =
+        $self->search_featureprops( 'description')
+             ->first;
+    return unless $desc_fp;
+    return $desc_fp->value;
+}
+
+
+sub can_call_new { 0 }
+
+sub namespace {
+    shift()->type->cv->name;
+}
+
+sub alphabet {
+    shift()->throw_not_implemented()
+}
+
+
+# METHOD ALIASES
+{
+    no warnings 'once';
+
+    *accession   = \&accession_number;
+
+    *description = \&desc;
+
+    *display_id  = \&name;
+    *id          = \&name;
+    *primary_id  = \&name;
+}
+
 1;

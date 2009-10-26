@@ -1,6 +1,6 @@
 ---
 name: Bio-Chado-Schema
-version: 0.03100
+version: 0.04000
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 abstract: standard DBIx::Class layer for the Chado schema
@@ -9,14 +9,39 @@ resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/dbic_chado
 requires:
-  DBIx::Class: 0.08100
+  Carp: 1.08
+  Carp::Clan: 6.00
+  DBIx::Class: 0.08111
+  Module::Find: 0
   perl: v5.8.0
 configure_requires:
   Module::Build: 0.34
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.03100
+    version: 0.04000
+  Bio::Chado::Schema::CellLine::CellLine:
+    file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
+  Bio::Chado::Schema::CellLine::CellLineCvterm:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineCvterm.pm
+  Bio::Chado::Schema::CellLine::CellLineCvtermprop:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineCvtermprop.pm
+  Bio::Chado::Schema::CellLine::CellLineDbxref:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineDbxref.pm
+  Bio::Chado::Schema::CellLine::CellLineFeature:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineFeature.pm
+  Bio::Chado::Schema::CellLine::CellLineLibrary:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineLibrary.pm
+  Bio::Chado::Schema::CellLine::CellLinePub:
+    file: lib/Bio/Chado/Schema/CellLine/CellLinePub.pm
+  Bio::Chado::Schema::CellLine::CellLineRelationship:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineRelationship.pm
+  Bio::Chado::Schema::CellLine::CellLineSynonym:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineSynonym.pm
+  Bio::Chado::Schema::CellLine::CellLineprop:
+    file: lib/Bio/Chado/Schema/CellLine/CellLineprop.pm
+  Bio::Chado::Schema::CellLine::CellLinepropPub:
+    file: lib/Bio/Chado/Schema/CellLine/CellLinepropPub.pm
   Bio::Chado::Schema::Companalysis::Analysis:
     file: lib/Bio/Chado/Schema/Companalysis/Analysis.pm
   Bio::Chado::Schema::Companalysis::Analysisfeature:
@@ -339,6 +364,8 @@ provides:
     file: lib/Bio/Chado/Schema/Stock/Stockprop.pm
   Bio::Chado::Schema::Stock::StockpropPub:
     file: lib/Bio/Chado/Schema/Stock/StockpropPub.pm
+  Bio::Chado::Schema::Util:
+    file: lib/Bio/Chado/Schema/Util.pm
 generated_by: Module::Build version 0.34
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html

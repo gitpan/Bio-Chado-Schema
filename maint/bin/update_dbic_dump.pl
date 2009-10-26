@@ -34,7 +34,6 @@ my @sql_blacklist =
      qr!sequence/gencode/gencode.sql!,
      qr!sequence/bridges/so-bridge.sql!,
      qr!sequence/views/implicit-feature-views.sql!,
-     qr!cell_line/!,
     );
 
 my $dump_directory = dir( $FindBin::Bin )->parent->parent->subdir('lib')->stringify;
@@ -103,12 +102,19 @@ my @source_files_load_order =
 
 
 # warn about any missing source files
-if( my @missing_sources = grep !-f, map @$_, @source_files_load_order ) {
+if( my @missing_sources = map { my @f = @$_; shift @f; grep !-f, @f } @source_files_load_order ) {
     warn "missing source files:\n", map "   $_\n", @missing_sources;
 }
 
-warn "loading module sources:\n",
-    Dumper \@source_files_load_order;
+warn "loading module sources:\n";
+foreach my $src (@source_files_load_order) {
+    my ($modname,@files) = @$src;
+    warn "  $modname:\n";
+    foreach my $f (@files) {
+        $f =~ s/$chado_schema_checkout//;
+        warn "     $f\n";
+    }
+}
 
 # # connect to our db
 my $dbh = DBI->connect( $dsn, undef, undef, {RaiseError => 1} );
@@ -165,9 +171,6 @@ make_schema_at(
                },
                [$dsn,undef,undef],
               );
-
-#unlink file( $dump_directory, 'Bio', 'Chado','Schema', "$mod_moniker.pm" )
-#    or die "failed to unlink unnecessary $mod_moniker schema obj";
 
 
 # given a dbh and a module source file record, load it into the given

@@ -5,13 +5,32 @@ use warnings;
 
 use base 'DBIx::Class::Schema';
 
-__PACKAGE__->load_classes;
+require Bio::Chado::Schema::Util; #< load Util class for use by Schema
+                                  #resultsources
+require Module::Find;
+
+my @components =
+
+    # skip loading modules that are not DBIC components currently just
+    # skips Bio::Chado::Schema::Util
+    grep $_ ne 'Util',
+
+    # trim off this package name to leave just the part under this
+    # namespace
+    map { substr $_, length __PACKAGE__.'::' } 
 
 
-# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-29 09:17:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G1fnTOuqELdY0CYrwKEDsA
+    # find all the modules under the namespace of this package
+    # (i.e. Bio::Chado::Schema::*)
+    Module::Find::findallmod(__PACKAGE__);
 
-our $VERSION = '0.03100';
+__PACKAGE__->load_classes(@components);
+
+
+# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-31 08:24:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IHy0lr/uwG8dgRR2sDOVoQ
+
+our $VERSION = '0.04000';
 $VERSION = eval $VERSION;
 
 
@@ -49,6 +68,8 @@ point is the L<DBIx::Class::Manual>.
 =head1 CONTRIBUTORS
 
 Robert Buels, <rmb32@cornell.edu>
+
+Naama Menda, <naama.menda@gmail.com>
 
 =head1 AUTHOR
 
