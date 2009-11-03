@@ -30,8 +30,6 @@ doc/slides/intro/template/tt2/slide.html
 doc/slides/intro/template/tt2/start.html
 doc/slides/intro/template/tt2/top.html
 lib/Bio/Chado/Schema.pm
-lib/Bio/Chado/Schema.pm.orig
-lib/Bio/Chado/Schema.pm.rej
 lib/Bio/Chado/Schema/CellLine/CellLine.pm
 lib/Bio/Chado/Schema/CellLine/CellLineCvterm.pm
 lib/Bio/Chado/Schema/CellLine/CellLineCvtermprop.pm
@@ -204,14 +202,13 @@ lib/Bio/Chado/Schema/Stock/StockpropPub.pm
 lib/Bio/Chado/Schema/Stock/StockPub.pm
 lib/Bio/Chado/Schema/Stock/StockRelationship.pm
 lib/Bio/Chado/Schema/Stock/StockRelationshipPub.pm
-lib/Util.pod
+lib/Bio/Chado/Schema/Util.pod
 maint/bin/update_dbic_dump.pl
 MANIFEST			This list of files
 MANIFEST.SKIP
 t/001_basics.t
 t/010_organism.t
 t/lib/DbicChadoTest.pm
-Util.pod
 Makefile.PL
 README
 LICENSE
