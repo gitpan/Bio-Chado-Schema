@@ -1,0 +1,17 @@
+***************
+*** 6,11 ****
+  use base 'DBIx::Class::Schema';
+  
+- require Bio::Chado::Schema::Util; #< load Util class for use by Schema
+-                                   #resultsources
+  require Module::Find;
+  
+--- 18,25 ----
+  use base 'DBIx::Class::Schema';
+  
++ #require Bio::Chado::Schema::Util; #< load Util class for use by Schema
++ #                                  #resultsources
++ 
++ 
+  require Module::Find;
+  
