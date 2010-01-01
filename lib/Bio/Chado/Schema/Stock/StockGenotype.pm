@@ -1,12 +1,51 @@
 package Bio::Chado::Schema::Stock::StockGenotype;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
-__PACKAGE__->load_components("Core");
+
+=head1 NAME
+
+Bio::Chado::Schema::Stock::StockGenotype - Simple table linking a stock to
+a genotype. Features with genotypes can be linked to stocks thru feature_genotype -> genotype -> stock_genotype -> stock.
+
+=cut
+
 __PACKAGE__->table("stock_genotype");
+
+=head1 ACCESSORS
+
+=head2 stock_genotype_id
+
+  data_type: integer
+  default_value: nextval('stock_genotype_stock_genotype_id_seq'::regclass)
+  is_auto_increment: 1
+  is_nullable: 0
+  size: 4
+
+=head2 stock_id
+
+  data_type: integer
+  default_value: undef
+  is_foreign_key: 1
+  is_nullable: 0
+  size: 4
+
+=head2 genotype_id
+
+  data_type: integer
+  default_value: undef
+  is_foreign_key: 1
+  is_nullable: 0
+  size: 4
+
+=cut
+
 __PACKAGE__->add_columns(
   "stock_genotype_id",
   {
@@ -35,20 +74,42 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("stock_genotype_id");
 __PACKAGE__->add_unique_constraint("stock_genotype_c1", ["stock_id", "genotype_id"]);
+
+=head1 RELATIONS
+
+=head2 genotype
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Genetic::Genotype>
+
+=cut
+
 __PACKAGE__->belongs_to(
   "genotype",
   "Bio::Chado::Schema::Genetic::Genotype",
   { genotype_id => "genotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
+
+=head2 stock
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Stock::Stock>
+
+=cut
+
 __PACKAGE__->belongs_to(
   "stock",
   "Bio::Chado::Schema::Stock::Stock",
   { stock_id => "stock_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-31 08:24:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2akE4gh9+ZslBZ8/iq2R9A
+# Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:45:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NN+cKmaRq5anRIN3DVaqUQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

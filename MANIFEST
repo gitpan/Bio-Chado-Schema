@@ -43,6 +43,7 @@ lib/Bio/Chado/Schema/CellLine/CellLineRelationship.pm
 lib/Bio/Chado/Schema/CellLine/CellLineSynonym.pm
 lib/Bio/Chado/Schema/Companalysis/Analysis.pm
 lib/Bio/Chado/Schema/Companalysis/Analysisfeature.pm
+lib/Bio/Chado/Schema/Companalysis/Analysisfeatureprop.pm
 lib/Bio/Chado/Schema/Companalysis/Analysisprop.pm
 lib/Bio/Chado/Schema/Composite/AllFeatureNames.pm
 lib/Bio/Chado/Schema/Composite/Dfeatureloc.pm
@@ -188,6 +189,9 @@ lib/Bio/Chado/Schema/Sequence/FeatureRelationshipprop.pm
 lib/Bio/Chado/Schema/Sequence/FeatureRelationshippropPub.pm
 lib/Bio/Chado/Schema/Sequence/FeatureRelationshipPub.pm
 lib/Bio/Chado/Schema/Sequence/FeatureSynonym.pm
+lib/Bio/Chado/Schema/Sequence/IntronCombinedView.pm
+lib/Bio/Chado/Schema/Sequence/IntronlocView.pm
+lib/Bio/Chado/Schema/Sequence/ProteinCodingGene.pm
 lib/Bio/Chado/Schema/Sequence/Synonym.pm
 lib/Bio/Chado/Schema/Sequence/TypeFeatureCount.pm
 lib/Bio/Chado/Schema/Stock/Stock.pm
@@ -205,10 +209,10 @@ lib/Bio/Chado/Schema/Stock/StockRelationshipPub.pm
 lib/Bio/Chado/Schema/Util.pod
 maint/bin/update_dbic_dump.pl
 MANIFEST			This list of files
-MANIFEST.SKIP
 t/001_basics.t
 t/010_organism.t
 t/lib/DbicChadoTest.pm
+t/Sequence/010_feature.t
 Makefile.PL
 README
 LICENSE

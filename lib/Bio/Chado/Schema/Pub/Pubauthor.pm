@@ -1,12 +1,85 @@
 package Bio::Chado::Schema::Pub::Pubauthor;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
-__PACKAGE__->load_components("Core");
+
+=head1 NAME
+
+Bio::Chado::Schema::Pub::Pubauthor - An author for a publication. Note the denormalisation (hence lack of _ in table name) - this is deliberate as it is in general too hard to assign IDs to authors.
+
+=cut
+
 __PACKAGE__->table("pubauthor");
+
+=head1 ACCESSORS
+
+=head2 pubauthor_id
+
+  data_type: integer
+  default_value: nextval('pubauthor_pubauthor_id_seq'::regclass)
+  is_auto_increment: 1
+  is_nullable: 0
+  size: 4
+
+=head2 pub_id
+
+  data_type: integer
+  default_value: undef
+  is_foreign_key: 1
+  is_nullable: 0
+  size: 4
+
+=head2 rank
+
+  data_type: integer
+  default_value: undef
+  is_nullable: 0
+  size: 4
+
+Order of author in author list for this pub - order is important.
+
+=head2 editor
+
+  data_type: boolean
+  default_value: false
+  is_nullable: 1
+  size: 1
+
+Indicates whether the author is an editor for linked publication. Note: this is a boolean field but does not follow the normal chado convention for naming booleans.
+
+=head2 surname
+
+  data_type: character varying
+  default_value: undef
+  is_nullable: 0
+  size: 100
+
+=head2 givennames
+
+  data_type: character varying
+  default_value: undef
+  is_nullable: 1
+  size: 100
+
+First name, initials
+
+=head2 suffix
+
+  data_type: character varying
+  default_value: undef
+  is_nullable: 1
+  size: 100
+
+Jr., Sr., etc
+
+=cut
+
 __PACKAGE__->add_columns(
   "pubauthor_id",
   {
@@ -57,11 +130,27 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("pubauthor_id");
 __PACKAGE__->add_unique_constraint("pubauthor_c1", ["pub_id", "rank"]);
-__PACKAGE__->belongs_to("pub", "Bio::Chado::Schema::Pub::Pub", { pub_id => "pub_id" });
+
+=head1 RELATIONS
+
+=head2 pub
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Pub::Pub>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "pub",
+  "Bio::Chado::Schema::Pub::Pub",
+  { pub_id => "pub_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04999_07 @ 2009-08-31 08:24:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZVD1IiU1Wly+OiDzi5RSrA
+# Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:45:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:e/lFdh4iV6jCIGKszXYHqw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

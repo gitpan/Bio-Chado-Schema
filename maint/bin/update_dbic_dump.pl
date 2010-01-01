@@ -31,9 +31,9 @@ use Data::Dumper;
 
 my @sql_blacklist =
     (
-     qr!sequence/gencode/gencode.sql!,
-     qr!sequence/bridges/so-bridge.sql!,
-     qr!sequence/views/implicit-feature-views.sql!,
+     #qr!sequence/gencode/gencode.sql!,
+     #qr!sequence/bridges/so-bridge.sql!,
+     #qr!sequence/views/implicit-feature-views.sql!,
     );
 
 my $dump_directory = dir( $FindBin::Bin )->parent->parent->subdir('lib')->stringify;
@@ -116,11 +116,25 @@ foreach my $src (@source_files_load_order) {
     }
 }
 
-# # connect to our db
+# connect to our db
 my $dbh = DBI->connect( $dsn, undef, undef, {RaiseError => 1} );
 
-# # drop all tables from the target database
-eval{ local $dbh->{Warn} = 0;  $dbh->do('DROP SCHEMA public CASCADE') };
+# drop all tables from the target database
+{
+    local $SIG{__WARN__} = sub {
+	warn @_
+	    unless $_[0] =~ /^NOTICE:\s+drop cascades to/
+    };
+
+    eval { $dbh->do("DROP SCHEMA $_ CASCADE") }
+	for qw(
+	       public
+	       gencode
+	       frange
+	       genetic_code
+	       so
+	      );
+};
 $dbh->do('CREATE SCHEMA public');
 $dbh->do('SET search_path=public');
 
@@ -168,6 +182,13 @@ make_schema_at(
 
                      $module_moniker.'::'.$table_moniker;
                  }, #< do not try to inflect to singular
+		 overwrite_modifications => 1,
+		 skip_load_external      => 1,
+		 naming                  => 'current',
+		 relationship_attrs      =>
+		 {
+		  all => { cascade_delete => 0, cascade_copy => 0, },
+		 },
                },
                [$dsn,undef,undef],
               );
@@ -190,6 +211,7 @@ sub load_sql {
 }
 
 # given a dbh, list all of the objects in it that might be interesting
+
 # to DBIx::Class::Schema::Loader
 sub list_db_objects {
     my ($dbh) = @_;
@@ -213,11 +235,12 @@ sub objects_diff {
 # check out schema/chado into a tempdir, return the name of the dir
 sub check_out_fresh_chado {
     my $chado_version = shift;
+    my $chado_svn_path = 'https://gmod.svn.sourceforge.net/svnroot/gmod/schema/trunk/chado';
     my $tempdir = tempdir(dir(tmpdir(),'update-dbic-dump-XXXXXX')->stringify, CLEANUP => 1);
-    system "cd $tempdir && cvs -d:pserver:anonymous\@gmod.cvs.sourceforge.net:/cvsroot/gmod login && cvs -z9 -d:pserver:anonymous\@gmod.cvs.sourceforge.net:/cvsroot/gmod export -r $chado_version schema/chado/modules && cvs -z9 -d:pserver:anonymous\@gmod.cvs.sourceforge.net:/cvsroot/gmod export -r $chado_version schema/chado/chado-module-metadata.xml";
-    $CHILD_ERROR and die "cvs checkout failed";
+    system "cd $tempdir && svn export -r $chado_version $chado_svn_path/modules && svn export -r $chado_version $chado_svn_path/chado-module-metadata.xml";
+    $CHILD_ERROR and die "svn export failed";
 
-    return dir( $tempdir, 'schema', 'chado' )->stringify;
+    return "$tempdir";
 }
 
 
@@ -300,7 +323,7 @@ This script basically:
 
     -r <rev>
     --revision=<rev>
-       chado CVS revision to use.  Default HEAD.
+       chado SVN revision to use.  Default HEAD.
 
     -d <dsn>
     --dsn=<dsn>
@@ -314,7 +337,7 @@ This script basically:
     -c <dir>
     --chado-checkout=<dir>
        optional path to existing chado checkout to use.  if passed,
-       will not check out a new copy from CVS.
+       will not check out a new copy from SVN.
 
 =head1 MAINTAINER
 

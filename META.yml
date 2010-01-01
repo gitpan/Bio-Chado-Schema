@@ -1,26 +1,21 @@
 ---
-name: Bio-Chado-Schema
-version: 0.04300
+abstract: 'standard DBIx::Class layer for the Chado schema'
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
-abstract: standard DBIx::Class layer for the Chado schema
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
-  repository: http://github.com/rbuels/Bio-Chado-Schema
-requires:
-  Bio::Root::Version: 1.005002
-  Carp: 1.08
-  Carp::Clan: 6.00
-  DBIx::Class: 0.08111
-  Module::Find: 0
-  perl: v5.8.0
+build_requires:
+  Test::Exception: 0.27
 configure_requires:
-  Module::Build: 0.34
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3601'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Bio-Chado-Schema
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.04300
+    version: 0.05000
   Bio::Chado::Schema::CellLine::CellLine:
     file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
   Bio::Chado::Schema::CellLine::CellLineCvterm:
@@ -47,6 +42,8 @@ provides:
     file: lib/Bio/Chado/Schema/Companalysis/Analysis.pm
   Bio::Chado::Schema::Companalysis::Analysisfeature:
     file: lib/Bio/Chado/Schema/Companalysis/Analysisfeature.pm
+  Bio::Chado::Schema::Companalysis::Analysisfeatureprop:
+    file: lib/Bio/Chado/Schema/Companalysis/Analysisfeatureprop.pm
   Bio::Chado::Schema::Companalysis::Analysisprop:
     file: lib/Bio/Chado/Schema/Companalysis/Analysisprop.pm
   Bio::Chado::Schema::Composite::AllFeatureNames:
@@ -337,6 +334,12 @@ provides:
     file: lib/Bio/Chado/Schema/Sequence/Featureprop.pm
   Bio::Chado::Schema::Sequence::FeaturepropPub:
     file: lib/Bio/Chado/Schema/Sequence/FeaturepropPub.pm
+  Bio::Chado::Schema::Sequence::IntronCombinedView:
+    file: lib/Bio/Chado/Schema/Sequence/IntronCombinedView.pm
+  Bio::Chado::Schema::Sequence::IntronlocView:
+    file: lib/Bio/Chado/Schema/Sequence/IntronlocView.pm
+  Bio::Chado::Schema::Sequence::ProteinCodingGene:
+    file: lib/Bio/Chado/Schema/Sequence/ProteinCodingGene.pm
   Bio::Chado::Schema::Sequence::Synonym:
     file: lib/Bio/Chado/Schema/Sequence/Synonym.pm
   Bio::Chado::Schema::Sequence::TypeFeatureCount:
@@ -367,7 +370,13 @@ provides:
     file: lib/Bio/Chado/Schema/Stock/StockpropPub.pm
   Bio::Chado::Schema::Util:
     file: lib/Bio/Chado/Schema.pm
-generated_by: Module::Build version 0.34
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+requires:
+  Bio::Root::Version: 1.005002
+  Carp: 1.08
+  Carp::Clan: 6.00
+  DBIx::Class: 0.08111
+  perl: v5.8.0
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/rbuels/Bio-Chado-Schema
+version: 0.05000
