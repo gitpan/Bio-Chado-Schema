@@ -207,13 +207,14 @@ lib/Bio/Chado/Schema/Stock/StockPub.pm
 lib/Bio/Chado/Schema/Stock/StockRelationship.pm
 lib/Bio/Chado/Schema/Stock/StockRelationshipPub.pm
 lib/Bio/Chado/Schema/Util.pod
+LICENSE
 maint/bin/update_dbic_dump.pl
+Makefile.PL
 MANIFEST			This list of files
+META.yml
+README
 t/001_basics.t
 t/010_organism.t
 t/lib/DbicChadoTest.pm
 t/Sequence/010_feature.t
-Makefile.PL
-README
-LICENSE
-META.yml
+testenv

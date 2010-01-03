@@ -1,0 +1,2 @@
+# set env variables for Bio::Chado::Schema development
+export DBIC_CHADO_TEST_DSN='dbi:Pg:dbname=fool;host=localhost;user=postgres;password=Eise!Th9'
