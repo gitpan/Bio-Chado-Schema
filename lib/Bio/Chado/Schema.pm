@@ -14,7 +14,7 @@ __PACKAGE__->load_classes;
 # Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
 
-our $VERSION = '0.05001';
+our $VERSION = '0.05500';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -25,7 +25,7 @@ Bio::Chado::Schema - standard DBIx::Class layer for the Chado database schema
 
   use Bio::Chado::Schema;
 
-  my $chado = Bio::Chado::Schema->connect($dsn,$user,$password);
+  my $chado = Bio::Chado::Schema->connect( $dsn, $user, $password );
 
   print "number of rows in feature table: ",
         $chado->resultset('Sequence::Feature')->count,
@@ -39,8 +39,49 @@ GMOD Chado database schema.  This layer is implemented with
 L<DBIx::Class>, generated with the help of the very fine
 L<DBIx::Class::Schema::Loader> module.
 
+Chado is an open-source modular database schema for biological data.
+It is divided into several notional "modules", which are reflected in the namespace organization of this package.  Note that modules in the Chado context refers to sets of tables, they are not modules in the Perl sense.
+
 To learn how to use this DBIx::Class ORM layer, a good starting
 point is the L<DBIx::Class::Manual>.
+
+=head1 CHADO MODULES COVERED BY THIS PACKAGE
+
+=bcs_generated_module_list
+
+L<Bio::Chado::Schema::CellLine>
+
+L<Bio::Chado::Schema::Companalysis>
+
+L<Bio::Chado::Schema::Composite>
+
+L<Bio::Chado::Schema::Contact>
+
+L<Bio::Chado::Schema::Cv>
+
+L<Bio::Chado::Schema::Expression>
+
+L<Bio::Chado::Schema::General>
+
+L<Bio::Chado::Schema::Genetic>
+
+L<Bio::Chado::Schema::Library>
+
+L<Bio::Chado::Schema::Mage>
+
+L<Bio::Chado::Schema::Map>
+
+L<Bio::Chado::Schema::Organism>
+
+L<Bio::Chado::Schema::Phenotype>
+
+L<Bio::Chado::Schema::Phylogeny>
+
+L<Bio::Chado::Schema::Pub>
+
+L<Bio::Chado::Schema::Sequence>
+
+L<Bio::Chado::Schema::Stock>
 
 =head1 CONTRIBUTORS
 

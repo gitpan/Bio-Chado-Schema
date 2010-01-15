@@ -1,0 +1,24 @@
+=head1 SCHEMA CLASS
+
+L<Bio::Chado::Schema> - root module of this package
+
+=head1 CHADO MODULE
+
+Pub - Bibliographic data on publications
+
+=head1 CLASSES
+
+Below is a list of classes in this module of Chado.  Each of the
+classes below corresponds to a single Chado table or view.
+
+L<Bio::Chado::Schema::Pub::Pub>
+
+L<Bio::Chado::Schema::Pub::PubDbxref>
+
+L<Bio::Chado::Schema::Pub::PubRelationship>
+
+L<Bio::Chado::Schema::Pub::Pubauthor>
+
+L<Bio::Chado::Schema::Pub::Pubprop>
+
+=cut

@@ -5,7 +5,7 @@ NAME
 SYNOPSIS
       use Bio::Chado::Schema;
 
-      my $chado = Bio::Chado::Schema->connect($dsn,$user,$password);
+      my $chado = Bio::Chado::Schema->connect( $dsn, $user, $password );
 
       print "number of rows in feature table: ",
             $chado->resultset('Sequence::Feature')->count,
@@ -17,8 +17,51 @@ DESCRIPTION
     generated with the help of the very fine DBIx::Class::Schema::Loader
     module.
 
+    Chado is an open-source modular database schema for biological data. It
+    is divided into several notional "modules", which are reflected in the
+    namespace organization of this package. Note that modules in the Chado
+    context refers to sets of tables, they are not modules in the Perl
+    sense.
+
     To learn how to use this DBIx::Class ORM layer, a good starting point is
     the DBIx::Class::Manual.
+
+CHADO MODULES COVERED BY THIS PACKAGE
+    =bcs_generated_module_list
+
+    Bio::Chado::Schema::CellLine
+
+    Bio::Chado::Schema::Companalysis
+
+    Bio::Chado::Schema::Composite
+
+    Bio::Chado::Schema::Contact
+
+    Bio::Chado::Schema::Cv
+
+    Bio::Chado::Schema::Expression
+
+    Bio::Chado::Schema::General
+
+    Bio::Chado::Schema::Genetic
+
+    Bio::Chado::Schema::Library
+
+    Bio::Chado::Schema::Mage
+
+    Bio::Chado::Schema::Map
+
+    Bio::Chado::Schema::Organism
+
+    Bio::Chado::Schema::Phenotype
+
+    Bio::Chado::Schema::Phylogeny
+
+    Bio::Chado::Schema::Pub
+
+    Bio::Chado::Schema::Sequence
+
+    Bio::Chado::Schema::Stock
 
 CONTRIBUTORS
     Aureliano Bombarely, <ab782@cornell.edu>
