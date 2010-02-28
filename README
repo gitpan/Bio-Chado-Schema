@@ -27,8 +27,6 @@ DESCRIPTION
     the DBIx::Class::Manual.
 
 CHADO MODULES COVERED BY THIS PACKAGE
-    =bcs_generated_module_list
-
     Bio::Chado::Schema::CellLine
 
     Bio::Chado::Schema::Companalysis

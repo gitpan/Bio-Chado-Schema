@@ -1,0 +1,35 @@
+=head1 NAME
+
+Bio::Chado::Schema::Expression - transcript or protein expression data
+
+=head1 CHADO MODULE
+
+Classes in this namespace correspond to tables and views in the
+Chado Expression module.
+
+=head1 CLASSES
+
+These classes are part of the L<Bio::Chado::Schema> distribution.
+
+Below is a list of classes in this module of Chado.  Each of the
+classes below corresponds to a single Chado table or view.
+
+L<Bio::Chado::Schema::Expression::Eimage>
+
+L<Bio::Chado::Schema::Expression::Expression>
+
+L<Bio::Chado::Schema::Expression::ExpressionCvterm>
+
+L<Bio::Chado::Schema::Expression::ExpressionCvtermprop>
+
+L<Bio::Chado::Schema::Expression::ExpressionImage>
+
+L<Bio::Chado::Schema::Expression::ExpressionPub>
+
+L<Bio::Chado::Schema::Expression::Expressionprop>
+
+L<Bio::Chado::Schema::Expression::FeatureExpression>
+
+L<Bio::Chado::Schema::Expression::FeatureExpressionprop>
+
+=cut
