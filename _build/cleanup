@@ -1,5 +1,0 @@
-do{ my $x = {
-       'blib' => 1,
-       'Bio-Chado-Schema-0.05700' => 1
-     };
-$x; }
