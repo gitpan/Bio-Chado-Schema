@@ -28,15 +28,14 @@ __PACKAGE__->table("cvterm");
 
 =head2 cvterm_id
 
-  data_type: integer
-  default_value: nextval('cvterm_cvterm_id_seq'::regclass)
+  data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
+  sequence: 'cvterm_cvterm_id_seq'
 
 =head2 cv_id
 
-  data_type: integer
-  default_value: undef
+  data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
@@ -45,8 +44,7 @@ this cvterm belongs.
 
 =head2 name
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 0
   size: 1024
 
@@ -55,8 +53,7 @@ label for the cvterm. Uniquely identifies a cvterm within a cv.
 
 =head2 definition
 
-  data_type: text
-  default_value: undef
+  data_type: 'text'
   is_nullable: 1
 
 A human-readable text
@@ -64,8 +61,7 @@ definition.
 
 =head2 dbxref_id
 
-  data_type: integer
-  default_value: undef
+  data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
@@ -75,7 +71,7 @@ have multiple secondary dbxrefs - see also table: cvterm_dbxref.
 
 =head2 is_obsolete
 
-  data_type: integer
+  data_type: 'integer'
   default_value: 0
   is_nullable: 0
 
@@ -85,7 +81,7 @@ different primary dbxrefs may exist if one is obsolete.
 
 =head2 is_relationshiptype
 
-  data_type: integer
+  data_type: 'integer'
   default_value: 0
   is_nullable: 0
 
@@ -102,33 +98,18 @@ __PACKAGE__->add_columns(
   "cvterm_id",
   {
     data_type         => "integer",
-    default_value     => \"nextval('cvterm_cvterm_id_seq'::regclass)",
     is_auto_increment => 1,
     is_nullable       => 0,
+    sequence          => "cvterm_cvterm_id_seq",
   },
   "cv_id",
-  {
-    data_type      => "integer",
-    default_value  => undef,
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "name",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 0,
-    size => 1024,
-  },
+  { data_type => "character varying", is_nullable => 0, size => 1024 },
   "definition",
-  { data_type => "text", default_value => undef, is_nullable => 1 },
+  { data_type => "text", is_nullable => 1 },
   "dbxref_id",
-  {
-    data_type      => "integer",
-    default_value  => undef,
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "is_obsolete",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "is_relationshiptype",
@@ -422,7 +403,13 @@ __PACKAGE__->belongs_to(
   "cv",
   "Bio::Chado::Schema::Cv::Cv",
   { cv_id => "cv_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
 );
 
 =head2 dbxref
@@ -437,7 +424,13 @@ __PACKAGE__->belongs_to(
   "dbxref",
   "Bio::Chado::Schema::General::Dbxref",
   { dbxref_id => "dbxref_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
 );
 
 =head2 cvterm_dbxrefs
@@ -1431,10 +1424,25 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05002 @ 2010-02-18 11:30:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DzBoQfD4V23UV9dzY/AUmQ
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:M5c9qBQOFJrZ3kDHJ9vCQg
 
 use Carp;
+
+=head2 cvtermprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Cv::Cvtermprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "cvtermprops",
+  "Bio::Chado::Schema::Cv::Cvtermprop",
+  { "foreign.cvterm_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
 =head2 cvtermsynonyms
 
@@ -1464,7 +1472,7 @@ __PACKAGE__->has_many(
             autocreate => 0,
                (optional) boolean, if passed, automatically create cv,
                cvterm, and dbxref rows if one cannot be found for the
-               given featureprop name.  Default false.
+               given synonym name.  Default false.
 
             cv_name => cv.name to use for the given synonym type.
                        Defaults to 'synonym_type',
@@ -1558,12 +1566,17 @@ sub add_synonym {
 	    $data->{type_id} = $existing_cvterm->cvterm_id();
 	}
     }
-    my ($cvtermsynonym)= $self->search_related('featureprops',
-					       {type_id => $data->{type_id},
-						value   => { 'ilike' , "$synonym" }
-					       });
+    
+    my ($cvtermsynonym)= $self->search_related('cvtermsynonyms', {
+	type_id => $data->{type_id} })->
+	    search({ 'lower(synonym)'   => {like => lc($synonym) } } );
 
-    $cvtermsynonym= $self->create_related('cvtermsynonyms' , $data) if !$cvtermsynonym;
+#search({ 'lower(synonym)' => { like => 'blah'}})
+#my $rs = $c->model("DB::Dbentry")->$search({ 
+#'lower('.$key.')' => $q },
+
+#search({ \'lower(synonym)' => { like => 'blah'}})
+    $cvtermsynonym= $self->create_related('cvtermsynonyms' , $data) unless defined $cvtermsynonym;
 
     return $cvtermsynonym;
 }
@@ -1586,13 +1599,13 @@ sub delete_synonym {
 
     my $schema = $self->result_source->schema;
 
-    $self->result_source->
-	schema->
-	resultset("Cv::Cvtermsynonym")
-	->search( { cvterm_id => $self->get_column('cvterm_id'),
-		    synonym   => { 'ilike' , "$synonym" }
-		  })
-	->delete();
+    $self->result_source
+         ->schema
+         ->resultset("Cv::Cvtermsynonym")
+         ->search( { cvterm_id => $self->get_column('cvterm_id'),
+            synonym   => { 'like' , lc($synonym) }
+        })
+        ->delete();
 }
 
 
@@ -1688,6 +1701,59 @@ sub delete_secondary_dbxref {
 	search_related('cvterm_dbxrefs', { cvterm_id => $self->get_column('cvterm_id') } );
     if ($cvterm_dbxref) { $cvterm_dbxref->delete() ; }
 
+}
+
+
+=head2 create_cvtermprops
+
+  Usage: $set->create_cvtermprops({ baz => 2, foo => 'bar' });
+  Desc : convenience method to create cvterm properties using cvterms
+          from the ontology with the given name
+  Args : hashref of { propname => value, ...},
+         options hashref as:
+          {
+            autocreate => 0,
+               (optional) boolean, if passed, automatically create cv,
+               cvterm, and dbxref rows if one cannot be found for the
+               given cvtermprop name.  Default false.
+
+            cv_name => cv.name to use for the given cvtermprops.
+                       Defaults to 'cvterm_property',
+
+            db_name => db.name to use for autocreated dbxrefs,
+                       default 'null',
+
+            dbxref_accession_prefix => optional, default
+                                       'autocreated:',
+            definitions => optional hashref of:
+                { cvterm_name => definition,
+                }
+             to load into the cvterm table when autocreating cvterms
+             
+             rank => force numeric rank. Be careful not to pass ranks that already exist
+                     for the property type. The function will die in such case.
+
+             allow_duplicate_values => default false.
+                If true, allow duplicate instances of the same cvterm
+                and value in the properties of the cvterm.  Duplicate
+                values will have different ranks.
+          }
+  Ret  : hashref of { propname => new cvtermprop object }
+
+=cut
+
+sub create_cvtermprops {
+    my ($self, $props, $opts) = @_;
+    
+    # process opts
+    $opts->{cv_name} = 'cvterm_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'cvtermprops',
+        );
 }
 
 

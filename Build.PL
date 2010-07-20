@@ -4,15 +4,20 @@ my $build = Module::Build->new(
     dist_name            => 'Bio-Chado-Schema',
     dist_abstract        => 'standard DBIx::Class layer for the Chado schema',
     license              => 'perl',
-    create_makefile_pl   => 'passthrough',
     recursive_test_files => 1,
     create_readme        => 1,
+    add_to_cleanup       => [ 'Bio-Chado-Schema-*', 't/var' ],
     create_license       => 1,
     meta_merge           => {
         resources =>
           { repository => 'http://github.com/rbuels/Bio-Chado-Schema', },
     },
-    build_requires => { 'Test::Exception' => '0.27', },
+    build_requires => {
+        'DBD::SQLite'     => '1.14',
+        'SQL::Translator' => '0.11005',
+        'Test::More'      => 0,
+        'Test::Exception' => '0.27',
+    },
     requires       => {
         'perl' => '5.8.0',
 

@@ -26,38 +26,34 @@ __PACKAGE__->table("pub");
 
 =head2 pub_id
 
-  data_type: integer
-  default_value: nextval('pub_pub_id_seq'::regclass)
+  data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
+  sequence: 'pub_pub_id_seq'
 
 =head2 title
 
-  data_type: text
-  default_value: undef
+  data_type: 'text'
   is_nullable: 1
 
 Descriptive general heading.
 
 =head2 volumetitle
 
-  data_type: text
-  default_value: undef
+  data_type: 'text'
   is_nullable: 1
 
 Title of part if one of a series.
 
 =head2 volume
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
 =head2 series_name
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
@@ -65,22 +61,19 @@ Full name of (journal) series.
 
 =head2 issue
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
 =head2 pyear
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
 =head2 pages
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
@@ -88,21 +81,18 @@ Page number range[s], e.g. 457--459, viii + 664pp, lv--lvii.
 
 =head2 miniref
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
 =head2 uniquename
 
-  data_type: text
-  default_value: undef
+  data_type: 'text'
   is_nullable: 0
 
 =head2 type_id
 
-  data_type: integer
-  default_value: undef
+  data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
@@ -110,21 +100,19 @@ The type of the publication (book, journal, poem, graffiti, etc). Uses pub cv.
 
 =head2 is_obsolete
 
-  data_type: boolean
+  data_type: 'boolean'
   default_value: false
   is_nullable: 1
 
 =head2 publisher
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
 =head2 pubplace
 
-  data_type: character varying
-  default_value: undef
+  data_type: 'character varying'
   is_nullable: 1
   size: 255
 
@@ -134,81 +122,36 @@ __PACKAGE__->add_columns(
   "pub_id",
   {
     data_type         => "integer",
-    default_value     => \"nextval('pub_pub_id_seq'::regclass)",
     is_auto_increment => 1,
     is_nullable       => 0,
+    sequence          => "pub_pub_id_seq",
   },
   "title",
-  { data_type => "text", default_value => undef, is_nullable => 1 },
+  { data_type => "text", is_nullable => 1 },
   "volumetitle",
-  { data_type => "text", default_value => undef, is_nullable => 1 },
+  { data_type => "text", is_nullable => 1 },
   "volume",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "series_name",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "issue",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "pyear",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "pages",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "miniref",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "uniquename",
-  { data_type => "text", default_value => undef, is_nullable => 0 },
+  { data_type => "text", is_nullable => 0 },
   "type_id",
-  {
-    data_type      => "integer",
-    default_value  => undef,
-    is_foreign_key => 1,
-    is_nullable    => 0,
-  },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "is_obsolete",
   { data_type => "boolean", default_value => \"false", is_nullable => 1 },
   "publisher",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
   "pubplace",
-  {
-    data_type => "character varying",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "character varying", is_nullable => 1, size => 255 },
 );
 __PACKAGE__->set_primary_key("pub_id");
 __PACKAGE__->add_unique_constraint("pub_c1", ["uniquename"]);
@@ -647,7 +590,13 @@ __PACKAGE__->belongs_to(
   "type",
   "Bio::Chado::Schema::Cv::Cvterm",
   { cvterm_id => "type_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
 );
 
 =head2 pubauthors
@@ -801,9 +750,60 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05002 @ 2010-02-18 11:30:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:j9jesRswJ2xBYZgpUxtFmg
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Uy62/D7GiMjOsplsbacWXw
 
+=head2 create_pubprops
+
+  Usage: $set->create_pubprops({ baz => 2, foo => 'bar' });
+  Desc : convenience method to create pubprop properties using cvterms
+          from the ontology with the given name
+  Args : hashref of { propname => value, ...},
+         options hashref as:
+          {
+            autocreate => 0,
+               (optional) boolean, if passed, automatically create cv,
+               cvterm, and dbxref rows if one cannot be found for the
+               given pubprop name.  Default false.
+
+            cv_name => cv.name to use for the given pubprops.
+                       Defaults to 'pub_property',
+
+            db_name => db.name to use for autocreated dbxrefs,
+                       default 'null',
+
+            dbxref_accession_prefix => optional, default
+                                       'autocreated:',
+            definitions => optional hashref of:
+                { cvterm_name => definition,
+                }
+             to load into the cvterm table when autocreating cvterms
+
+             rank => force numeric rank. Be careful not to pass ranks that already exist
+                     for the property type. The function will die in such case.
+
+             allow_duplicate_values => default false.
+                If true, allow duplicate instances of the same cvterm
+                and value in the properties of the pubprop.  Duplicate
+                values will have different ranks.
+          }
+  Ret  : hashref of { propname => new pubprop object }
+
+=cut
+
+sub create_pubprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'pub_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'pubprops',
+        );
+}
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;

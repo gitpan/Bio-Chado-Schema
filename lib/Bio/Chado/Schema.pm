@@ -14,7 +14,7 @@ __PACKAGE__->load_classes;
 # Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
 
-our $VERSION = '0.05703';
+our $VERSION = '0.05800';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -233,15 +233,26 @@ sub create_properties {
 
 
         unless( $skip_creation ) {
-            # find highest rank for props of this type
-            my $max_rank= $self->search_related( $prop_relation_name,
-                                                 { type_id =>$data->{type_id} }
-                                               )->get_column('rank')->max;
-            $data->{rank} = defined $max_rank ? $max_rank + 1 : 0;
-
-	    $props{$propname} = $self->create_related( $prop_relation_name,
+            #if rank is defined
+	    if ($opts->{rank} && defined $opts->{rank} ) {
+		my ($existing_prop) = $self->search_related( $prop_relation_name,
+							  {type_id =>$data->{type_id},
+							   rank => $opts->{rank}
+							  });
+		warn "Property " .  $existing_prop->value() . "  already exists with rank " . $opts->{rank} . ". skipping! \n" if  defined $existing_prop;
+		$data->{rank} = $opts->{rank};
+		
+	    } else { 
+		# find highest rank for props of this type
+		my $max_rank= $self->search_related( $prop_relation_name,
+						     { type_id =>$data->{type_id} }
+		    )->get_column('rank')->max;
+		$data->{rank} = defined $max_rank ? $max_rank + 1 : 0;
+		
+	    }
+	    $props{$propname} = $self->find_or_create_related( $prop_relation_name,
 						       $data
-                                                     );
+		);
 	}
     }
     return \%props;

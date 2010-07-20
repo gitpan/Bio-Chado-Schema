@@ -3,10 +3,13 @@ abstract: 'standard DBIx::Class layer for the Chado schema'
 author:
   - 'Robert Buels, <rmb32@cornell.edu>'
 build_requires:
+  DBD::SQLite: 1.14
+  SQL::Translator: 0.11005
   Test::Exception: 0.27
+  Test::More: 0
 configure_requires:
   Module::Build: 0.36
-generated_by: 'Module::Build version 0.3601'
+generated_by: 'Module::Build version 0.3607'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -15,7 +18,7 @@ name: Bio-Chado-Schema
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.05703
+    version: 0.05800
   Bio::Chado::Schema::CellLine::CellLine:
     file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
   Bio::Chado::Schema::CellLine::CellLineCvterm:
@@ -381,4 +384,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/Bio-Chado-Schema
-version: 0.05703
+version: 0.05800
