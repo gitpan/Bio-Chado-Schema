@@ -18,7 +18,7 @@ name: Bio-Chado-Schema
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.05800
+    version: 0.05801
   Bio::Chado::Schema::CellLine::CellLine:
     file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
   Bio::Chado::Schema::CellLine::CellLineCvterm:
@@ -384,4 +384,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/Bio-Chado-Schema
-version: 0.05800
+version: 0.05801
