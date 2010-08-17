@@ -14,7 +14,7 @@ __PACKAGE__->load_classes;
 # Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
 
-our $VERSION = '0.05801';
+our $VERSION = '0.06000';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -69,11 +69,15 @@ L<Bio::Chado::Schema::Mage>
 
 L<Bio::Chado::Schema::Map>
 
+L<Bio::Chado::Schema::NaturalDiversity>
+
 L<Bio::Chado::Schema::Organism>
 
 L<Bio::Chado::Schema::Phenotype>
 
 L<Bio::Chado::Schema::Phylogeny>
+
+L<Bio::Chado::Schema::Project>
 
 L<Bio::Chado::Schema::Pub>
 
