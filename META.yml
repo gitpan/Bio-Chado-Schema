@@ -18,7 +18,7 @@ name: Bio-Chado-Schema
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.06000
+    version: 0.06001
   Bio::Chado::Schema::CellLine::CellLine:
     file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
   Bio::Chado::Schema::CellLine::CellLineCvterm:
@@ -265,6 +265,46 @@ provides:
     file: lib/Bio/Chado/Schema/Map/Featurepos.pm
   Bio::Chado::Schema::Map::Featurerange:
     file: lib/Bio/Chado/Schema/Map/Featurerange.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperiment:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperiment.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentContact:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentContact.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentDbxref:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentDbxref.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentGenotype:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentGenotype.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentPhenotype:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentPhenotype.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentProject:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentProject.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentProtocol:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentProtocol.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentPub:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentPub.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentStock:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentStock.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentStockDbxref:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentStockDbxref.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentStockprop:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentStockprop.pm
+  Bio::Chado::Schema::NaturalDiversity::NdExperimentprop:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdExperimentprop.pm
+  Bio::Chado::Schema::NaturalDiversity::NdGeolocation:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdGeolocation.pm
+  Bio::Chado::Schema::NaturalDiversity::NdGeolocationprop:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdGeolocationprop.pm
+  Bio::Chado::Schema::NaturalDiversity::NdProtocol:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdProtocol.pm
+  Bio::Chado::Schema::NaturalDiversity::NdProtocolReagent:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdProtocolReagent.pm
+  Bio::Chado::Schema::NaturalDiversity::NdProtocolprop:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdProtocolprop.pm
+  Bio::Chado::Schema::NaturalDiversity::NdReagent:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdReagent.pm
+  Bio::Chado::Schema::NaturalDiversity::NdReagentRelationship:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdReagentRelationship.pm
+  Bio::Chado::Schema::NaturalDiversity::NdReagentprop:
+    file: lib/Bio/Chado/Schema/NaturalDiversity/NdReagentprop.pm
   Bio::Chado::Schema::Organism::Organism:
     file: lib/Bio/Chado/Schema/Organism/Organism.pm
   Bio::Chado::Schema::Organism::OrganismDbxref:
@@ -293,6 +333,16 @@ provides:
     file: lib/Bio/Chado/Schema/Phylogeny/Phylotree.pm
   Bio::Chado::Schema::Phylogeny::PhylotreePub:
     file: lib/Bio/Chado/Schema/Phylogeny/PhylotreePub.pm
+  Bio::Chado::Schema::Project::Project:
+    file: lib/Bio/Chado/Schema/Project/Project.pm
+  Bio::Chado::Schema::Project::ProjectContact:
+    file: lib/Bio/Chado/Schema/Project/ProjectContact.pm
+  Bio::Chado::Schema::Project::ProjectPub:
+    file: lib/Bio/Chado/Schema/Project/ProjectPub.pm
+  Bio::Chado::Schema::Project::ProjectRelationship:
+    file: lib/Bio/Chado/Schema/Project/ProjectRelationship.pm
+  Bio::Chado::Schema::Project::Projectprop:
+    file: lib/Bio/Chado/Schema/Project/Projectprop.pm
   Bio::Chado::Schema::Pub::Pub:
     file: lib/Bio/Chado/Schema/Pub/Pub.pm
   Bio::Chado::Schema::Pub::PubDbxref:
@@ -361,6 +411,8 @@ provides:
     file: lib/Bio/Chado/Schema/Stock/StockPub.pm
   Bio::Chado::Schema::Stock::StockRelationship:
     file: lib/Bio/Chado/Schema/Stock/StockRelationship.pm
+  Bio::Chado::Schema::Stock::StockRelationshipCvterm:
+    file: lib/Bio/Chado/Schema/Stock/StockRelationshipCvterm.pm
   Bio::Chado::Schema::Stock::StockRelationshipPub:
     file: lib/Bio/Chado/Schema/Stock/StockRelationshipPub.pm
   Bio::Chado::Schema::Stock::Stockcollection:
@@ -385,4 +437,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/Bio-Chado-Schema
-version: 0.06000
+version: 0.06001
