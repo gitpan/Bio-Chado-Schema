@@ -130,7 +130,6 @@ lib/Bio/Chado/Schema/General.pod
 lib/Bio/Chado/Schema/General/Db.pm
 lib/Bio/Chado/Schema/General/DbDbxrefCount.pm
 lib/Bio/Chado/Schema/General/Dbxref.pm
-lib/Bio/Chado/Schema/General/Project.pm
 lib/Bio/Chado/Schema/General/Tableinfo.pm
 lib/Bio/Chado/Schema/Genetic.pod
 lib/Bio/Chado/Schema/Genetic/Environment.pm
@@ -284,6 +283,7 @@ lib/Bio/Chado/Schema/Util.pod
 LICENSE
 maint/bin/update_dbic_dump.pl
 MANIFEST			This list of files
+META.yml
 README
 t/001_basics.t
 t/010_organism.t
@@ -295,4 +295,4 @@ t/lib/DbicChadoTest.pm
 t/lib/sqlite.sql
 t/Phylogeny/phylonode.t
 t/Sequence/010_feature.t
-META.yml
+t/var/BCS.db

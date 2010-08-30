@@ -18,7 +18,7 @@ name: Bio-Chado-Schema
 provides:
   Bio::Chado::Schema:
     file: lib/Bio/Chado/Schema.pm
-    version: 0.06001
+    version: 0.06200
   Bio::Chado::Schema::CellLine::CellLine:
     file: lib/Bio/Chado/Schema/CellLine/CellLine.pm
   Bio::Chado::Schema::CellLine::CellLineCvterm:
@@ -149,8 +149,6 @@ provides:
     file: lib/Bio/Chado/Schema/General/DbDbxrefCount.pm
   Bio::Chado::Schema::General::Dbxref:
     file: lib/Bio/Chado/Schema/General/Dbxref.pm
-  Bio::Chado::Schema::General::Project:
-    file: lib/Bio/Chado/Schema/General/Project.pm
   Bio::Chado::Schema::General::Tableinfo:
     file: lib/Bio/Chado/Schema/General/Tableinfo.pm
   Bio::Chado::Schema::Genetic::Environment:
@@ -437,4 +435,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/rbuels/Bio-Chado-Schema
-version: 0.06001
+version: 0.06200
