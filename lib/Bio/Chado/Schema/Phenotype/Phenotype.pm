@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Phenotype::Phenotype;
+BEGIN {
+  $Bio::Chado::Schema::Phenotype::Phenotype::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Phenotype::Phenotype::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,155 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("phenotype");
+
+
+__PACKAGE__->add_columns(
+  "phenotype_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "phenotype_phenotype_id_seq",
+  },
+  "uniquename",
+  { data_type => "text", is_nullable => 0 },
+  "observable_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "attr_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "value",
+  { data_type => "text", is_nullable => 1 },
+  "cvalue_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "assay_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("phenotype_id");
+__PACKAGE__->add_unique_constraint("phenotype_c1", ["uniquename"]);
+
+
+__PACKAGE__->has_many(
+  "feature_phenotypes",
+  "Bio::Chado::Schema::Phenotype::FeaturePhenotype",
+  { "foreign.phenotype_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "nd_experiment_phenotypes",
+  "Bio::Chado::Schema::NaturalDiversity::NdExperimentPhenotype",
+  { "foreign.phenotype_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->belongs_to(
+  "assay",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "assay_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "attr",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "attr_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "observable",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "observable_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "cvalue",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "cvalue_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "phenotype_comparison_phenotype1s",
+  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
+  { "foreign.phenotype1_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phenotype_comparison_phenotype2s",
+  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
+  { "foreign.phenotype2_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phenotype_cvterms",
+  "Bio::Chado::Schema::Phenotype::PhenotypeCvterm",
+  { "foreign.phenotype_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phenstatements",
+  "Bio::Chado::Schema::Genetic::Phenstatement",
+  { "foreign.phenotype_id" => "self.phenotype_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zxmEvQ27T0zCIZ3ioPlTgw
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -19,9 +174,9 @@ A phenotypic statement, or a single
 atomic phenotypic observation, is a controlled sentence describing
 observable effects of non-wild type function. E.g. Obs=eye, attribute=color, cvalue=red.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("phenotype");
+Bio::Chado::Schema::Phenotype::Phenotype
 
 =head1 ACCESSORS
 
@@ -76,32 +231,6 @@ Phenotype attribute value (state).
 
 Evidence type.
 
-=cut
-
-__PACKAGE__->add_columns(
-  "phenotype_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "phenotype_phenotype_id_seq",
-  },
-  "uniquename",
-  { data_type => "text", is_nullable => 0 },
-  "observable_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "attr_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "value",
-  { data_type => "text", is_nullable => 1 },
-  "cvalue_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "assay_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("phenotype_id");
-__PACKAGE__->add_unique_constraint("phenotype_c1", ["uniquename"]);
-
 =head1 RELATIONS
 
 =head2 feature_phenotypes
@@ -110,29 +239,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phenotype::FeaturePhenotype>
 
-=cut
-
-__PACKAGE__->has_many(
-  "feature_phenotypes",
-  "Bio::Chado::Schema::Phenotype::FeaturePhenotype",
-  { "foreign.phenotype_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 nd_experiment_phenotypes
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::NaturalDiversity::NdExperimentPhenotype>
-
-=cut
-
-__PACKAGE__->has_many(
-  "nd_experiment_phenotypes",
-  "Bio::Chado::Schema::NaturalDiversity::NdExperimentPhenotype",
-  { "foreign.phenotype_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 assay
 
@@ -140,43 +251,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "assay",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "assay_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 attr
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "attr",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "attr_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 observable
 
@@ -184,43 +263,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "observable",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "observable_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 cvalue
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "cvalue",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "cvalue_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 phenotype_comparison_phenotype1s
 
@@ -228,29 +275,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::PhenotypeComparison>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phenotype_comparison_phenotype1s",
-  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
-  { "foreign.phenotype1_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phenotype_comparison_phenotype2s
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::PhenotypeComparison>
-
-=cut
-
-__PACKAGE__->has_many(
-  "phenotype_comparison_phenotype2s",
-  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
-  { "foreign.phenotype2_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phenotype_cvterms
 
@@ -258,34 +287,22 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phenotype::PhenotypeCvterm>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phenotype_cvterms",
-  "Bio::Chado::Schema::Phenotype::PhenotypeCvterm",
-  { "foreign.phenotype_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phenstatements
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::Phenstatement>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "phenstatements",
-  "Bio::Chado::Schema::Genetic::Phenstatement",
-  { "foreign.phenotype_id" => "self.phenotype_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zxmEvQ27T0zCIZ3ioPlTgw
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

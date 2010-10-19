@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Mage::Acquisition;
+BEGIN {
+  $Bio::Chado::Schema::Mage::Acquisition::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Mage::Acquisition::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -9,6 +15,128 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
+
+__PACKAGE__->table("acquisition");
+
+
+__PACKAGE__->add_columns(
+  "acquisition_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "acquisition_acquisition_id_seq",
+  },
+  "assay_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "protocol_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "channel_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "acquisitiondate",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+    original      => { default_value => \"now()" },
+  },
+  "name",
+  { data_type => "text", is_nullable => 1 },
+  "uri",
+  { data_type => "text", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("acquisition_id");
+__PACKAGE__->add_unique_constraint("acquisition_c1", ["name"]);
+
+
+__PACKAGE__->belongs_to(
+  "protocol",
+  "Bio::Chado::Schema::Mage::Protocol",
+  { protocol_id => "protocol_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "assay",
+  "Bio::Chado::Schema::Mage::Assay",
+  { assay_id => "assay_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "channel",
+  "Bio::Chado::Schema::Mage::Channel",
+  { channel_id => "channel_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "acquisitionprops",
+  "Bio::Chado::Schema::Mage::Acquisitionprop",
+  { "foreign.acquisition_id" => "self.acquisition_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "acquisition_relationship_subjects",
+  "Bio::Chado::Schema::Mage::AcquisitionRelationship",
+  { "foreign.subject_id" => "self.acquisition_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "acquisition_relationship_objects",
+  "Bio::Chado::Schema::Mage::AcquisitionRelationship",
+  { "foreign.object_id" => "self.acquisition_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "quantifications",
+  "Bio::Chado::Schema::Mage::Quantification",
+  { "foreign.acquisition_id" => "self.acquisition_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mMcsGpBx5/gQyrmTd25/4A
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
 =head1 NAME
 
 Bio::Chado::Schema::Mage::Acquisition
@@ -17,9 +145,9 @@ Bio::Chado::Schema::Mage::Acquisition
 
 This represents the scanning of hybridized material. The output of this process is typically a digital image of an array.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("acquisition");
+Bio::Chado::Schema::Mage::Acquisition
 
 =head1 ACCESSORS
 
@@ -65,37 +193,6 @@ __PACKAGE__->table("acquisition");
   data_type: 'text'
   is_nullable: 1
 
-=cut
-
-__PACKAGE__->add_columns(
-  "acquisition_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "acquisition_acquisition_id_seq",
-  },
-  "assay_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "protocol_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "channel_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "acquisitiondate",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-    original      => { default_value => \"now()" },
-  },
-  "name",
-  { data_type => "text", is_nullable => 1 },
-  "uri",
-  { data_type => "text", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("acquisition_id");
-__PACKAGE__->add_unique_constraint("acquisition_c1", ["name"]);
-
 =head1 RELATIONS
 
 =head2 protocol
@@ -104,42 +201,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Mage::Protocol>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "protocol",
-  "Bio::Chado::Schema::Mage::Protocol",
-  { protocol_id => "protocol_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 assay
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Mage::Assay>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "assay",
-  "Bio::Chado::Schema::Mage::Assay",
-  { assay_id => "assay_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 channel
 
@@ -147,36 +213,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Mage::Channel>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "channel",
-  "Bio::Chado::Schema::Mage::Channel",
-  { channel_id => "channel_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 acquisitionprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Acquisitionprop>
-
-=cut
-
-__PACKAGE__->has_many(
-  "acquisitionprops",
-  "Bio::Chado::Schema::Mage::Acquisitionprop",
-  { "foreign.acquisition_id" => "self.acquisition_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 acquisition_relationship_subjects
 
@@ -184,29 +225,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::AcquisitionRelationship>
 
-=cut
-
-__PACKAGE__->has_many(
-  "acquisition_relationship_subjects",
-  "Bio::Chado::Schema::Mage::AcquisitionRelationship",
-  { "foreign.subject_id" => "self.acquisition_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 acquisition_relationship_objects
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::AcquisitionRelationship>
-
-=cut
-
-__PACKAGE__->has_many(
-  "acquisition_relationship_objects",
-  "Bio::Chado::Schema::Mage::AcquisitionRelationship",
-  { "foreign.object_id" => "self.acquisition_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 quantifications
 
@@ -214,19 +237,16 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Quantification>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "quantifications",
-  "Bio::Chado::Schema::Mage::Quantification",
-  { "foreign.acquisition_id" => "self.acquisition_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mMcsGpBx5/gQyrmTd25/4A
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

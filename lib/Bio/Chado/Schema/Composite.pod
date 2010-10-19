@@ -1,3 +1,17 @@
+package Bio::Chado::Schema::Composite;
+
+
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Bio::Chado::Schema::Composite
+
 =head1 NAME
 
 Bio::Chado::Schema::Composite - A collection of bridge codes that have multiple dependancies
@@ -51,4 +65,16 @@ L<Bio::Chado::Schema::Composite::Gff3view>
 
 L<Bio::Chado::Schema::Composite::Gffatts>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+

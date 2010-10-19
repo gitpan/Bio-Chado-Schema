@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Companalysis::Analysis;
+BEGIN {
+  $Bio::Chado::Schema::Companalysis::Analysis::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Companalysis::Analysis::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,90 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("analysis");
+
+
+__PACKAGE__->add_columns(
+  "analysis_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "analysis_analysis_id_seq",
+  },
+  "name",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "description",
+  { data_type => "text", is_nullable => 1 },
+  "program",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
+  "programversion",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
+  "algorithm",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "sourcename",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "sourceversion",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "sourceuri",
+  { data_type => "text", is_nullable => 1 },
+  "timeexecuted",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+  },
+);
+__PACKAGE__->set_primary_key("analysis_id");
+__PACKAGE__->add_unique_constraint("analysis_c1", ["program", "programversion", "sourcename"]);
+
+
+__PACKAGE__->has_many(
+  "analysisfeatures",
+  "Bio::Chado::Schema::Companalysis::Analysisfeature",
+  { "foreign.analysis_id" => "self.analysis_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "analysisprops",
+  "Bio::Chado::Schema::Companalysis::Analysisprop",
+  { "foreign.analysis_id" => "self.analysis_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylotrees",
+  "Bio::Chado::Schema::Phylogeny::Phylotree",
+  { "foreign.analysis_id" => "self.analysis_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "quantifications",
+  "Bio::Chado::Schema::Mage::Quantification",
+  { "foreign.analysis_id" => "self.analysis_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YT9qC0zsA8eVNXlt/PtoXw
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -20,9 +110,9 @@ An analysis is a particular type of a
     another, or an all by all blast, or a different kind of analysis
     altogether. It is a single unit of computation.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("analysis");
+Bio::Chado::Schema::Companalysis::Analysis
 
 =head1 ACCESSORS
 
@@ -101,43 +191,6 @@ This is an optional, permanent URL or URI for the source of the  analysis. The i
   is_nullable: 0
   original: {default_value => \"now()"}
 
-=cut
-
-__PACKAGE__->add_columns(
-  "analysis_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "analysis_analysis_id_seq",
-  },
-  "name",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "description",
-  { data_type => "text", is_nullable => 1 },
-  "program",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "programversion",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "algorithm",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "sourcename",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "sourceversion",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "sourceuri",
-  { data_type => "text", is_nullable => 1 },
-  "timeexecuted",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-    original      => { default_value => \"now()" },
-  },
-);
-__PACKAGE__->set_primary_key("analysis_id");
-__PACKAGE__->add_unique_constraint("analysis_c1", ["program", "programversion", "sourcename"]);
-
 =head1 RELATIONS
 
 =head2 analysisfeatures
@@ -146,29 +199,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Companalysis::Analysisfeature>
 
-=cut
-
-__PACKAGE__->has_many(
-  "analysisfeatures",
-  "Bio::Chado::Schema::Companalysis::Analysisfeature",
-  { "foreign.analysis_id" => "self.analysis_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 analysisprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Companalysis::Analysisprop>
-
-=cut
-
-__PACKAGE__->has_many(
-  "analysisprops",
-  "Bio::Chado::Schema::Companalysis::Analysisprop",
-  { "foreign.analysis_id" => "self.analysis_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phylotrees
 
@@ -176,34 +211,22 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylotree>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phylotrees",
-  "Bio::Chado::Schema::Phylogeny::Phylotree",
-  { "foreign.analysis_id" => "self.analysis_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 quantifications
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Quantification>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "quantifications",
-  "Bio::Chado::Schema::Mage::Quantification",
-  { "foreign.analysis_id" => "self.analysis_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YT9qC0zsA8eVNXlt/PtoXw
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Sequence::Featureloc;
+BEGIN {
+  $Bio::Chado::Schema::Sequence::Featureloc::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Sequence::Featureloc::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,94 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("featureloc");
+
+
+__PACKAGE__->add_columns(
+  "featureloc_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "featureloc_featureloc_id_seq",
+  },
+  "feature_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "srcfeature_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "fmin",
+  { data_type => "integer", is_nullable => 1 },
+  "is_fmin_partial",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "fmax",
+  { data_type => "integer", is_nullable => 1 },
+  "is_fmax_partial",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "strand",
+  { data_type => "smallint", is_nullable => 1 },
+  "phase",
+  { data_type => "integer", is_nullable => 1 },
+  "residue_info",
+  { data_type => "text", is_nullable => 1 },
+  "locgroup",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+  "rank",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("featureloc_id");
+__PACKAGE__->add_unique_constraint("featureloc_c1", ["feature_id", "locgroup", "rank"]);
+
+
+__PACKAGE__->belongs_to(
+  "feature",
+  "Bio::Chado::Schema::Sequence::Feature",
+  { feature_id => "feature_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "srcfeature",
+  "Bio::Chado::Schema::Sequence::Feature",
+  { feature_id => "srcfeature_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "featureloc_pubs",
+  "Bio::Chado::Schema::Sequence::FeaturelocPub",
+  { "foreign.featureloc_id" => "self.featureloc_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VED7G1XykKNri3GIOYY5NQ
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -35,9 +129,9 @@ feature on the mutant strain. The column:rank is used to
 differentiate these different locations. Reflexive locations should
 never be stored - this is for -proper- (i.e. non-self) locations only; nothing should be located relative to itself.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("featureloc");
+Bio::Chado::Schema::Sequence::Featureloc
 
 =head1 ACCESSORS
 
@@ -174,42 +268,6 @@ assignment of rank is arbitrary. Rank is also used for
 sequence_variant features, such as SNPs. Rank=0 indicates the wildtype
 (or baseline) feature, Rank=1 indicates the mutant (or compared) feature.
 
-=cut
-
-__PACKAGE__->add_columns(
-  "featureloc_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "featureloc_featureloc_id_seq",
-  },
-  "feature_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "srcfeature_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "fmin",
-  { data_type => "integer", is_nullable => 1 },
-  "is_fmin_partial",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "fmax",
-  { data_type => "integer", is_nullable => 1 },
-  "is_fmax_partial",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "strand",
-  { data_type => "smallint", is_nullable => 1 },
-  "phase",
-  { data_type => "integer", is_nullable => 1 },
-  "residue_info",
-  { data_type => "text", is_nullable => 1 },
-  "locgroup",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-  "rank",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("featureloc_id");
-__PACKAGE__->add_unique_constraint("featureloc_c1", ["feature_id", "locgroup", "rank"]);
-
 =head1 RELATIONS
 
 =head2 feature
@@ -218,42 +276,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Sequence::Feature>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "feature",
-  "Bio::Chado::Schema::Sequence::Feature",
-  { feature_id => "feature_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 srcfeature
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Sequence::Feature>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "srcfeature",
-  "Bio::Chado::Schema::Sequence::Feature",
-  { feature_id => "srcfeature_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 featureloc_pubs
 
@@ -261,19 +288,16 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeaturelocPub>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "featureloc_pubs",
-  "Bio::Chado::Schema::Sequence::FeaturelocPub",
-  { "foreign.featureloc_id" => "self.featureloc_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VED7G1XykKNri3GIOYY5NQ
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

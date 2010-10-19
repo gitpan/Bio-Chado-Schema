@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Sequence::Feature;
+BEGIN {
+  $Bio::Chado::Schema::Sequence::Feature::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Sequence::Feature::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,464 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("feature");
+
+
+__PACKAGE__->add_columns(
+  "feature_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "feature_feature_id_seq",
+  },
+  "dbxref_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "organism_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "name",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "uniquename",
+  { data_type => "text", is_nullable => 0 },
+  "residues",
+  { data_type => "text", is_nullable => 1 },
+  "seqlen",
+  { data_type => "integer", is_nullable => 1 },
+  "md5checksum",
+  { data_type => "char", is_nullable => 1, size => 32 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "is_analysis",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "is_obsolete",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "timeaccessioned",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+  },
+  "timelastmodified",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+  },
+);
+__PACKAGE__->set_primary_key("feature_id");
+__PACKAGE__->add_unique_constraint("feature_c1", ["organism_id", "uniquename", "type_id"]);
+
+
+__PACKAGE__->has_many(
+  "analysisfeatures",
+  "Bio::Chado::Schema::Companalysis::Analysisfeature",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "cell_line_features",
+  "Bio::Chado::Schema::CellLine::CellLineFeature",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "elements",
+  "Bio::Chado::Schema::Mage::Element",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "dbxref",
+  "Bio::Chado::Schema::General::Dbxref",
+  { dbxref_id => "dbxref_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "organism",
+  "Bio::Chado::Schema::Organism::Organism",
+  { organism_id => "organism_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_cvterms",
+  "Bio::Chado::Schema::Sequence::FeatureCvterm",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_dbxrefs",
+  "Bio::Chado::Schema::Sequence::FeatureDbxref",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_expressions",
+  "Bio::Chado::Schema::Expression::FeatureExpression",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_genotype_features",
+  "Bio::Chado::Schema::Genetic::FeatureGenotype",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_genotype_chromosomes",
+  "Bio::Chado::Schema::Genetic::FeatureGenotype",
+  { "foreign.chromosome_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featureloc_features",
+  "Bio::Chado::Schema::Sequence::Featureloc",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featureloc_srcfeatures",
+  "Bio::Chado::Schema::Sequence::Featureloc",
+  { "foreign.srcfeature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_phenotypes",
+  "Bio::Chado::Schema::Phenotype::FeaturePhenotype",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurepos_feature",
+  "Bio::Chado::Schema::Map::Featurepos",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurepos_map_features",
+  "Bio::Chado::Schema::Map::Featurepos",
+  { "foreign.map_feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featureprops",
+  "Bio::Chado::Schema::Sequence::Featureprop",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_pubs",
+  "Bio::Chado::Schema::Sequence::FeaturePub",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurerange_leftendfs",
+  "Bio::Chado::Schema::Map::Featurerange",
+  { "foreign.leftendf_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurerange_rightstartfs",
+  "Bio::Chado::Schema::Map::Featurerange",
+  { "foreign.rightstartf_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurerange_rightendfs",
+  "Bio::Chado::Schema::Map::Featurerange",
+  { "foreign.rightendf_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurerange_leftstartfs",
+  "Bio::Chado::Schema::Map::Featurerange",
+  { "foreign.leftstartf_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "featurerange_features",
+  "Bio::Chado::Schema::Map::Featurerange",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_relationship_subjects",
+  "Bio::Chado::Schema::Sequence::FeatureRelationship",
+  { "foreign.subject_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_relationship_objects",
+  "Bio::Chado::Schema::Sequence::FeatureRelationship",
+  { "foreign.object_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "feature_synonyms",
+  "Bio::Chado::Schema::Sequence::FeatureSynonym",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "library_features",
+  "Bio::Chado::Schema::Library::LibraryFeature",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonodes",
+  "Bio::Chado::Schema::Phylogeny::Phylonode",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "studyprop_features",
+  "Bio::Chado::Schema::Mage::StudypropFeature",
+  { "foreign.feature_id" => "self.feature_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1rnPsx4awJbpI2wm1doDlA
+
+use Carp;
+
+
+{ no warnings 'once';
+  *parent_relationships  = \&feature_relationship_objects;
+}
+
+
+{ no warnings 'once';
+  *child_relationships  = \&feature_relationship_subjects;
+}
+
+
+
+__PACKAGE__->belongs_to
+    ( 'primary_dbxref',
+      'Bio::Chado::Schema::General::Dbxref',
+      { 'foreign.dbxref_id' => 'self.dbxref_id' },
+    );
+
+
+__PACKAGE__->many_to_many
+    (
+     'parent_features',
+     'feature_relationship_subjects' => 'object',
+    );
+
+
+
+__PACKAGE__->many_to_many
+    (
+     'child_features',
+     'feature_relationship_objects' => 'subject',
+    );
+
+
+__PACKAGE__->many_to_many
+    (
+     'dbxrefs_mm',
+     'feature_dbxrefs' => 'dbxref',
+    );
+
+
+__PACKAGE__->many_to_many
+    (
+     'secondary_dbxrefs',
+     'feature_dbxrefs' => 'dbxref',
+    );
+
+
+
+sub create_featureprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'feature_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'featureprops',
+        );
+}
+
+
+sub search_featureprops {
+    my ( $self, $cvt_criteria ) = @_;
+
+    $cvt_criteria = { name => $cvt_criteria }
+        unless ref $cvt_criteria;
+
+     $self->result_source->schema
+          ->resultset('Cv::Cvterm')
+          ->search( $cvt_criteria )
+          ->search_related('featureprops',
+                           { feature_id => $self->feature_id },
+                          );
+}
+
+
+
+use base qw/ Bio::PrimarySeq /;
+
+
+{ no warnings 'once';
+  *display_id  = \&name;
+  *id          = \&name;
+  *primary_id  = \&name;
+}
+
+
+{ no warnings 'once';
+  *seq  = \&residues;
+}
+
+
+sub accession_number {
+    my $self= shift;
+
+    my $pd = $self->primary_dbxref
+        || $self->secondary_dbxrefs->first
+      or return;
+
+    my $acc = $pd->accession;
+    my $v = $pd->version;
+    $v = $v ? ".$v" : '';
+
+    return $acc.$v;
+}
+
+{ no warnings 'once';
+  *accession = \&accession_number;
+}
+
+
+
+sub length {
+    my $self = shift;
+    my $l = $self->seqlen;
+    return $l if defined $l;
+    return CORE::length( $self->residues );
+}
+
+
+{ no warnings 'once';
+  *description = \&desc;
+}
+sub desc {
+    my $self = shift;
+    my $desc_fp =
+        $self->search_featureprops( 'description')
+             ->first;
+    return unless $desc_fp;
+    return $desc_fp->value;
+}
+
+
+sub alphabet {
+    shift()->throw_not_implemented()
+}
+
+# signal to BioPerl that this sequence can't be cloned
+sub can_call_new { 0 }
+
+1;
+
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -23,9 +487,9 @@ variations, cross-genome match regions such as hits and HSPs and so
 on; see the Sequence Ontology for more. The combination of
 organism_id, uniquename and type_id should be unique.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("feature");
+Bio::Chado::Schema::Sequence::Feature
 
 =head1 ACCESSORS
 
@@ -175,54 +639,6 @@ accession or modification timestamps (as opposed to database auditing data,
 handled elsewhere). The expectation is that these fields would be
 available to software interacting with chado.
 
-=cut
-
-__PACKAGE__->add_columns(
-  "feature_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "feature_feature_id_seq",
-  },
-  "dbxref_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "organism_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "name",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "uniquename",
-  { data_type => "text", is_nullable => 0 },
-  "residues",
-  { data_type => "text", is_nullable => 1 },
-  "seqlen",
-  { data_type => "integer", is_nullable => 1 },
-  "md5checksum",
-  { data_type => "char", is_nullable => 1, size => 32 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "is_analysis",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "is_obsolete",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "timeaccessioned",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-    original      => { default_value => \"now()" },
-  },
-  "timelastmodified",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-    original      => { default_value => \"now()" },
-  },
-);
-__PACKAGE__->set_primary_key("feature_id");
-__PACKAGE__->add_unique_constraint("feature_c1", ["organism_id", "uniquename", "type_id"]);
-
 =head1 RELATIONS
 
 =head2 analysisfeatures
@@ -231,29 +647,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Companalysis::Analysisfeature>
 
-=cut
-
-__PACKAGE__->has_many(
-  "analysisfeatures",
-  "Bio::Chado::Schema::Companalysis::Analysisfeature",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 cell_line_features
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::CellLine::CellLineFeature>
-
-=cut
-
-__PACKAGE__->has_many(
-  "cell_line_features",
-  "Bio::Chado::Schema::CellLine::CellLineFeature",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 elements
 
@@ -261,35 +659,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Element>
 
-=cut
-
-__PACKAGE__->has_many(
-  "elements",
-  "Bio::Chado::Schema::Mage::Element",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 dbxref
 
@@ -297,42 +671,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::General::Dbxref>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "dbxref",
-  "Bio::Chado::Schema::General::Dbxref",
-  { dbxref_id => "dbxref_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 organism
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Organism::Organism>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "organism",
-  "Bio::Chado::Schema::Organism::Organism",
-  { organism_id => "organism_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 feature_cvterms
 
@@ -340,29 +683,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeatureCvterm>
 
-=cut
-
-__PACKAGE__->has_many(
-  "feature_cvterms",
-  "Bio::Chado::Schema::Sequence::FeatureCvterm",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_dbxrefs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeatureDbxref>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_dbxrefs",
-  "Bio::Chado::Schema::Sequence::FeatureDbxref",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 feature_expressions
 
@@ -370,29 +695,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Expression::FeatureExpression>
 
-=cut
-
-__PACKAGE__->has_many(
-  "feature_expressions",
-  "Bio::Chado::Schema::Expression::FeatureExpression",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_genotype_features
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::FeatureGenotype>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_genotype_features",
-  "Bio::Chado::Schema::Genetic::FeatureGenotype",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 feature_genotype_chromosomes
 
@@ -400,29 +707,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::FeatureGenotype>
 
-=cut
-
-__PACKAGE__->has_many(
-  "feature_genotype_chromosomes",
-  "Bio::Chado::Schema::Genetic::FeatureGenotype",
-  { "foreign.chromosome_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 featureloc_features
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::Featureloc>
-
-=cut
-
-__PACKAGE__->has_many(
-  "featureloc_features",
-  "Bio::Chado::Schema::Sequence::Featureloc",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featureloc_srcfeatures
 
@@ -430,29 +719,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::Featureloc>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featureloc_srcfeatures",
-  "Bio::Chado::Schema::Sequence::Featureloc",
-  { "foreign.srcfeature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_phenotypes
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phenotype::FeaturePhenotype>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_phenotypes",
-  "Bio::Chado::Schema::Phenotype::FeaturePhenotype",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featurepos_feature
 
@@ -460,29 +731,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurepos>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featurepos_feature",
-  "Bio::Chado::Schema::Map::Featurepos",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 featurepos_map_features
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurepos>
-
-=cut
-
-__PACKAGE__->has_many(
-  "featurepos_map_features",
-  "Bio::Chado::Schema::Map::Featurepos",
-  { "foreign.map_feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featureprops
 
@@ -490,29 +743,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::Featureprop>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featureprops",
-  "Bio::Chado::Schema::Sequence::Featureprop",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_pubs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeaturePub>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_pubs",
-  "Bio::Chado::Schema::Sequence::FeaturePub",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featurerange_leftendfs
 
@@ -520,29 +755,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurerange>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featurerange_leftendfs",
-  "Bio::Chado::Schema::Map::Featurerange",
-  { "foreign.leftendf_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 featurerange_rightstartfs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurerange>
-
-=cut
-
-__PACKAGE__->has_many(
-  "featurerange_rightstartfs",
-  "Bio::Chado::Schema::Map::Featurerange",
-  { "foreign.rightstartf_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featurerange_rightendfs
 
@@ -550,29 +767,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurerange>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featurerange_rightendfs",
-  "Bio::Chado::Schema::Map::Featurerange",
-  { "foreign.rightendf_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 featurerange_leftstartfs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurerange>
-
-=cut
-
-__PACKAGE__->has_many(
-  "featurerange_leftstartfs",
-  "Bio::Chado::Schema::Map::Featurerange",
-  { "foreign.leftstartf_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 featurerange_features
 
@@ -580,29 +779,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Map::Featurerange>
 
-=cut
-
-__PACKAGE__->has_many(
-  "featurerange_features",
-  "Bio::Chado::Schema::Map::Featurerange",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_relationship_subjects
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeatureRelationship>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_relationship_subjects",
-  "Bio::Chado::Schema::Sequence::FeatureRelationship",
-  { "foreign.subject_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 feature_relationship_objects
 
@@ -610,29 +791,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeatureRelationship>
 
-=cut
-
-__PACKAGE__->has_many(
-  "feature_relationship_objects",
-  "Bio::Chado::Schema::Sequence::FeatureRelationship",
-  { "foreign.object_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 feature_synonyms
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeatureSynonym>
-
-=cut
-
-__PACKAGE__->has_many(
-  "feature_synonyms",
-  "Bio::Chado::Schema::Sequence::FeatureSynonym",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 library_features
 
@@ -640,50 +803,17 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Library::LibraryFeature>
 
-=cut
-
-__PACKAGE__->has_many(
-  "library_features",
-  "Bio::Chado::Schema::Library::LibraryFeature",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phylonodes
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylonode>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phylonodes",
-  "Bio::Chado::Schema::Phylogeny::Phylonode",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 studyprop_features
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::StudypropFeature>
-
-=cut
-
-__PACKAGE__->has_many(
-  "studyprop_features",
-  "Bio::Chado::Schema::Mage::StudypropFeature",
-  { "foreign.feature_id" => "self.feature_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1rnPsx4awJbpI2wm1doDlA
-
-use Carp;
 
 =head1 ADDITIONAL RELATIONSHIPS
 
@@ -695,12 +825,6 @@ Returns a list of parent relationships.
 
 Related object: Bio::Chado::Schema::Sequence::FeatureRelationship
 
-=cut
-
-{ no warnings 'once';
-  *parent_relationships  = \&feature_relationship_objects;
-}
-
 =head2 child_relationships
 
 Type: has_to_many
@@ -709,24 +833,9 @@ Returns a list of child relationships.
 
 Related object: Bio::Chado::Schema::Sequence::FeatureRelationship
 
-=cut
-
-{ no warnings 'once';
-  *child_relationships  = \&feature_relationship_subjects;
-}
-
-
 =head2 primary_dbxref
 
 Alias for dbxref
-
-=cut
-
-__PACKAGE__->belongs_to
-    ( 'primary_dbxref',
-      'Bio::Chado::Schema::General::Dbxref',
-      { 'foreign.dbxref_id' => 'self.dbxref_id' },
-    );
 
 =head1 MANY-TO-MANY RELATIONSHIPS
 
@@ -738,15 +847,6 @@ Returns a list of parent features.
 
 Related object: Bio::Chado::Schema::Sequence::Feature
 
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'parent_features',
-     'feature_relationship_subjects' => 'object',
-    );
-
-
 =head2 child_features
 
 Type: many_to_many
@@ -754,14 +854,6 @@ Type: many_to_many
 Returns a list of child features.
 
 Related object: Bio::Chado::Schema::Sequence::Feature
-
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'child_features',
-     'feature_relationship_objects' => 'subject',
-    );
 
 =head2 dbxrefs_mm
 
@@ -771,26 +863,9 @@ Related object: L<Bio::Chado::Schema::General::Dbxref> (i.e. dbxref
 table) L<Bio::Chado::Schema::Sequence::FeatureDbxref> (feature_dbxref
 table)
 
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'dbxrefs_mm',
-     'feature_dbxrefs' => 'dbxref',
-    );
-
 =head2 secondary_dbxrefs
 
 Alias for dbxrefs_mm
-
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'secondary_dbxrefs',
-     'feature_dbxrefs' => 'dbxref',
-    );
-
 
 =head1 ADDITIONAL METHODS
 
@@ -827,22 +902,6 @@ __PACKAGE__->many_to_many
           }
   Ret  : hashref of { propname => new featureprop object }
 
-=cut
-
-sub create_featureprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts->{cv_name} = 'feature_property'
-        unless defined $opts->{cv_name};
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'featureprops',
-        );
-}
-
 =head2 search_featureprops
 
   Status  : public
@@ -858,23 +917,6 @@ sub create_featureprops {
   Convenience method to search featureprops for a feature that
   match to Cvterms having the given criterion hash
 
-=cut
-
-sub search_featureprops {
-    my ( $self, $cvt_criteria ) = @_;
-
-    $cvt_criteria = { name => $cvt_criteria }
-        unless ref $cvt_criteria;
-
-     $self->result_source->schema
-          ->resultset('Cv::Cvterm')
-          ->search( $cvt_criteria )
-          ->search_related('featureprops',
-                           { feature_id => $self->feature_id },
-                          );
-}
-
-
 =head1 L<Bio::PrimarySeqI> METHODS
 
 The methods below are intended to provide some compatibility with
@@ -887,32 +929,14 @@ Support for BioPerl's more complete L<Bio::SeqI> interface, which
 includes those things, still needs to be implemented.  If you are
 interested in helping with this, please contact GMOD!
 
-=cut
-
-use base qw/ Bio::PrimarySeq /;
-
 =head2 id, primary_id, display_id
 
 These are aliases for name(), which just returns the contents of the
 feature.name field
 
-=cut
-
-{ no warnings 'once';
-  *display_id  = \&name;
-  *id          = \&name;
-  *primary_id  = \&name;
-}
-
 =head2 seq
 
   Alias for $feature->residues()
-
-=cut
-
-{ no warnings 'once';
-  *seq  = \&residues;
-}
 
 =head2 accession, accession_number
 
@@ -925,72 +949,30 @@ feature.name field
         accession and version fields of either the primary or
         secondary dbxrefs
 
-=cut
-
-sub accession_number {
-    my $self= shift;
-
-    my $pd = $self->primary_dbxref
-        || $self->secondary_dbxrefs->first
-      or return;
-
-    my $acc = $pd->accession;
-    my $v = $pd->version;
-    $v = $v ? ".$v" : '';
-
-    return $acc.$v;
-}
-
-{ no warnings 'once';
-  *accession = \&accession_number;
-}
-
-
 =head2 length
 
 No arguments, returns the seqlen(), or length( $feature->residues ) if
 that is not defined.
-
-=cut
-
-sub length {
-    my $self = shift;
-    my $l = $self->seqlen;
-    return $l if defined $l;
-    return CORE::length( $self->residues );
-}
 
 =head2 desc, description
 
 No arguments, returns the value of the first 'description' featureprop
 found for this feature.
 
-=cut
-
-{ no warnings 'once';
-  *description = \&desc;
-}
-sub desc {
-    my $self = shift;
-    my $desc_fp =
-        $self->search_featureprops( 'description')
-             ->first;
-    return unless $desc_fp;
-    return $desc_fp->value;
-}
-
 =head2 alphabet
 
 Not implemented. Throws an error if used.
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
-
-sub alphabet {
-    shift()->throw_not_implemented()
-}
-
-# signal to BioPerl that this sequence can't be cloned
-sub can_call_new { 0 }
-
-1;
 

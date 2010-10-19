@@ -1,4 +1,10 @@
 package Bio::Chado::Schema;
+BEGIN {
+  $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -14,98 +20,6 @@ __PACKAGE__->load_classes;
 # Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
 
-our $VERSION = '0.06200';
-$VERSION = eval $VERSION;
-
-=head1 NAME
-
-Bio::Chado::Schema - standard DBIx::Class layer for the Chado database schema
-
-=head1 SYNOPSIS
-
-  use Bio::Chado::Schema;
-
-  my $chado = Bio::Chado::Schema->connect( $dsn, $user, $password );
-
-  print "number of rows in feature table: ",
-        $chado->resultset('Sequence::Feature')->count,
-        "\n";
-
-
-=head1 DESCRIPTION
-
-This is a standard object-relational mapping layer for use with the
-GMOD Chado database schema.  This layer is implemented with
-L<DBIx::Class>, generated with the help of the very fine
-L<DBIx::Class::Schema::Loader> module.
-
-Chado is an open-source modular database schema for biological data.
-It is divided into several notional "modules", which are reflected in the namespace organization of this package.  Note that modules in the Chado context refers to sets of tables, they are not modules in the Perl sense.
-
-To learn how to use this DBIx::Class ORM layer, a good starting
-point is the L<DBIx::Class::Manual>.
-
-=head1 CHADO MODULES COVERED BY THIS PACKAGE
-
-L<Bio::Chado::Schema::CellLine>
-
-L<Bio::Chado::Schema::Companalysis>
-
-L<Bio::Chado::Schema::Composite>
-
-L<Bio::Chado::Schema::Contact>
-
-L<Bio::Chado::Schema::Cv>
-
-L<Bio::Chado::Schema::Expression>
-
-L<Bio::Chado::Schema::General>
-
-L<Bio::Chado::Schema::Genetic>
-
-L<Bio::Chado::Schema::Library>
-
-L<Bio::Chado::Schema::Mage>
-
-L<Bio::Chado::Schema::Map>
-
-L<Bio::Chado::Schema::NaturalDiversity>
-
-L<Bio::Chado::Schema::Organism>
-
-L<Bio::Chado::Schema::Phenotype>
-
-L<Bio::Chado::Schema::Phylogeny>
-
-L<Bio::Chado::Schema::Project>
-
-L<Bio::Chado::Schema::Pub>
-
-L<Bio::Chado::Schema::Sequence>
-
-L<Bio::Chado::Schema::Stock>
-
-
-=head1 CONTRIBUTORS
-
-Aureliano Bombarely, <ab782@cornell.edu>
-
-Naama Menda, <nm249@cornell.edu>
-
-Jonathan Leto, <leto@cpan.org>
-
-=head1 AUTHOR
-
-Robert Buels, <rmb32@cornell.edu>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 Boyce Thompson Institute for Plant Research
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
 
 
 #########################################################################################
@@ -119,6 +33,12 @@ it under the same terms as Perl itself.
 #########################################################################################
 
 package Bio::Chado::Schema::Util;
+BEGIN {
+  $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Util::VERSION = '0.06300';
+}
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
 
@@ -228,8 +148,8 @@ sub create_properties {
         $data->{type_id} = $propterms{$propname}->cvterm_id;
 
 
-	# decide whether to skip creating this prop
-	my $skip_creation = $opts->{allow_duplicate_values}
+      # decide whether to skip creating this prop
+      my $skip_creation = $opts->{allow_duplicate_values}
             ? 0
             : $self->search_related( $prop_relation_name,
                                      { type_id => $data->{type_id},
@@ -240,26 +160,26 @@ sub create_properties {
 
         unless( $skip_creation ) {
             #if rank is defined
-	    if ($opts->{rank} && defined $opts->{rank} ) {
-		my ($existing_prop) = $self->search_related( $prop_relation_name,
-							  {type_id =>$data->{type_id},
-							   rank => $opts->{rank}
-							  });
-		warn "Property " .  $existing_prop->value() . "  already exists with rank " . $opts->{rank} . ". skipping! \n" if  defined $existing_prop;
-		$data->{rank} = $opts->{rank};
-		
-	    } else { 
-		# find highest rank for props of this type
-		my $max_rank= $self->search_related( $prop_relation_name,
-						     { type_id =>$data->{type_id} }
-		    )->get_column('rank')->max;
-		$data->{rank} = defined $max_rank ? $max_rank + 1 : 0;
-		
-	    }
-	    $props{$propname} = $self->find_or_create_related( $prop_relation_name,
-						       $data
-		);
-	}
+          if ($opts->{rank} && defined $opts->{rank} ) {
+            my ($existing_prop) = $self->search_related( $prop_relation_name,
+                                            {type_id =>$data->{type_id},
+                                             rank => $opts->{rank}
+                                            });
+            warn "Property " .  $existing_prop->value() . "  already exists with rank " . $opts->{rank} . ". skipping! \n" if  defined $existing_prop;
+            $data->{rank} = $opts->{rank};
+
+          } else {
+            # find highest rank for props of this type
+            my $max_rank= $self->search_related( $prop_relation_name,
+                                         { type_id =>$data->{type_id} }
+                )->get_column('rank')->max;
+            $data->{rank} = defined $max_rank ? $max_rank + 1 : 0;
+
+          }
+          $props{$propname} = $self->find_or_create_related( $prop_relation_name,
+                                           $data
+            );
+      }
     }
     return \%props;
 }
@@ -267,3 +187,115 @@ sub create_properties {
 ###
 1;#
 ###
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Bio::Chado::Schema
+
+=head1 SYNOPSIS
+
+  use Bio::Chado::Schema;
+
+  my $chado = Bio::Chado::Schema->connect( $dsn, $user, $password );
+
+  print "number of rows in feature table: ",
+        $chado->resultset('Sequence::Feature')->count,
+        "\n";
+
+=head1 DESCRIPTION
+
+This is a standard object-relational mapping layer for use with the
+GMOD Chado database schema.  This layer is implemented with
+L<DBIx::Class>, generated with the help of the very fine
+L<DBIx::Class::Schema::Loader> module.
+
+Chado is an open-source modular database schema for biological data.
+It is divided into several notional "modules", which are reflected in
+the namespace organization of this package.  Note that modules in the
+Chado context refers to sets of tables, they are not modules in the
+Perl sense.
+
+To learn how to use this DBIx::Class ORM layer, a good starting
+point is the L<DBIx::Class::Manual>.
+
+=head1 NAME
+
+Bio::Chado::Schema - A standard DBIx::Class layer for the Chado database schema.
+
+=head1 CHADO MODULES COVERED BY THIS PACKAGE
+
+L<Bio::Chado::Schema::CellLine>
+
+L<Bio::Chado::Schema::Companalysis>
+
+L<Bio::Chado::Schema::Composite>
+
+L<Bio::Chado::Schema::Contact>
+
+L<Bio::Chado::Schema::Cv>
+
+L<Bio::Chado::Schema::Expression>
+
+L<Bio::Chado::Schema::General>
+
+L<Bio::Chado::Schema::Genetic>
+
+L<Bio::Chado::Schema::Library>
+
+L<Bio::Chado::Schema::Mage>
+
+L<Bio::Chado::Schema::Map>
+
+L<Bio::Chado::Schema::NaturalDiversity>
+
+L<Bio::Chado::Schema::Organism>
+
+L<Bio::Chado::Schema::Phenotype>
+
+L<Bio::Chado::Schema::Phylogeny>
+
+L<Bio::Chado::Schema::Project>
+
+L<Bio::Chado::Schema::Pub>
+
+L<Bio::Chado::Schema::Sequence>
+
+L<Bio::Chado::Schema::Stock>
+
+=head1 CONTRIBUTORS
+
+Aureliano Bombarely, <ab782@cornell.edu>
+
+Naama Menda, <nm249@cornell.edu>
+
+Jonathan Leto, <leto@cpan.org>
+
+=head1 AUTHOR
+
+Robert Buels, <rmb32@cornell.edu>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2009 Boyce Thompson Institute for Plant Research
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+

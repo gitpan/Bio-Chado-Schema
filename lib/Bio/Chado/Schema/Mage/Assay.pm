@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Mage::Assay;
+BEGIN {
+  $Bio::Chado::Schema::Mage::Assay::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Mage::Assay::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,172 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("assay");
+
+
+__PACKAGE__->add_columns(
+  "assay_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "assay_assay_id_seq",
+  },
+  "arraydesign_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "protocol_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "assaydate",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+    original      => { default_value => \"now()" },
+  },
+  "arrayidentifier",
+  { data_type => "text", is_nullable => 1 },
+  "arraybatchidentifier",
+  { data_type => "text", is_nullable => 1 },
+  "operator_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "dbxref_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "name",
+  { data_type => "text", is_nullable => 1 },
+  "description",
+  { data_type => "text", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("assay_id");
+__PACKAGE__->add_unique_constraint("assay_c1", ["name"]);
+
+
+__PACKAGE__->has_many(
+  "acquisitions",
+  "Bio::Chado::Schema::Mage::Acquisition",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->belongs_to(
+  "dbxref",
+  "Bio::Chado::Schema::General::Dbxref",
+  { dbxref_id => "dbxref_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "operator",
+  "Bio::Chado::Schema::Contact::Contact",
+  { contact_id => "operator_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "protocol",
+  "Bio::Chado::Schema::Mage::Protocol",
+  { protocol_id => "protocol_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "arraydesign",
+  "Bio::Chado::Schema::Mage::Arraydesign",
+  { arraydesign_id => "arraydesign_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "assay_biomaterials",
+  "Bio::Chado::Schema::Mage::AssayBiomaterial",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "assay_projects",
+  "Bio::Chado::Schema::Mage::AssayProject",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "assayprops",
+  "Bio::Chado::Schema::Mage::Assayprop",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "controls",
+  "Bio::Chado::Schema::Mage::Control",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "study_assays",
+  "Bio::Chado::Schema::Mage::StudyAssay",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "studyfactorvalues",
+  "Bio::Chado::Schema::Mage::Studyfactorvalue",
+  { "foreign.assay_id" => "self.assay_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FEzIz5WqOsh/Rq3XcKN71g
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -19,9 +191,9 @@ An assay consists of a physical instance of
 an array, combined with the conditions used to create the array
 (protocols, technician information). The assay can be thought of as a hybridization.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("assay");
+Bio::Chado::Schema::Mage::Assay
 
 =head1 ACCESSORS
 
@@ -83,43 +255,6 @@ __PACKAGE__->table("assay");
   data_type: 'text'
   is_nullable: 1
 
-=cut
-
-__PACKAGE__->add_columns(
-  "assay_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "assay_assay_id_seq",
-  },
-  "arraydesign_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "protocol_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "assaydate",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-    original      => { default_value => \"now()" },
-  },
-  "arrayidentifier",
-  { data_type => "text", is_nullable => 1 },
-  "arraybatchidentifier",
-  { data_type => "text", is_nullable => 1 },
-  "operator_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "dbxref_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "name",
-  { data_type => "text", is_nullable => 1 },
-  "description",
-  { data_type => "text", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("assay_id");
-__PACKAGE__->add_unique_constraint("assay_c1", ["name"]);
-
 =head1 RELATIONS
 
 =head2 acquisitions
@@ -128,36 +263,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Acquisition>
 
-=cut
-
-__PACKAGE__->has_many(
-  "acquisitions",
-  "Bio::Chado::Schema::Mage::Acquisition",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 dbxref
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::General::Dbxref>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "dbxref",
-  "Bio::Chado::Schema::General::Dbxref",
-  { dbxref_id => "dbxref_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 operator
 
@@ -165,42 +275,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Contact::Contact>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "operator",
-  "Bio::Chado::Schema::Contact::Contact",
-  { contact_id => "operator_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 protocol
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Mage::Protocol>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "protocol",
-  "Bio::Chado::Schema::Mage::Protocol",
-  { protocol_id => "protocol_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 arraydesign
 
@@ -208,35 +287,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Mage::Arraydesign>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "arraydesign",
-  "Bio::Chado::Schema::Mage::Arraydesign",
-  { arraydesign_id => "arraydesign_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 assay_biomaterials
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::AssayBiomaterial>
-
-=cut
-
-__PACKAGE__->has_many(
-  "assay_biomaterials",
-  "Bio::Chado::Schema::Mage::AssayBiomaterial",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 assay_projects
 
@@ -244,29 +299,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::AssayProject>
 
-=cut
-
-__PACKAGE__->has_many(
-  "assay_projects",
-  "Bio::Chado::Schema::Mage::AssayProject",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 assayprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Assayprop>
-
-=cut
-
-__PACKAGE__->has_many(
-  "assayprops",
-  "Bio::Chado::Schema::Mage::Assayprop",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 controls
 
@@ -274,29 +311,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Control>
 
-=cut
-
-__PACKAGE__->has_many(
-  "controls",
-  "Bio::Chado::Schema::Mage::Control",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 study_assays
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::StudyAssay>
-
-=cut
-
-__PACKAGE__->has_many(
-  "study_assays",
-  "Bio::Chado::Schema::Mage::StudyAssay",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 studyfactorvalues
 
@@ -304,19 +323,16 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Studyfactorvalue>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "studyfactorvalues",
-  "Bio::Chado::Schema::Mage::Studyfactorvalue",
-  { "foreign.assay_id" => "self.assay_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FEzIz5WqOsh/Rq3XcKN71g
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

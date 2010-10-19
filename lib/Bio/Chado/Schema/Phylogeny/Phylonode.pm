@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Phylogeny::Phylonode;
+BEGIN {
+  $Bio::Chado::Schema::Phylogeny::Phylonode::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Phylogeny::Phylonode::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,180 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("phylonode");
+
+
+__PACKAGE__->add_columns(
+  "phylonode_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "phylonode_phylonode_id_seq",
+  },
+  "phylotree_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "parent_phylonode_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "left_idx",
+  { data_type => "integer", is_nullable => 0 },
+  "right_idx",
+  { data_type => "integer", is_nullable => 0 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "feature_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "label",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "distance",
+  { data_type => "double precision", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("phylonode_id");
+__PACKAGE__->add_unique_constraint("phylonode_phylotree_id_key1", ["phylotree_id", "right_idx"]);
+__PACKAGE__->add_unique_constraint("phylonode_phylotree_id_key", ["phylotree_id", "left_idx"]);
+
+
+__PACKAGE__->belongs_to(
+  "feature",
+  "Bio::Chado::Schema::Sequence::Feature",
+  { feature_id => "feature_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "parent_phylonode",
+  "Bio::Chado::Schema::Phylogeny::Phylonode",
+  { phylonode_id => "parent_phylonode_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonodes",
+  "Bio::Chado::Schema::Phylogeny::Phylonode",
+  { "foreign.parent_phylonode_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->belongs_to(
+  "phylotree",
+  "Bio::Chado::Schema::Phylogeny::Phylotree",
+  { phylotree_id => "phylotree_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonode_dbxrefs",
+  "Bio::Chado::Schema::Phylogeny::PhylonodeDbxref",
+  { "foreign.phylonode_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->might_have(
+  "phylonode_organism",
+  "Bio::Chado::Schema::Phylogeny::PhylonodeOrganism",
+  { "foreign.phylonode_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonodeprops",
+  "Bio::Chado::Schema::Phylogeny::Phylonodeprop",
+  { "foreign.phylonode_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonode_pubs",
+  "Bio::Chado::Schema::Phylogeny::PhylonodePub",
+  { "foreign.phylonode_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonode_relationship_objects",
+  "Bio::Chado::Schema::Phylogeny::PhylonodeRelationship",
+  { "foreign.object_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonode_relationship_subjects",
+  "Bio::Chado::Schema::Phylogeny::PhylonodeRelationship",
+  { "foreign.subject_id" => "self.phylonode_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Enm9XCEB+9rBuKsK1F1d0A
+
+
+__PACKAGE__->load_components(qw( Tree::NestedSet ));
+
+__PACKAGE__->tree_columns({qw{
+    root_column   phylotree_id
+    left_column   left_idx
+    right_column  right_idx
+    level_column  distance
+}});
+
+# distance is not usually reliable, so use a null parent ID to
+# determine whether something is a root node
+sub is_root { ! defined shift->parent_id }
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -20,9 +200,9 @@ This is the most pervasive
        tree graphs. Edges are implied by the parent_phylonode_id
        reflexive closure. For all nodes in a nested set implementation the left and right index will be *between* the parents left and right indexes.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("phylonode");
+Bio::Chado::Schema::Phylogeny::Phylonode
 
 =head1 ACCESSORS
 
@@ -84,37 +264,6 @@ Phylonodes can have optional features attached to them e.g. a protein or nucleot
   data_type: 'double precision'
   is_nullable: 1
 
-=cut
-
-__PACKAGE__->add_columns(
-  "phylonode_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "phylonode_phylonode_id_seq",
-  },
-  "phylotree_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "parent_phylonode_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "left_idx",
-  { data_type => "integer", is_nullable => 0 },
-  "right_idx",
-  { data_type => "integer", is_nullable => 0 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "feature_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "label",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "distance",
-  { data_type => "double precision", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("phylonode_id");
-__PACKAGE__->add_unique_constraint("phylonode_phylotree_id_key1", ["phylotree_id", "right_idx"]);
-__PACKAGE__->add_unique_constraint("phylonode_phylotree_id_key", ["phylotree_id", "left_idx"]);
-
 =head1 RELATIONS
 
 =head2 feature
@@ -123,43 +272,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Sequence::Feature>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "feature",
-  "Bio::Chado::Schema::Sequence::Feature",
-  { feature_id => "feature_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
 
 =head2 parent_phylonode
 
@@ -167,36 +284,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylonode>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "parent_phylonode",
-  "Bio::Chado::Schema::Phylogeny::Phylonode",
-  { phylonode_id => "parent_phylonode_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 phylonodes
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylonode>
-
-=cut
-
-__PACKAGE__->has_many(
-  "phylonodes",
-  "Bio::Chado::Schema::Phylogeny::Phylonode",
-  { "foreign.parent_phylonode_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phylotree
 
@@ -204,35 +296,11 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylotree>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "phylotree",
-  "Bio::Chado::Schema::Phylogeny::Phylotree",
-  { phylotree_id => "phylotree_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 phylonode_dbxrefs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodeDbxref>
-
-=cut
-
-__PACKAGE__->has_many(
-  "phylonode_dbxrefs",
-  "Bio::Chado::Schema::Phylogeny::PhylonodeDbxref",
-  { "foreign.phylonode_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phylonode_organism
 
@@ -240,29 +308,11 @@ Type: might_have
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodeOrganism>
 
-=cut
-
-__PACKAGE__->might_have(
-  "phylonode_organism",
-  "Bio::Chado::Schema::Phylogeny::PhylonodeOrganism",
-  { "foreign.phylonode_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phylonodeprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylonodeprop>
-
-=cut
-
-__PACKAGE__->has_many(
-  "phylonodeprops",
-  "Bio::Chado::Schema::Phylogeny::Phylonodeprop",
-  { "foreign.phylonode_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phylonode_pubs
 
@@ -270,48 +320,17 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodePub>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phylonode_pubs",
-  "Bio::Chado::Schema::Phylogeny::PhylonodePub",
-  { "foreign.phylonode_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phylonode_relationship_objects
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodeRelationship>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phylonode_relationship_objects",
-  "Bio::Chado::Schema::Phylogeny::PhylonodeRelationship",
-  { "foreign.object_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phylonode_relationship_subjects
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodeRelationship>
-
-=cut
-
-__PACKAGE__->has_many(
-  "phylonode_relationship_subjects",
-  "Bio::Chado::Schema::Phylogeny::PhylonodeRelationship",
-  { "foreign.subject_id" => "self.phylonode_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Enm9XCEB+9rBuKsK1F1d0A
 
 =head1 NESTEDSET OPERATIONS
 
@@ -324,20 +343,16 @@ these operations is that they cannot be chained with other resultsets.
 This shortcoming is being addressed at the level of L<DBIx::Class> and
 L<DBIx::Class::Tree::NestedSet> modules.
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->load_components(qw( Tree::NestedSet ));
-
-__PACKAGE__->tree_columns({qw{
-    root_column   phylotree_id
-    left_column   left_idx
-    right_column  right_idx
-    level_column  distance
-}});
-
-# distance is not usually reliable, so use a null parent ID to
-# determine whether something is a root node
-sub is_root { ! defined shift->parent_id }
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

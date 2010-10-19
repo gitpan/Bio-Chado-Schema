@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::NaturalDiversity::NdGeolocation;
+BEGIN {
+  $Bio::Chado::Schema::NaturalDiversity::NdGeolocation::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::NaturalDiversity::NdGeolocation::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -9,6 +15,60 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
+
+__PACKAGE__->table("nd_geolocation");
+
+
+__PACKAGE__->add_columns(
+  "nd_geolocation_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "nd_geolocation_nd_geolocation_id_seq",
+  },
+  "description",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "latitude",
+  { data_type => "real", is_nullable => 1 },
+  "longitude",
+  { data_type => "real", is_nullable => 1 },
+  "geodetic_datum",
+  { data_type => "varchar", is_nullable => 1, size => 32 },
+  "altitude",
+  { data_type => "real", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("nd_geolocation_id");
+
+
+__PACKAGE__->has_many(
+  "nd_experiments",
+  "Bio::Chado::Schema::NaturalDiversity::NdExperiment",
+  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "nd_geolocationprops",
+  "Bio::Chado::Schema::NaturalDiversity::NdGeolocationprop",
+  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SQ+EKgMKT42po3xuGLJYoA
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
 =head1 NAME
 
 Bio::Chado::Schema::NaturalDiversity::NdGeolocation
@@ -17,9 +77,9 @@ Bio::Chado::Schema::NaturalDiversity::NdGeolocation
 
 The geo-referencable location of the stock. NOTE: This entity is subject to change as a more general and possibly more OpenGIS-compliant geolocation module may be introduced into Chado.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("nd_geolocation");
+Bio::Chado::Schema::NaturalDiversity::NdGeolocation
 
 =head1 ACCESSORS
 
@@ -67,29 +127,6 @@ The geodetic system on which the geo-reference coordinates are based. For geo-re
 
 The altitude (elevation) of the location in meters. If the altitude is only known as a range, this is the average, and altitude_dev will hold half of the width of the range.
 
-=cut
-
-__PACKAGE__->add_columns(
-  "nd_geolocation_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "nd_geolocation_nd_geolocation_id_seq",
-  },
-  "description",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "latitude",
-  { data_type => "real", is_nullable => 1 },
-  "longitude",
-  { data_type => "real", is_nullable => 1 },
-  "geodetic_datum",
-  { data_type => "varchar", is_nullable => 1, size => 32 },
-  "altitude",
-  { data_type => "real", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("nd_geolocation_id");
-
 =head1 RELATIONS
 
 =head2 nd_experiments
@@ -98,34 +135,22 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::NaturalDiversity::NdExperiment>
 
-=cut
-
-__PACKAGE__->has_many(
-  "nd_experiments",
-  "Bio::Chado::Schema::NaturalDiversity::NdExperiment",
-  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 nd_geolocationprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::NaturalDiversity::NdGeolocationprop>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "nd_geolocationprops",
-  "Bio::Chado::Schema::NaturalDiversity::NdGeolocationprop",
-  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SQ+EKgMKT42po3xuGLJYoA
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

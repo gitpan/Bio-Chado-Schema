@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::General::Db;
+BEGIN {
+  $Bio::Chado::Schema::General::Db::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::General::Db::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,51 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("db");
+
+
+__PACKAGE__->add_columns(
+  "db_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "db_db_id_seq",
+  },
+  "name",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
+  "description",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "urlprefix",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "url",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+);
+__PACKAGE__->set_primary_key("db_id");
+__PACKAGE__->add_unique_constraint("db_c1", ["name"]);
+
+
+__PACKAGE__->has_many(
+  "dbxrefs",
+  "Bio::Chado::Schema::General::Dbxref",
+  { "foreign.db_id" => "self.db_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AvG6tFgJplfgw03dnthXkA
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -23,9 +74,9 @@ URNs (e.g. LSIDs). We can do this by treating the URL as a URI -
 however, some applications may expect this to be resolvable - to be
 decided.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("db");
+Bio::Chado::Schema::General::Db
 
 =head1 ACCESSORS
 
@@ -60,28 +111,6 @@ __PACKAGE__->table("db");
   is_nullable: 1
   size: 255
 
-=cut
-
-__PACKAGE__->add_columns(
-  "db_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "db_db_id_seq",
-  },
-  "name",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "description",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "urlprefix",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "url",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-);
-__PACKAGE__->set_primary_key("db_id");
-__PACKAGE__->add_unique_constraint("db_c1", ["name"]);
-
 =head1 RELATIONS
 
 =head2 dbxrefs
@@ -90,19 +119,16 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::General::Dbxref>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->has_many(
-  "dbxrefs",
-  "Bio::Chado::Schema::General::Dbxref",
-  { "foreign.db_id" => "self.db_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AvG6tFgJplfgw03dnthXkA
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

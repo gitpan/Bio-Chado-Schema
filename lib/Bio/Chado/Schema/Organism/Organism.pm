@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Organism::Organism;
+BEGIN {
+  $Bio::Chado::Schema::Organism::Organism::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Organism::Organism::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -8,6 +14,148 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+
+
+__PACKAGE__->table("organism");
+
+
+__PACKAGE__->add_columns(
+  "organism_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "organism_organism_id_seq",
+  },
+  "abbreviation",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "genus",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
+  "species",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
+  "common_name",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "comment",
+  { data_type => "text", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("organism_id");
+__PACKAGE__->add_unique_constraint("organism_c1", ["genus", "species"]);
+
+
+__PACKAGE__->has_many(
+  "biomaterials",
+  "Bio::Chado::Schema::Mage::Biomaterial",
+  { "foreign.taxon_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "cell_lines",
+  "Bio::Chado::Schema::CellLine::CellLine",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "features",
+  "Bio::Chado::Schema::Sequence::Feature",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "libraries",
+  "Bio::Chado::Schema::Library::Library",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "organism_dbxrefs",
+  "Bio::Chado::Schema::Organism::OrganismDbxref",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "organismprops",
+  "Bio::Chado::Schema::Organism::Organismprop",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phenotype_comparisons",
+  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "phylonode_organisms",
+  "Bio::Chado::Schema::Phylogeny::PhylonodeOrganism",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "stocks",
+  "Bio::Chado::Schema::Stock::Stock",
+  { "foreign.organism_id" => "self.organism_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xuk7QNRmZZZy4a0/5jInJw
+
+
+__PACKAGE__->many_to_many
+    (
+     'phylonodes',
+     'phylonode_organisms' => 'phylonode',
+    );
+
+
+__PACKAGE__->many_to_many
+    (
+     'dbxrefs',
+     'organism_dbxrefs' => 'dbxref',
+    );
+
+
+
+sub create_organismprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts ||= {};
+    $opts->{cv_name} = 'organism_property'
+        unless defined $opts->{cv_name};
+
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'organismprops',
+        );
+}
+
+
+1;
+
+__END__
+=pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -20,9 +168,9 @@ classification. Note that phylogenies are represented using the
 phylogeny module, and taxonomies can be represented using the cvterm
 module or the phylogeny module.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("organism");
+Bio::Chado::Schema::Organism::Organism
 
 =head1 ACCESSORS
 
@@ -70,30 +218,6 @@ pattern.
   data_type: 'text'
   is_nullable: 1
 
-=cut
-
-__PACKAGE__->add_columns(
-  "organism_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "organism_organism_id_seq",
-  },
-  "abbreviation",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "genus",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "species",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "common_name",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "comment",
-  { data_type => "text", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("organism_id");
-__PACKAGE__->add_unique_constraint("organism_c1", ["genus", "species"]);
-
 =head1 RELATIONS
 
 =head2 biomaterials
@@ -102,29 +226,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Mage::Biomaterial>
 
-=cut
-
-__PACKAGE__->has_many(
-  "biomaterials",
-  "Bio::Chado::Schema::Mage::Biomaterial",
-  { "foreign.taxon_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 cell_lines
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::CellLine::CellLine>
-
-=cut
-
-__PACKAGE__->has_many(
-  "cell_lines",
-  "Bio::Chado::Schema::CellLine::CellLine",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 features
 
@@ -132,29 +238,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::Feature>
 
-=cut
-
-__PACKAGE__->has_many(
-  "features",
-  "Bio::Chado::Schema::Sequence::Feature",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 libraries
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Library::Library>
-
-=cut
-
-__PACKAGE__->has_many(
-  "libraries",
-  "Bio::Chado::Schema::Library::Library",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 organism_dbxrefs
 
@@ -162,29 +250,11 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Organism::OrganismDbxref>
 
-=cut
-
-__PACKAGE__->has_many(
-  "organism_dbxrefs",
-  "Bio::Chado::Schema::Organism::OrganismDbxref",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 organismprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Organism::Organismprop>
-
-=cut
-
-__PACKAGE__->has_many(
-  "organismprops",
-  "Bio::Chado::Schema::Organism::Organismprop",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 =head2 phenotype_comparisons
 
@@ -192,48 +262,17 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Genetic::PhenotypeComparison>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phenotype_comparisons",
-  "Bio::Chado::Schema::Genetic::PhenotypeComparison",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 phylonode_organisms
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Phylogeny::PhylonodeOrganism>
 
-=cut
-
-__PACKAGE__->has_many(
-  "phylonode_organisms",
-  "Bio::Chado::Schema::Phylogeny::PhylonodeOrganism",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 stocks
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Stock::Stock>
-
-=cut
-
-__PACKAGE__->has_many(
-  "stocks",
-  "Bio::Chado::Schema::Stock::Stock",
-  { "foreign.organism_id" => "self.organism_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xuk7QNRmZZZy4a0/5jInJw
 
 =head1 MANY-TO-MANY RELATIONSHIPS
 
@@ -245,14 +284,6 @@ Returns a list of phylonodes associated with this organism.
 
 Related object: L<Bio::Chado::Schema::Phylogeny::Phylonode>
 
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'phylonodes',
-     'phylonode_organisms' => 'phylonode',
-    );
-
 =head2 dbxrefs
 
 Type: many_to_many
@@ -260,15 +291,6 @@ Type: many_to_many
 Returns a list of dbxrefs associated with the organism.
 
 Related object: L<Bio::Chado::Schema::General::Dbxref>
-
-=cut
-
-__PACKAGE__->many_to_many
-    (
-     'dbxrefs',
-     'organism_dbxrefs' => 'dbxref',
-    );
-
 
 =head1 ADDITIONAL METHODS
 
@@ -307,23 +329,16 @@ use Carp;
           }
   Ret  : hashref of { propname => new organismprop object }
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-sub create_organismprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts ||= {};
-    $opts->{cv_name} = 'organism_property'
-        unless defined $opts->{cv_name};
-
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'organismprops',
-        );
-}
-
-
-1;

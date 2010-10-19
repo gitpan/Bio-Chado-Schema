@@ -1,4 +1,10 @@
 package Bio::Chado::Schema::Cv::Cvtermprop;
+BEGIN {
+  $Bio::Chado::Schema::Cv::Cvtermprop::AUTHORITY = 'cpan:RBUELS';
+}
+BEGIN {
+  $Bio::Chado::Schema::Cv::Cvtermprop::VERSION = '0.06300';
+}
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -9,6 +15,74 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
+
+__PACKAGE__->table("cvtermprop");
+
+
+__PACKAGE__->add_columns(
+  "cvtermprop_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "cvtermprop_cvtermprop_id_seq",
+  },
+  "cvterm_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "value",
+  { data_type => "text", default_value => "", is_nullable => 0 },
+  "rank",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("cvtermprop_id");
+__PACKAGE__->add_unique_constraint(
+  "cvtermprop_cvterm_id_key",
+  ["cvterm_id", "type_id", "value", "rank"],
+);
+
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+__PACKAGE__->belongs_to(
+  "cvterm",
+  "Bio::Chado::Schema::Cv::Cvterm",
+  { cvterm_id => "cvterm_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/fsd+p3D9+5+VQgFI6FUmw
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
 =head1 NAME
 
 Bio::Chado::Schema::Cv::Cvtermprop
@@ -17,9 +91,9 @@ Bio::Chado::Schema::Cv::Cvtermprop
 
 Additional extensible properties can be attached to a cvterm using this table. Corresponds to -AnnotationProperty- in W3C OWL format.
 
-=cut
+=head1 NAME
 
-__PACKAGE__->table("cvtermprop");
+Bio::Chado::Schema::Cv::Cvtermprop
 
 =head1 ACCESSORS
 
@@ -64,31 +138,6 @@ these are ordered in a list using rank, counting from zero. For
 properties that are single-valued rather than multi-valued, the
 default 0 value should be used.
 
-=cut
-
-__PACKAGE__->add_columns(
-  "cvtermprop_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "cvtermprop_cvtermprop_id_seq",
-  },
-  "cvterm_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "value",
-  { data_type => "text", default_value => "", is_nullable => 0 },
-  "rank",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("cvtermprop_id");
-__PACKAGE__->add_unique_constraint(
-  "cvtermprop_cvterm_id_key",
-  ["cvterm_id", "type_id", "value", "rank"],
-);
-
 =head1 RELATIONS
 
 =head2 type
@@ -97,46 +146,22 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
 
-=cut
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
 =head2 cvterm
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-__PACKAGE__->belongs_to(
-  "cvterm",
-  "Bio::Chado::Schema::Cv::Cvterm",
-  { cvterm_id => "cvterm_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/fsd+p3D9+5+VQgFI6FUmw
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;

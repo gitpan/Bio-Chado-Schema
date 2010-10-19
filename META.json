@@ -1,0 +1,243 @@
+{
+   "abstract" : "A standard DBIx::Class layer for the Chado database schema.",
+   "author" : [
+      "Robert Buels <rbuels@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.102340, CPAN::Meta::Converter version 2.101670",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Bio-Chado-Schema",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.31"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Bio::PrimarySeq" : 0,
+            "Bio::Root::Version" : "1.005002",
+            "Carp" : 0,
+            "Carp::Clan" : 0,
+            "DBIx::Class" : 0,
+            "DBIx::Class::Core" : 0,
+            "DBIx::Class::ResultSet" : 0,
+            "DBIx::Class::Schema" : 0
+         }
+      },
+      "test" : {
+         "requires" : {
+            "DBD::SQLite" : "1.14",
+            "FindBin" : 0,
+            "SQL::Translator" : "0.11005",
+            "Test::Exception" : "0.27",
+            "Test::More" : "0.87"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-Bio-Chado-Schema@rt.cpan.org",
+         "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema"
+      },
+      "homepage" : "http://search.cpan.org/dist/Bio-Chado-Schema",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/rbuels/bio-chado-schema.git",
+         "web" : "http://github.com/rbuels/bio-chado-schema"
+      }
+   },
+   "version" : "0.06300",
+   "x_Dist_Zilla" : {
+      "plugins" : [
+         {
+            "class" : "Dist::Zilla::Plugin::GatherDir",
+            "name" : "@RBUELS/@Basic/GatherDir",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PruneCruft",
+            "name" : "@RBUELS/@Basic/PruneCruft",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ManifestSkip",
+            "name" : "@RBUELS/@Basic/ManifestSkip",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaYAML",
+            "name" : "@RBUELS/@Basic/MetaYAML",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::License",
+            "name" : "@RBUELS/@Basic/License",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Readme",
+            "name" : "@RBUELS/@Basic/Readme",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ExtraTests",
+            "name" : "@RBUELS/@Basic/ExtraTests",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ExecDir",
+            "name" : "@RBUELS/@Basic/ExecDir",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ShareDir",
+            "name" : "@RBUELS/@Basic/ShareDir",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MakeMaker",
+            "name" : "@RBUELS/@Basic/MakeMaker",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Manifest",
+            "name" : "@RBUELS/@Basic/Manifest",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::TestRelease",
+            "name" : "@RBUELS/@Basic/TestRelease",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::ConfirmRelease",
+            "name" : "@RBUELS/@Basic/ConfirmRelease",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::UploadToCPAN",
+            "name" : "@RBUELS/@Basic/UploadToCPAN",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaConfig",
+            "name" : "@RBUELS/MetaConfig",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaJSON",
+            "name" : "@RBUELS/MetaJSON",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PkgVersion",
+            "name" : "@RBUELS/PkgVersion",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
+            "name" : "@RBUELS/PodSyntaxTests",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::NoTabsTests",
+            "name" : "@RBUELS/NoTabsTests",
+            "version" : "0.01"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PodCoverageTests",
+            "name" : "@RBUELS/PodCoverageTests",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaResources",
+            "name" : "@RBUELS/MetaResources",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Authority",
+            "name" : "@RBUELS/Authority",
+            "version" : "1.000"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::EOLTests",
+            "name" : "@RBUELS/EOLTests",
+            "version" : "0.02"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PodWeaver",
+            "name" : "@RBUELS/PodWeaver",
+            "version" : "3.101640"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::AutoPrereq",
+            "name" : "@RBUELS/AutoPrereq",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::NextRelease",
+            "name" : "@RBUELS/NextRelease",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereq",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "runtime",
+                  "type" : "requires"
+               }
+            },
+            "name" : "Prereq",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereq",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "test",
+                  "type" : "requires"
+               }
+            },
+            "name" : "TestRequires",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::FinderCode",
+            "name" : ":InstallModules",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::FinderCode",
+            "name" : ":TestFiles",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::FinderCode",
+            "name" : ":ExecFiles",
+            "version" : "4.102340"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::FinderCode",
+            "name" : ":ShareFiles",
+            "version" : "4.102340"
+         }
+      ],
+      "zilla" : {
+         "class" : "Dist::Zilla::Dist::Builder",
+         "config" : {
+            "is_trial" : 0
+         },
+         "version" : "4.102340"
+      }
+   },
+   "x_authority" : "cpan:RBUELS"
+}
+

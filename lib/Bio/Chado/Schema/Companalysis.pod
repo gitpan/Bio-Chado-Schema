@@ -1,3 +1,17 @@
+package Bio::Chado::Schema::Companalysis;
+
+
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Bio::Chado::Schema::Companalysis
+
 =head1 NAME
 
 Bio::Chado::Schema::Companalysis - Augments sequence module with descriptions of computational
@@ -23,4 +37,16 @@ L<Bio::Chado::Schema::Companalysis::Analysisfeatureprop>
 
 L<Bio::Chado::Schema::Companalysis::Analysisprop>
 
+=head1 AUTHOR
+
+Robert Buels <rbuels@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Robert Buels.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
