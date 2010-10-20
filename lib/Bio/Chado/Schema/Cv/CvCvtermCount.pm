@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::CvCvtermCount::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::CvCvtermCount::VERSION = '0.06301';
+  $Bio::Chado::Schema::Cv::CvCvtermCount::VERSION = '0.06302';
 }
 
 # Created by DBIx::Class::Schema::Loader

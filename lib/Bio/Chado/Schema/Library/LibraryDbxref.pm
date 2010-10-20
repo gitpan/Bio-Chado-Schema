@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Library::LibraryDbxref::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Library::LibraryDbxref::VERSION = '0.06301';
+  $Bio::Chado::Schema::Library::LibraryDbxref::VERSION = '0.06302';
 }
 
 # Created by DBIx::Class::Schema::Loader

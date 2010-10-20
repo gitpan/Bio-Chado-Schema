@@ -48,14 +48,14 @@
          "mailto" : "bug-Bio-Chado-Schema@rt.cpan.org",
          "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema"
       },
-      "homepage" : "http://search.cpan.org/dist/Bio-Chado-Schema",
+      "homepage" : "http://gmod.org/wiki/Bio::Chado::Schema",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/rbuels/bio-chado-schema.git",
          "web" : "http://github.com/rbuels/bio-chado-schema"
       }
    },
-   "version" : "0.06301",
+   "version" : "0.06302",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
