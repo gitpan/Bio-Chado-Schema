@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Library::LibraryCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Library::LibraryCvterm::VERSION = '0.06300';
+  $Bio::Chado::Schema::Library::LibraryCvterm::VERSION = '0.06301';
 }
 
 # Created by DBIx::Class::Schema::Loader

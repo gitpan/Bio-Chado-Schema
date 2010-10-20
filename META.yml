@@ -26,11 +26,12 @@ requires:
   DBIx::Class::Core: 0
   DBIx::Class::ResultSet: 0
   DBIx::Class::Schema: 0
+  DBIx::Class::Tree::NestedSet: 0.07
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://search.cpan.org/dist/Bio-Chado-Schema
   repository: git://github.com/rbuels/bio-chado-schema.git
-version: 0.06300
+version: 0.06301
 x_Dist_Zilla:
   plugins:
     -

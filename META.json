@@ -28,7 +28,8 @@
             "DBIx::Class" : 0,
             "DBIx::Class::Core" : 0,
             "DBIx::Class::ResultSet" : 0,
-            "DBIx::Class::Schema" : 0
+            "DBIx::Class::Schema" : 0,
+            "DBIx::Class::Tree::NestedSet" : "0.07"
          }
       },
       "test" : {
@@ -54,7 +55,7 @@
          "web" : "http://github.com/rbuels/bio-chado-schema"
       }
    },
-   "version" : "0.06300",
+   "version" : "0.06301",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
