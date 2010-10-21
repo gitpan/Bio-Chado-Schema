@@ -1,9 +1,9 @@
-package Bio::Chado::Schema::CellLine::CellLineprop;
+package Bio::Chado::Schema::Stock::StockDbxrefprop;
 BEGIN {
-  $Bio::Chado::Schema::CellLine::CellLineprop::AUTHORITY = 'cpan:RBUELS';
+  $Bio::Chado::Schema::Stock::StockDbxrefprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::CellLine::CellLineprop::VERSION = '0.06400';
+  $Bio::Chado::Schema::Stock::StockDbxrefprop::VERSION = '0.06400';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -16,18 +16,18 @@ use base 'DBIx::Class::Core';
 
 
 
-__PACKAGE__->table("cell_lineprop");
+__PACKAGE__->table("stock_dbxrefprop");
 
 
 __PACKAGE__->add_columns(
-  "cell_lineprop_id",
+  "stock_dbxrefprop_id",
   {
     data_type         => "integer",
     is_auto_increment => 1,
     is_nullable       => 0,
-    sequence          => "cell_lineprop_cell_lineprop_id_seq",
+    sequence          => "stock_dbxrefprop_stock_dbxrefprop_id_seq",
   },
-  "cell_line_id",
+  "stock_dbxref_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "type_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
@@ -36,8 +36,22 @@ __PACKAGE__->add_columns(
   "rank",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("cell_lineprop_id");
-__PACKAGE__->add_unique_constraint("cell_lineprop_c1", ["cell_line_id", "type_id", "rank"]);
+__PACKAGE__->set_primary_key("stock_dbxrefprop_id");
+__PACKAGE__->add_unique_constraint("stock_dbxrefprop_c1", ["stock_dbxref_id", "type_id", "rank"]);
+
+
+__PACKAGE__->belongs_to(
+  "stock_dbxref",
+  "Bio::Chado::Schema::Stock::StockDbxref",
+  { stock_dbxref_id => "stock_dbxref_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 
 __PACKAGE__->belongs_to(
@@ -54,30 +68,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-__PACKAGE__->belongs_to(
-  "cell_line",
-  "Bio::Chado::Schema::CellLine::CellLine",
-  { cell_line_id => "cell_line_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->has_many(
-  "cell_lineprop_pubs",
-  "Bio::Chado::Schema::CellLine::CellLinepropPub",
-  { "foreign.cell_lineprop_id" => "self.cell_lineprop_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PwHGgaXSALqaObHUSssKLg
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2010-10-20 20:21:16
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zyLUktYkU3gAmS8ALhvI7w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -90,22 +82,30 @@ __END__
 
 =head1 NAME
 
-Bio::Chado::Schema::CellLine::CellLineprop
+Bio::Chado::Schema::Stock::StockDbxrefprop
+
+=head1 DESCRIPTION
+
+A stock_dbxref can have any number of
+slot-value property tags attached to it. This is useful for storing properties related to dbxref annotations of stocks, such as evidence codes, and references, and metadata, such as create/modify dates. This is an alternative to
+hardcoding a list of columns in the relational schema, and is
+completely extensible. There is a unique constraint, stock_dbxrefprop_c1, for
+the combination of stock_dbxref_id, rank, and type_id. Multivalued property-value pairs must be differentiated by rank.
 
 =head1 NAME
 
-Bio::Chado::Schema::CellLine::CellLineprop
+Bio::Chado::Schema::Stock::StockDbxrefprop
 
 =head1 ACCESSORS
 
-=head2 cell_lineprop_id
+=head2 stock_dbxrefprop_id
 
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
-  sequence: 'cell_lineprop_cell_lineprop_id_seq'
+  sequence: 'stock_dbxrefprop_stock_dbxrefprop_id_seq'
 
-=head2 cell_line_id
+=head2 stock_dbxref_id
 
   data_type: 'integer'
   is_foreign_key: 1
@@ -130,23 +130,17 @@ Bio::Chado::Schema::CellLine::CellLineprop
 
 =head1 RELATIONS
 
+=head2 stock_dbxref
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Stock::StockDbxref>
+
 =head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Cv::Cvterm>
-
-=head2 cell_line
-
-Type: belongs_to
-
-Related object: L<Bio::Chado::Schema::CellLine::CellLine>
-
-=head2 cell_lineprop_pubs
-
-Type: has_many
-
-Related object: L<Bio::Chado::Schema::CellLine::CellLinepropPub>
 
 =head1 AUTHOR
 

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::Cvtermpath::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::Cvtermpath::VERSION = '0.06302';
+  $Bio::Chado::Schema::Cv::Cvtermpath::VERSION = '0.06400';
 }
 
 # Created by DBIx::Class::Schema::Loader

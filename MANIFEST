@@ -275,6 +275,7 @@ lib/Bio/Chado/Schema/Stock.pod
 lib/Bio/Chado/Schema/Stock/Stock.pm
 lib/Bio/Chado/Schema/Stock/StockCvterm.pm
 lib/Bio/Chado/Schema/Stock/StockDbxref.pm
+lib/Bio/Chado/Schema/Stock/StockDbxrefprop.pm
 lib/Bio/Chado/Schema/Stock/StockGenotype.pm
 lib/Bio/Chado/Schema/Stock/StockPub.pm
 lib/Bio/Chado/Schema/Stock/StockRelationship.pm

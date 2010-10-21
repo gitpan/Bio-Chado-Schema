@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Sequence::Cvtermsynonym::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Sequence::Cvtermsynonym::VERSION = '0.06302';
+  $Bio::Chado::Schema::Sequence::Cvtermsynonym::VERSION = '0.06400';
 }
 
 use strict;

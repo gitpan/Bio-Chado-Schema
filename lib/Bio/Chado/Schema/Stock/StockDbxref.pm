@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Stock::StockDbxref::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Stock::StockDbxref::VERSION = '0.06302';
+  $Bio::Chado::Schema::Stock::StockDbxref::VERSION = '0.06400';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -66,8 +66,16 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UcMQUHTJ0NIeXTOM3xtIaA
+__PACKAGE__->has_many(
+  "stock_dbxrefprops",
+  "Bio::Chado::Schema::Stock::StockDbxrefprop",
+  { "foreign.stock_dbxref_id" => "self.stock_dbxref_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2010-10-20 20:21:16
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:inK7WMGbO8MNI+M2xYrRfw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -132,6 +140,12 @@ Related object: L<Bio::Chado::Schema::General::Dbxref>
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Stock::Stock>
+
+=head2 stock_dbxrefprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Stock::StockDbxrefprop>
 
 =head1 AUTHOR
 

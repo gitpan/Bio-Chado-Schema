@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Companalysis::Analysisprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Companalysis::Analysisprop::VERSION = '0.06302';
+  $Bio::Chado::Schema::Companalysis::Analysisprop::VERSION = '0.06400';
 }
 
 # Created by DBIx::Class::Schema::Loader

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Mage::StudypropFeature::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Mage::StudypropFeature::VERSION = '0.06302';
+  $Bio::Chado::Schema::Mage::StudypropFeature::VERSION = '0.06400';
 }
 
 # Created by DBIx::Class::Schema::Loader
