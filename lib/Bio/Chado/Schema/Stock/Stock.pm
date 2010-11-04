@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Stock::Stock::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Stock::Stock::VERSION = '0.06400';
+  $Bio::Chado::Schema::Stock::Stock::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -340,7 +340,7 @@ Related object: L<Bio::Chado::Schema::Stock::StockRelationship>
 =head2 create_stockprops
 
   Usage: $set->create_stockprops({ baz => 2, foo => 'bar' });
-  Desc : convenience method to create stock properties using stocks
+  Desc : convenience method to create stock properties using cvterms
           from the ontology with the given name
   Args : hashref of { propname => value, ...},
          options hashref as:
@@ -359,9 +359,9 @@ Related object: L<Bio::Chado::Schema::Stock::StockRelationship>
             dbxref_accession_prefix => optional, default
                                        'autocreated:',
             definitions => optional hashref of:
-                { stock_name => definition,
+                { cvterm_name => definition,
                 }
-             to load into the stock table when autocreating stocks
+             to load into the cvterm table when autocreating cvterms
 
              rank => force numeric rank. Be careful not to pass ranks that already exist
                      for the property type. The function will die in such case.

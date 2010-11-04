@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Project::Project::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Project::Project::VERSION = '0.06400';
+  $Bio::Chado::Schema::Project::Project::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -96,6 +96,21 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Na5ci/BXIaIn8CMtMuOjug
 
 
+
+sub create_projectprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'project_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'projectprops',
+        );
+}
+
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;
 
@@ -176,6 +191,42 @@ Related object: L<Bio::Chado::Schema::Project::ProjectRelationship>
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Project::ProjectRelationship>
+
+=head2 create_projectprops
+
+  Usage: $set->create_projectprops({ baz => 2, foo => 'bar' });
+  Desc : convenience method to create project properties using cvterms
+          from the ontology with the given name
+  Args : hashref of { propname => value, ...},
+         options hashref as:
+          {
+            autocreate => 0,
+               (optional) boolean, if passed, automatically create cv,
+               cvterm, and dbxref rows if one cannot be found for the
+               given projectprop name.  Default false.
+
+            cv_name => cv.name to use for the given projectprops.
+                       Defaults to 'project_property',
+
+            db_name => db.name to use for autocreated dbxrefs,
+                       default 'null',
+
+            dbxref_accession_prefix => optional, default
+                                       'autocreated:',
+            definitions => optional hashref of:
+                { cvterm_name => definition,
+                }
+             to load into the cvterm table when autocreating cvterms
+
+             rank => force numeric rank. Be careful not to pass ranks that already exist
+                     for the property type. The function will die in such case.
+
+             allow_duplicate_values => default false.
+                If true, allow duplicate instances of the same cvterm
+                and value in the properties of the project.  Duplicate
+                values will have different ranks.
+          }
+  Ret  : hashref of { propname => new projectprop object }
 
 =head1 AUTHOR
 

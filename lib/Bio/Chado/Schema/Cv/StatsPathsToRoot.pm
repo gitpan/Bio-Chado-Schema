@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::StatsPathsToRoot::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::StatsPathsToRoot::VERSION = '0.06400';
+  $Bio::Chado::Schema::Cv::StatsPathsToRoot::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader

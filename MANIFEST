@@ -293,9 +293,6 @@ t/010_organism.t
 t/Cv/010_cvterm.t
 t/Phylogeny/phylonode.t
 t/Sequence/010_feature.t
-t/lib/BCSTest.pm
-t/lib/BCSTest/Schema.pm
-t/lib/DbicChadoTest.pm
 t/lib/sqlite.sql
 t/release-eol.t
 t/release-no-tabs.t

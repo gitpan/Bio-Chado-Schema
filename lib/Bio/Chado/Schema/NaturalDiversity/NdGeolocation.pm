@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::NaturalDiversity::NdGeolocation::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::NaturalDiversity::NdGeolocation::VERSION = '0.06400';
+  $Bio::Chado::Schema::NaturalDiversity::NdGeolocation::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -59,6 +59,22 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SQ+EKgMKT42po3xuGLJYoA
+
+
+
+sub create_geolocationprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'geolocation_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'nd_geolocationprops',
+        );
+}
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -140,6 +156,42 @@ Related object: L<Bio::Chado::Schema::NaturalDiversity::NdExperiment>
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::NaturalDiversity::NdGeolocationprop>
+
+=head2 create_geolocationprops
+
+  Usage: $set->create_geolocationprops({ baz => 2, foo => 'bar' });
+  Desc : convenience method to create geolocation properties using cvterms
+          from the ontology with the given name
+  Args : hashref of { propname => value, ...},
+         options hashref as:
+          {
+            autocreate => 0,
+               (optional) boolean, if passed, automatically create cv,
+               cvterm, and dbxref rows if one cannot be found for the
+               given geolocationprop name.  Default false.
+
+            cv_name => cv.name to use for the given geolocationprops.
+                       Defaults to 'geolocation_property',
+
+            db_name => db.name to use for autocreated dbxrefs,
+                       default 'null',
+
+            dbxref_accession_prefix => optional, default
+                                       'autocreated:',
+            definitions => optional hashref of:
+                { cvterm_name => definition,
+                }
+             to load into the cvterm table when autocreating cvterms
+
+             rank => force numeric rank. Be careful not to pass ranks that already exist
+                     for the property type. The function will die in such case.
+
+             allow_duplicate_values => default false.
+                If true, allow duplicate instances of the same geolocation
+                and value in the properties of the geolocation.  Duplicate
+                values will have different ranks.
+          }
+  Ret  : hashref of { propname => new geolocationprop object }
 
 =head1 AUTHOR
 

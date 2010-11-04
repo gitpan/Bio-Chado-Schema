@@ -31,7 +31,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: git://github.com/rbuels/bio-chado-schema.git
-version: 0.06400
+version: 0.07000
 x_Dist_Zilla:
   plugins:
     -
@@ -139,15 +139,15 @@ x_Dist_Zilla:
       name: '@RBUELS/NextRelease'
       version: 4.102340
     -
-      class: Dist::Zilla::Plugin::Prereq
+      class: Dist::Zilla::Plugin::Prereqs
       config:
         Dist::Zilla::Plugin::Prereqs:
           phase: runtime
           type: requires
-      name: Prereq
+      name: Prereqs
       version: 4.102340
     -
-      class: Dist::Zilla::Plugin::Prereq
+      class: Dist::Zilla::Plugin::Prereqs
       config:
         Dist::Zilla::Plugin::Prereqs:
           phase: test
@@ -173,6 +173,6 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 0
+      is_trial: 1
     version: 4.102340
 x_authority: cpan:RBUELS

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::CellLine::CellLineCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::CellLine::CellLineCvterm::VERSION = '0.06400';
+  $Bio::Chado::Schema::CellLine::CellLineCvterm::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader

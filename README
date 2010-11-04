@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution Bio-Chado-Schema,
-version 0.06400:
+version 0.07000:
 
   A standard DBIx::Class layer for the Chado database schema.
 

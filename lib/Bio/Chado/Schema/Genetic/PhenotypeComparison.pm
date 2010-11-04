@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Genetic::PhenotypeComparison::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Genetic::PhenotypeComparison::VERSION = '0.06400';
+  $Bio::Chado::Schema::Genetic::PhenotypeComparison::VERSION = '0.07000';
 }
 
 # Created by DBIx::Class::Schema::Loader
