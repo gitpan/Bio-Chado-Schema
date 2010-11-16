@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Genetic::Phenstatement::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Genetic::Phenstatement::VERSION = '0.07000';
+  $Bio::Chado::Schema::Genetic::Phenstatement::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader

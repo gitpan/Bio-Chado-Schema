@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::CommonAncestorCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::CommonAncestorCvterm::VERSION = '0.07000';
+  $Bio::Chado::Schema::Cv::CommonAncestorCvterm::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader

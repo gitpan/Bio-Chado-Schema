@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::VERSION = '0.07000';
+  $Bio::Chado::Schema::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -37,7 +37,7 @@ BEGIN {
   $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Util::VERSION = '0.07000';
+  $Bio::Chado::Schema::Util::VERSION = '0.07100';
 }
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
@@ -191,7 +191,7 @@ BEGIN {
   $Bio::Chado::Schema::Test::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Test::VERSION = '0.07000';
+  $Bio::Chado::Schema::Test::VERSION = '0.07100';
 }
 use strict;
 use warnings;

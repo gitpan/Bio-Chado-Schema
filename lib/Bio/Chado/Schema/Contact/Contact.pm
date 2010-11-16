@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Contact::Contact::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Contact::Contact::VERSION = '0.07000';
+  $Bio::Chado::Schema::Contact::Contact::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader

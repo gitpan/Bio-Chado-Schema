@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Composite::Dfeatureloc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Composite::Dfeatureloc::VERSION = '0.07000';
+  $Bio::Chado::Schema::Composite::Dfeatureloc::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader

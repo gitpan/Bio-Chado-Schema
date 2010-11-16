@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Phylogeny::PhylonodeOrganism::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Phylogeny::PhylonodeOrganism::VERSION = '0.07000';
+  $Bio::Chado::Schema::Phylogeny::PhylonodeOrganism::VERSION = '0.07100';
 }
 
 # Created by DBIx::Class::Schema::Loader
