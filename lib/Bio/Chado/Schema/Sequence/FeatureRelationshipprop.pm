@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Sequence::FeatureRelationshipprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Sequence::FeatureRelationshipprop::VERSION = '0.07100';
+  $Bio::Chado::Schema::Sequence::FeatureRelationshipprop::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Sequence::Feature::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Sequence::Feature::VERSION = '0.07100';
+  $Bio::Chado::Schema::Sequence::Feature::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -415,6 +415,52 @@ use base qw/ Bio::PrimarySeq /;
 { no warnings 'once';
   *seq  = \&residues;
 }
+
+
+sub subseq {
+    my $self = shift;
+
+    # use the normal subseq if normal residues
+    if( $self->residues ) {
+        local $self->{seq} = $self->residues; #< stupid hack for Bio::PrimarySeq's subseq to work
+        return $self->SUPER::subseq( @_ );
+    }
+
+    my ( $start, $end ) = @_;
+    croak "must provide start, end to subseq" unless $start;
+    croak "subseq() on large_residues only supports ( $start, $end ) calling style"
+        if ref $start || !$end;
+
+    my $length = $end - $start + 1;
+    return '' unless $length > 0;
+
+    return
+        $self->result_source
+             ->schema
+             ->resultset('Cv::Cvterm')
+             ->search({ name => 'large_residues' })
+             ->search_related( 'featureprops', { feature_id => $self->feature_id } )
+             ->search(
+                 undef,
+                 { select => { substr => [ 'featureprops.value', $start, $length ] },
+                   as  => 'mysubstring',
+                 }
+                )
+             ->get_column('mysubstring')
+             ->single;
+}
+
+
+sub trunc {
+    my $self = shift;
+
+    return Bio::PrimarySeq->new(
+        -id  => $self->name,
+        -seq => $self->subseq( @_ ),
+       );
+}
+
+
 
 
 sub accession_number {
@@ -937,6 +983,25 @@ feature.name field
 =head2 seq
 
   Alias for $feature->residues()
+
+=head2 subseq( $start, $end )
+
+Same as Bio::PrimarySeq subseq method, with one important exception.
+If the residues column is not set (null) for this feature, it checks
+for a featureprop of type C<large_residues> (irrespective of the
+type's CV membership), and uses its value as the sequence if
+it is present.
+
+So, you can store large (i.e. megabase or greater) sequences in a
+C<large_residues> featureprop, and use this C<subseq()> method to
+fetch pieces of them, with the sequences never being entirely stored
+in memory or transferred in total from the database server to the app
+server.  This is implemented behind the scenes by using SQL substring
+operations on the featureprop's value.
+
+=head2 trunc
+
+Same as subseq above, but return a sequence object rather than a bare string.
 
 =head2 accession, accession_number
 

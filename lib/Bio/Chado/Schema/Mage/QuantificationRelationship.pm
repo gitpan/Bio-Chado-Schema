@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Mage::QuantificationRelationship::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Mage::QuantificationRelationship::VERSION = '0.07100';
+  $Bio::Chado::Schema::Mage::QuantificationRelationship::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader

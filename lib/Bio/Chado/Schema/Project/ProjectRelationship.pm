@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Project::ProjectRelationship::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Project::ProjectRelationship::VERSION = '0.07100';
+  $Bio::Chado::Schema::Project::ProjectRelationship::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader

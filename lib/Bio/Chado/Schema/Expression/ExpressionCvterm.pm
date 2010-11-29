@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Expression::ExpressionCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Expression::ExpressionCvterm::VERSION = '0.07100';
+  $Bio::Chado::Schema::Expression::ExpressionCvterm::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::Cvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::Cvterm::VERSION = '0.07100';
+  $Bio::Chado::Schema::Cv::Cvterm::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -1156,7 +1156,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::Cvterm::ResultSet::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::Cvterm::ResultSet::VERSION = '0.07100';
+  $Bio::Chado::Schema::Cv::Cvterm::ResultSet::VERSION = '0.07300';
 }
 use base qw/ DBIx::Class::ResultSet /;
 

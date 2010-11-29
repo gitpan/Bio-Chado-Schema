@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Sequence::Featureloc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Sequence::Featureloc::VERSION = '0.07100';
+  $Bio::Chado::Schema::Sequence::Featureloc::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -93,6 +93,14 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VED7G1XykKNri3GIOYY5NQ
+
+
+
+sub length {
+    my $self = shift;
+    no warnings 'uninitialized';
+    return $self->fmax - $self->fmin;
+}
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -287,6 +295,12 @@ Related object: L<Bio::Chado::Schema::Sequence::Feature>
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Sequence::FeaturelocPub>
+
+=head2 length
+
+Read-only.  Number of bases spanned by this featureloc.
+
+Equal to C<fmax - fmin> (since coords are interbase).
 
 =head1 AUTHOR
 

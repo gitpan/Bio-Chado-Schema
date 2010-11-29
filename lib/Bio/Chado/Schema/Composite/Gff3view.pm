@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Composite::Gff3view::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Composite::Gff3view::VERSION = '0.07100';
+  $Bio::Chado::Schema::Composite::Gff3view::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader

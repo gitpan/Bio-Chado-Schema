@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Cv::CvLinkCount::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Cv::CvLinkCount::VERSION = '0.07100';
+  $Bio::Chado::Schema::Cv::CvLinkCount::VERSION = '0.07300';
 }
 
 # Created by DBIx::Class::Schema::Loader
