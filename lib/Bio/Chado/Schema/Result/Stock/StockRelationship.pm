@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockRelationship::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockRelationship::VERSION = '0.08000'; # TRIAL
+  $Bio::Chado::Schema::Result::Stock::StockRelationship::VERSION = '0.08001'; # TRIAL
 }
 
 # Created by DBIx::Class::Schema::Loader

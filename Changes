@@ -1,4 +1,4 @@
-0.08000   2011-02-15 17:15:09 America/Los_Angeles
+0.08001   2011-02-16 12:30:05 America/Los_Angeles
 
  * Added support for new cvprop table.
  * Added plugin_add_relationship class method to Bio::Chado::Schema
