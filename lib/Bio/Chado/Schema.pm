@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::VERSION = '0.07300';
+  $Bio::Chado::Schema::VERSION = '0.08000'; # TRIAL
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -14,11 +14,28 @@ use warnings;
 
 use base 'DBIx::Class::Schema';
 
-__PACKAGE__->load_classes;
+__PACKAGE__->load_namespaces;
 
 
 # Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
+
+
+{
+    my @after_load;
+    $_->() for @after_load; #< note that this executes after load_classes above
+
+    sub plugin_add_relationship {
+        my ( $class, $target_moniker, $reltype, @args ) = @_;
+
+        push @after_load, sub {
+            no strict 'refs';
+            my $target_class = $class->class( $target_moniker );
+            $target_class->$reltype( @args );
+            __PACKAGE__->register_class( $target_moniker => $target_class );
+        };
+    }
+}
 
 
 
@@ -37,7 +54,7 @@ BEGIN {
   $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Util::VERSION = '0.07300';
+  $Bio::Chado::Schema::Util::VERSION = '0.08000'; # TRIAL
 }
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
@@ -191,7 +208,7 @@ BEGIN {
   $Bio::Chado::Schema::Test::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Test::VERSION = '0.07300';
+  $Bio::Chado::Schema::Test::VERSION = '0.08000'; # TRIAL
 }
 use strict;
 use warnings;
@@ -377,6 +394,36 @@ L<Bio::Chado::Schema::Sequence>
 
 L<Bio::Chado::Schema::Stock>
 
+=head1 CLASS METHODS
+
+=head2 plugin_add_relationship( 'ChadoModule::SourceName', 'reltype', @args )
+
+Sometimes application-specific plugins need to add relationships to
+the core BCS classes.  It can't just be done normally from inside the
+classes of the plugins, you need to use this method.
+
+Example: Bio::Chado::Schema::Result::MyApp::SpecialThing belongs_to
+the core BCS Organism::Organism, and you would like to be able to call
+C<$organism-&gt;myapp_specialthings> on organisms to get their
+associated SpecialThings.
+
+    package Bio::Chado::Schema::MyApp::Result::SpecialThing;
+
+    # ( do table and column definitions and so forth here )
+
+    Bio::Chado::Schema->plugin_add_relationship(
+        'Organism::Organism', 'has_many', (
+            "myapp_specialthings",
+            "Bio::Chado::Schema::MyApp::Result::Foo",
+            { "foreign.organism_id" => "self.organism_id" },
+            { cascade_copy => 0, cascade_delete => 0 },
+        );
+    );
+
+=head1 AUTHOR
+
+Robert Buels, <rmb32@cornell.edu>
+
 =head1 CONTRIBUTORS
 
 Aureliano Bombarely, <ab782@cornell.edu>
@@ -384,10 +431,6 @@ Aureliano Bombarely, <ab782@cornell.edu>
 Naama Menda, <nm249@cornell.edu>
 
 Jonathan "Duke" Leto, <jonathan@leto.net>
-
-=head1 AUTHOR
-
-Robert Buels, <rmb32@cornell.edu>
 
 =head1 COPYRIGHT & LICENSE
 
@@ -445,7 +488,7 @@ Robert Buels <rbuels@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Robert Buels.
+This software is copyright (c) 2011 by Robert Buels.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

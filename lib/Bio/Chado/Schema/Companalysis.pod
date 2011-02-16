@@ -1,4 +1,4 @@
-package Bio::Chado::Schema::Companalysis;
+package Bio::Chado::Schema::Result::Companalysis;
 
 
 1;
@@ -10,11 +10,11 @@ __END__
 
 =head1 NAME
 
-Bio::Chado::Schema::Companalysis
+Bio::Chado::Schema::Result::Companalysis
 
 =head1 NAME
 
-Bio::Chado::Schema::Companalysis - Augments sequence module with descriptions of computational
+Bio::Chado::Schema::Result::Companalysis - Augments sequence module with descriptions of computational
 analyses and features resulting from those analyses
 
 =head1 CHADO MODULE
@@ -29,13 +29,13 @@ These classes are part of the L<Bio::Chado::Schema> distribution.
 Below is a list of classes in this module of Chado.  Each of the
 classes below corresponds to a single Chado table or view.
 
-L<Bio::Chado::Schema::Companalysis::Analysis>
+L<Bio::Chado::Schema::Result::Companalysis::Analysis>
 
-L<Bio::Chado::Schema::Companalysis::Analysisfeature>
+L<Bio::Chado::Schema::Result::Companalysis::Analysisfeature>
 
-L<Bio::Chado::Schema::Companalysis::Analysisfeatureprop>
+L<Bio::Chado::Schema::Result::Companalysis::Analysisfeatureprop>
 
-L<Bio::Chado::Schema::Companalysis::Analysisprop>
+L<Bio::Chado::Schema::Result::Companalysis::Analysisprop>
 
 =head1 AUTHOR
 
@@ -43,7 +43,7 @@ Robert Buels <rbuels@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Robert Buels.
+This software is copyright (c) 2011 by Robert Buels.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

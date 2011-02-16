@@ -11,7 +11,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.102340, CPAN::Meta::Converter version 2.101670'
+generated_by: 'Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.110390'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -31,113 +31,109 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: git://github.com/rbuels/bio-chado-schema.git
-version: 0.07300
+version: 0.08000
 x_Dist_Zilla:
   plugins:
     -
       class: Dist::Zilla::Plugin::GatherDir
-      name: '@RBUELS/@Basic/GatherDir'
-      version: 4.102340
+      name: '@Filter/@Basic/GatherDir'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::PruneCruft
-      name: '@RBUELS/@Basic/PruneCruft'
-      version: 4.102340
+      name: '@Filter/@Basic/PruneCruft'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::ManifestSkip
-      name: '@RBUELS/@Basic/ManifestSkip'
-      version: 4.102340
+      name: '@Filter/@Basic/ManifestSkip'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::MetaYAML
-      name: '@RBUELS/@Basic/MetaYAML'
-      version: 4.102340
+      name: '@Filter/@Basic/MetaYAML'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::License
-      name: '@RBUELS/@Basic/License'
-      version: 4.102340
-    -
-      class: Dist::Zilla::Plugin::Readme
-      name: '@RBUELS/@Basic/Readme'
-      version: 4.102340
+      name: '@Filter/@Basic/License'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::ExtraTests
-      name: '@RBUELS/@Basic/ExtraTests'
-      version: 4.102340
+      name: '@Filter/@Basic/ExtraTests'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::ExecDir
-      name: '@RBUELS/@Basic/ExecDir'
-      version: 4.102340
+      name: '@Filter/@Basic/ExecDir'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::ShareDir
-      name: '@RBUELS/@Basic/ShareDir'
-      version: 4.102340
+      name: '@Filter/@Basic/ShareDir'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::MakeMaker
-      name: '@RBUELS/@Basic/MakeMaker'
-      version: 4.102340
+      name: '@Filter/@Basic/MakeMaker'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::Manifest
-      name: '@RBUELS/@Basic/Manifest'
-      version: 4.102340
+      name: '@Filter/@Basic/Manifest'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::TestRelease
-      name: '@RBUELS/@Basic/TestRelease'
-      version: 4.102340
+      name: '@Filter/@Basic/TestRelease'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
-      name: '@RBUELS/@Basic/ConfirmRelease'
-      version: 4.102340
+      name: '@Filter/@Basic/ConfirmRelease'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
-      name: '@RBUELS/@Basic/UploadToCPAN'
-      version: 4.102340
+      name: '@Filter/@Basic/UploadToCPAN'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::MetaConfig
-      name: '@RBUELS/MetaConfig'
-      version: 4.102340
+      name: '@Filter/MetaConfig'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::MetaJSON
-      name: '@RBUELS/MetaJSON'
-      version: 4.102340
+      name: '@Filter/MetaJSON'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::PkgVersion
-      name: '@RBUELS/PkgVersion'
-      version: 4.102340
+      name: '@Filter/PkgVersion'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
-      name: '@RBUELS/PodSyntaxTests'
-      version: 4.102340
+      name: '@Filter/PodSyntaxTests'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::NoTabsTests
-      name: '@RBUELS/NoTabsTests'
+      name: '@Filter/NoTabsTests'
       version: 0.01
     -
       class: Dist::Zilla::Plugin::PodCoverageTests
-      name: '@RBUELS/PodCoverageTests'
-      version: 4.102340
+      name: '@Filter/PodCoverageTests'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::MetaResources
-      name: '@RBUELS/MetaResources'
-      version: 4.102340
+      name: '@Filter/MetaResources'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::Authority
-      name: '@RBUELS/Authority'
-      version: 1.000
+      name: '@Filter/Authority'
+      version: 1.003
     -
       class: Dist::Zilla::Plugin::EOLTests
-      name: '@RBUELS/EOLTests'
+      name: '@Filter/EOLTests'
       version: 0.02
     -
       class: Dist::Zilla::Plugin::PodWeaver
-      name: '@RBUELS/PodWeaver'
-      version: 3.101640
+      name: '@Filter/PodWeaver'
+      version: 3.101641
     -
-      class: Dist::Zilla::Plugin::AutoPrereq
-      name: '@RBUELS/AutoPrereq'
-      version: 4.102340
+      class: Dist::Zilla::Plugin::AutoPrereqs
+      name: '@Filter/AutoPrereqs'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::NextRelease
-      name: '@RBUELS/NextRelease'
-      version: 4.102340
+      name: '@Filter/NextRelease'
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -145,7 +141,7 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
-      version: 4.102340
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -153,26 +149,26 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: TestRequires
-      version: 4.102340
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 4.102340
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 4.102340
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 4.102340
+      version: 4.200003
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 4.102340
+      version: 4.200003
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 0
-    version: 4.102340
+      is_trial: 1
+    version: 4.200003
 x_authority: cpan:RBUELS
