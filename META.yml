@@ -31,7 +31,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: http://github.com/solgenomics/bio-chado-schema
-version: 0.08001
+version: 0.08002
 x_Dist_Zilla:
   plugins:
     -
@@ -169,6 +169,6 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 1
+      is_trial: 0
     version: 4.200003
 x_authority: cpan:RBUELS

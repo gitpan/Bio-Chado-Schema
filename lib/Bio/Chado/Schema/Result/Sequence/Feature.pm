@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Feature::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.08001'; # TRIAL
+  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.08002';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -497,7 +497,7 @@ sub length {
 sub desc {
     my $self = shift;
     my $desc_fp =
-        $self->search_featureprops( 'description')
+        $self->search_featureprops({ name => ['description','Note','note'] })
              ->first;
     return unless $desc_fp;
     return $desc_fp->value;

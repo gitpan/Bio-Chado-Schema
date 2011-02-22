@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Expression::Expressionprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Expression::Expressionprop::VERSION = '0.08001'; # TRIAL
+  $Bio::Chado::Schema::Result::Expression::Expressionprop::VERSION = '0.08002';
 }
 
 # Created by DBIx::Class::Schema::Loader

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Map::Featuremap::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Map::Featuremap::VERSION = '0.08001'; # TRIAL
+  $Bio::Chado::Schema::Result::Map::Featuremap::VERSION = '0.08002';
 }
 
 # Created by DBIx::Class::Schema::Loader

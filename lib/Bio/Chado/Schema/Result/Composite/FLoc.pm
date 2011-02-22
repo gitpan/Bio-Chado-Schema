@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Composite::FLoc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Composite::FLoc::VERSION = '0.08001'; # TRIAL
+  $Bio::Chado::Schema::Result::Composite::FLoc::VERSION = '0.08002';
 }
 
 # Created by DBIx::Class::Schema::Loader
