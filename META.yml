@@ -31,7 +31,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: http://github.com/solgenomics/bio-chado-schema
-version: 0.08002
+version: 0.08100
 x_Dist_Zilla:
   plugins:
     -

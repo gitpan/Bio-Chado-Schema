@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::FeatureRelationshipprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::FeatureRelationshipprop::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Sequence::FeatureRelationshipprop::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -46,7 +46,7 @@ __PACKAGE__->add_unique_constraint(
 __PACKAGE__->belongs_to(
   "feature_relationship",
   "Bio::Chado::Schema::Result::Sequence::FeatureRelationship",
-  { "feature_relationship_id" => "feature_relationship_id" },
+  { feature_relationship_id => "feature_relationship_id" },
   {
     cascade_copy   => 0,
     cascade_delete => 0,
@@ -81,8 +81,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2FN1B9bFYMKmQmV4sHWuaQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q0uHPBZuacktT1EfOoLsTg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

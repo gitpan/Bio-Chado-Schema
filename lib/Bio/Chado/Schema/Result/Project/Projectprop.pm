@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Project::Projectprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Project::Projectprop::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Project::Projectprop::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -68,8 +68,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2010-10-18 16:56:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z4pIZEJdOqthg42k9Bwenw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6T1wDqDa7gV6WgivKxw3Rg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

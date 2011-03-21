@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Pub::Pub::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Pub::Pub::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Pub::Pub::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -400,8 +400,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uhp5cphKIeJXfkyTo9X3FQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IREmDNM5PFZA6eqAwr7Pqg
 
 
 sub create_pubprops {

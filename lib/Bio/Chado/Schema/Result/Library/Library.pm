@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Library::Library::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Library::Library::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Library::Library::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -140,8 +140,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/OylZiGTtXYr3rweD5UKPQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fLTH97E8H695k2TFazyY8A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

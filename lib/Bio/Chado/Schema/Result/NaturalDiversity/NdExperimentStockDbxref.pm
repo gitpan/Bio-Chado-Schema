@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -38,7 +38,7 @@ __PACKAGE__->set_primary_key("nd_experiment_stock_dbxref_id");
 __PACKAGE__->belongs_to(
   "nd_experiment_stock",
   "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStock",
-  { "nd_experiment_stock_id" => "nd_experiment_stock_id" },
+  { nd_experiment_stock_id => "nd_experiment_stock_id" },
   {
     cascade_copy   => 0,
     cascade_delete => 0,
@@ -63,8 +63,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:t9JJbMrHJ1nLAYfzGYtGkg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tRph0dUDfv4ZevFBgPDBTw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

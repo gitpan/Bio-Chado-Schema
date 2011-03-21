@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -786,6 +786,14 @@ __PACKAGE__->has_many(
 
 
 __PACKAGE__->has_many(
+  "stock_cvtermprops",
+  "Bio::Chado::Schema::Result::Stock::StockCvtermprop",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
   "stock_dbxrefprops",
   "Bio::Chado::Schema::Result::Stock::StockDbxrefprop",
   { "foreign.type_id" => "self.cvterm_id" },
@@ -865,8 +873,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07006 @ 2011-02-15 16:07:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+7waNqcJG6AuNftjx9h76g
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:14:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YH+JI3dtFVCrcEkXYthGRA
 
 use Carp;
 
@@ -1164,7 +1172,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.08100';
 }
 use base qw/ DBIx::Class::ResultSet /;
 
@@ -1874,6 +1882,12 @@ Related object: L<Bio::Chado::Schema::Result::Stock::Stockcollectionprop>
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::Stock::StockCvterm>
+
+=head2 stock_cvtermprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Stock::StockCvtermprop>
 
 =head2 stock_dbxrefprops
 

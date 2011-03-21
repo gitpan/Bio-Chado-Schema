@@ -273,6 +273,7 @@ lib/Bio/Chado/Schema/Result/Sequence/Synonym.pm
 lib/Bio/Chado/Schema/Result/Sequence/TypeFeatureCount.pm
 lib/Bio/Chado/Schema/Result/Stock/Stock.pm
 lib/Bio/Chado/Schema/Result/Stock/StockCvterm.pm
+lib/Bio/Chado/Schema/Result/Stock/StockCvtermprop.pm
 lib/Bio/Chado/Schema/Result/Stock/StockDbxref.pm
 lib/Bio/Chado/Schema/Result/Stock/StockDbxrefprop.pm
 lib/Bio/Chado/Schema/Result/Stock/StockGenotype.pm
@@ -295,6 +296,8 @@ t/010_organism.t
 t/Cv/010_cvterm.t
 t/Phylogeny/phylonode.t
 t/Sequence/010_feature.t
+t/Sequence/synonym.t
+t/Stock/010_stock.t
 t/lib/sqlite.sql
 t/plugins.t
 t/plugins_test/Bio/Chado/Schema/Result/MyPlugin/Foo.pm

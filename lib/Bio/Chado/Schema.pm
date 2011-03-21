@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::VERSION = '0.08002';
+  $Bio::Chado::Schema::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -17,8 +17,8 @@ use base 'DBIx::Class::Schema';
 __PACKAGE__->load_namespaces;
 
 
-# Created by DBIx::Class::Schema::Loader v0.04999_12 @ 2010-01-01 13:09:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GfcGc0XJeU/0mXXXgJb7FQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JJ2AbsZoAN4cnM4vrYOxKA
 
 use Bio::Chado::Schema::Util;
 

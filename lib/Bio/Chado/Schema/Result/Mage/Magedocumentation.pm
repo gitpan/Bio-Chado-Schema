@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Mage::Magedocumentation::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Mage::Magedocumentation::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Mage::Magedocumentation::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -67,8 +67,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zA4DknysZqtZtbcXxbEybg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r/wg2bcJGssYhjqBBPBmAg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

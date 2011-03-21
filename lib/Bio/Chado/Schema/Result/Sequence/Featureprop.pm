@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Featureprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Featureprop::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Sequence::Featureprop::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -76,8 +76,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JRvuha97SZQzYCRp97gSqg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uEjPjCmGofVPDR40/Weuow
 
 
 __PACKAGE__->belongs_to

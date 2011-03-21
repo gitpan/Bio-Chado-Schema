@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Feature::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -317,8 +317,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-16 23:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1rnPsx4awJbpI2wm1doDlA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ukRpMw0mYqMzolhgkw+xnw
 
 use Carp;
 
@@ -354,6 +354,14 @@ __PACKAGE__->many_to_many
      'child_features',
      'feature_relationship_objects' => 'subject',
     );
+
+
+__PACKAGE__->many_to_many
+    (
+     'synonyms',
+     'feature_synonyms' => 'synonym',
+    );
+
 
 
 __PACKAGE__->many_to_many
@@ -889,7 +897,9 @@ Alias for dbxref
 
 Type: many_to_many
 
-Returns a list of parent features.
+Returns a list of parent features (i.e. features that are the
+B<object> of feature_relationship rows in which this feature is the
+B<subject>).
 
 Related object: Bio::Chado::Schema::Result::Sequence::Feature
 
@@ -897,9 +907,17 @@ Related object: Bio::Chado::Schema::Result::Sequence::Feature
 
 Type: many_to_many
 
-Returns a list of child features.
+Returns a list of child features (i.e. features that are the
+B<subject> of feature_relationship rows in which this feature is the
+B<object>).
 
 Related object: Bio::Chado::Schema::Result::Sequence::Feature
+
+=head2 synonyms
+
+Type: many_to_many
+
+Related object: L<Bio::Chado::Schema::Result::Sequence::Synonym>
 
 =head2 dbxrefs_mm
 

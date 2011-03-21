@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -64,8 +64,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bCOtchzMlh4CLqWiRkiXLQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:w1sepj/CYEKGjTKbcNTy2w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

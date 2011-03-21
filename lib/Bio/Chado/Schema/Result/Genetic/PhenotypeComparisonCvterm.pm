@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Genetic::PhenotypeComparisonCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Genetic::PhenotypeComparisonCvterm::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Genetic::PhenotypeComparisonCvterm::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -46,7 +46,7 @@ __PACKAGE__->add_unique_constraint(
 __PACKAGE__->belongs_to(
   "phenotype_comparison",
   "Bio::Chado::Schema::Result::Genetic::PhenotypeComparison",
-  { "phenotype_comparison_id" => "phenotype_comparison_id" },
+  { phenotype_comparison_id => "phenotype_comparison_id" },
   {
     cascade_copy   => 0,
     cascade_delete => 0,
@@ -85,8 +85,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-16 14:33:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0r9j2WljLJfmuirPZpS+XA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:e96hpVTjUpaL99nveU7PHg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

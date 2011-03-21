@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -135,8 +135,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2010-10-28 03:52:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2u5pTTWEf2F86gyZbHTrBg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rdopd+NuS4NVDr0dVrREnQ
 
 
 

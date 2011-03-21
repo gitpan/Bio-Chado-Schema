@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Composite::Gff3view::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Composite::Gff3view::VERSION = '0.08002';
+  $Bio::Chado::Schema::Result::Composite::Gff3view::VERSION = '0.08100';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -33,11 +33,11 @@ __PACKAGE__->add_columns(
   "fend",
   { data_type => "integer", is_nullable => 1 },
   "score",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "text", is_nullable => 1 },
   "strand",
   { data_type => "text", is_nullable => 1 },
   "phase",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "text", is_nullable => 1 },
   "seqlen",
   { data_type => "integer", is_nullable => 1 },
   "name",
@@ -47,8 +47,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2010-10-18 16:56:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+oeARx+zxVYZng5Uiveeyw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gtyVWR2RHrLWuWOIDDzGWA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -104,7 +104,7 @@ Bio::Chado::Schema::Result::Composite::Gff3view
 
 =head2 score
 
-  data_type: 'double precision'
+  data_type: 'text'
   is_nullable: 1
 
 =head2 strand
@@ -114,7 +114,7 @@ Bio::Chado::Schema::Result::Composite::Gff3view
 
 =head2 phase
 
-  data_type: 'integer'
+  data_type: 'text'
   is_nullable: 1
 
 =head2 seqlen
