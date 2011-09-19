@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::Stockprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::Stockprop::VERSION = '0.08100';
+  $Bio::Chado::Schema::Result::Stock::Stockprop::VERSION = '0.08200';
 }
 
 # Created by DBIx::Class::Schema::Loader

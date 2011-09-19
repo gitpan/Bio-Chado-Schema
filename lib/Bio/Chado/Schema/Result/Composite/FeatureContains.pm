@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Composite::FeatureContains::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Composite::FeatureContains::VERSION = '0.08100';
+  $Bio::Chado::Schema::Result::Composite::FeatureContains::VERSION = '0.08200';
 }
 
 # Created by DBIx::Class::Schema::Loader

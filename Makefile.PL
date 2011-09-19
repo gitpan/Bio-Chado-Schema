@@ -16,7 +16,8 @@ my %WriteMakefileArgs = (
     'FindBin' => '0',
     'SQL::Translator' => '0.11005',
     'Test::Exception' => '0.27',
-    'Test::More' => '0.87'
+    'Test::More' => '0.87',
+    'Test::Warn' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
@@ -36,7 +37,7 @@ my %WriteMakefileArgs = (
     'DBIx::Class::Schema' => '0',
     'DBIx::Class::Tree::NestedSet' => '0.07'
   },
-  'VERSION' => '0.08100',
+  'VERSION' => '0.08200',
   'test' => {
     'TESTS' => 't/*.t t/Cv/*.t t/Phylogeny/*.t t/Sequence/*.t t/Stock/*.t'
   }

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol::VERSION = '0.08100';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol::VERSION = '0.08200';
 }
 
 # Created by DBIx::Class::Schema::Loader

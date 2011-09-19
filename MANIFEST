@@ -5,6 +5,7 @@ META.json
 META.yml
 Makefile.PL
 README
+README.md
 dist.ini
 doc/slides/dbic_intro/Spork.slides
 doc/slides/dbic_intro/config.yaml
