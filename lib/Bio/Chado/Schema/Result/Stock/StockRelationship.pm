@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockRelationship::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockRelationship::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::Stock::StockRelationship::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -88,6 +88,14 @@ __PACKAGE__->belongs_to(
 
 
 __PACKAGE__->has_many(
+  "stock_relationship_cvterms",
+  "Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm",
+  { "foreign.stock_relationship_id" => "self.stock_relationship_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
   "stock_relationship_pubs",
   "Bio::Chado::Schema::Result::Stock::StockRelationshipPub",
   { "foreign.stock_relationship_id" => "self.stock_relationship_id" },
@@ -95,8 +103,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fZwEQoTgJFvhs6ArqpS/iw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ClokyNSMEKjwcU78vbfKPg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -182,6 +190,12 @@ Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Stock::Stock>
+
+=head2 stock_relationship_cvterms
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm>
 
 =head2 stock_relationship_pubs
 

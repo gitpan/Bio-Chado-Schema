@@ -1,9 +1,9 @@
-package Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm;
+package Bio::Chado::Schema::Result::Genetic::Genotypeprop;
 BEGIN {
-  $Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm::AUTHORITY = 'cpan:RBUELS';
+  $Bio::Chado::Schema::Result::Genetic::Genotypeprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm::VERSION = '0.09000';
+  $Bio::Chado::Schema::Result::Genetic::Genotypeprop::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -16,46 +16,34 @@ use base 'DBIx::Class::Core';
 
 
 
-__PACKAGE__->table("phenotype_cvterm");
+__PACKAGE__->table("genotypeprop");
 
 
 __PACKAGE__->add_columns(
-  "phenotype_cvterm_id",
+  "genotypeprop_id",
   {
     data_type         => "integer",
     is_auto_increment => 1,
     is_nullable       => 0,
-    sequence          => "phenotype_cvterm_phenotype_cvterm_id_seq",
+    sequence          => "genotypeprop_genotypeprop_id_seq",
   },
-  "phenotype_id",
+  "genotype_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "cvterm_id",
+  "type_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "value",
+  { data_type => "text", is_nullable => 1 },
   "rank",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("phenotype_cvterm_id");
-__PACKAGE__->add_unique_constraint("phenotype_cvterm_c1", ["phenotype_id", "cvterm_id", "rank"]);
+__PACKAGE__->set_primary_key("genotypeprop_id");
+__PACKAGE__->add_unique_constraint("genotypeprop_c1", ["genotype_id", "type_id", "rank"]);
 
 
 __PACKAGE__->belongs_to(
-  "phenotype",
-  "Bio::Chado::Schema::Result::Phenotype::Phenotype",
-  { phenotype_id => "phenotype_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "cvterm",
+  "type",
   "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "cvterm_id" },
+  { cvterm_id => "type_id" },
   {
     cascade_copy   => 0,
     cascade_delete => 0,
@@ -66,11 +54,25 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DYDAW5kO6axboVAHzjVk7g
+__PACKAGE__->belongs_to(
+  "genotype",
+  "Bio::Chado::Schema::Result::Genetic::Genotype",
+  { genotype_id => "genotype_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cPJB/P4r7Oe6ZzCs4KR48w
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;
 
 __END__
@@ -80,32 +82,37 @@ __END__
 
 =head1 NAME
 
-Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm
+Bio::Chado::Schema::Result::Genetic::Genotypeprop
 
 =head1 NAME
 
-Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm
+Bio::Chado::Schema::Result::Genetic::Genotypeprop
 
 =head1 ACCESSORS
 
-=head2 phenotype_cvterm_id
+=head2 genotypeprop_id
 
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
-  sequence: 'phenotype_cvterm_phenotype_cvterm_id_seq'
+  sequence: 'genotypeprop_genotypeprop_id_seq'
 
-=head2 phenotype_id
+=head2 genotype_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 type_id
 
   data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 cvterm_id
+=head2 value
 
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 0
+  data_type: 'text'
+  is_nullable: 1
 
 =head2 rank
 
@@ -115,17 +122,17 @@ Bio::Chado::Schema::Result::Phenotype::PhenotypeCvterm
 
 =head1 RELATIONS
 
-=head2 phenotype
-
-Type: belongs_to
-
-Related object: L<Bio::Chado::Schema::Result::Phenotype::Phenotype>
-
-=head2 cvterm
+=head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
+
+=head2 genotype
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Result::Genetic::Genotype>
 
 =head1 AUTHOR
 

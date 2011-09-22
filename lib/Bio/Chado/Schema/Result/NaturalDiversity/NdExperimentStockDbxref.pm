@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStockDbxref::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader

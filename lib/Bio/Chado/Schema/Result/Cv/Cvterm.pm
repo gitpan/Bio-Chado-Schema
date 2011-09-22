@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -160,6 +160,14 @@ __PACKAGE__->has_many(
 __PACKAGE__->has_many(
   "cell_line_relationships",
   "Bio::Chado::Schema::Result::CellLine::CellLineRelationship",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "chadoprops",
+  "Bio::Chado::Schema::Result::Cv::Chadoprop",
   { "foreign.type_id" => "self.cvterm_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -466,6 +474,22 @@ __PACKAGE__->has_many(
 
 
 __PACKAGE__->has_many(
+  "genotypes",
+  "Bio::Chado::Schema::Result::Genetic::Genotype",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "genotypeprops",
+  "Bio::Chado::Schema::Result::Genetic::Genotypeprop",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
   "libraries",
   "Bio::Chado::Schema::Result::Library::Library",
   { "foreign.type_id" => "self.cvterm_id" },
@@ -524,6 +548,14 @@ __PACKAGE__->has_many(
 __PACKAGE__->has_many(
   "nd_geolocationprops",
   "Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationprop",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+__PACKAGE__->has_many(
+  "nd_protocols",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdProtocol",
   { "foreign.type_id" => "self.cvterm_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -873,8 +905,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:14:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YH+JI3dtFVCrcEkXYthGRA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A6xSfWvDItIEpHLeyupIXA
 
 use Carp;
 
@@ -1172,7 +1204,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.09000';
 }
 use base qw/ DBIx::Class::ResultSet /;
 
@@ -1427,6 +1459,12 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::CellLine::CellLineRelationship>
 
+=head2 chadoprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Cv::Chadoprop>
+
 =head2 contacts
 
 Type: has_many
@@ -1643,6 +1681,18 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::Sequence::FeatureRelationshipprop>
 
+=head2 genotypes
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Genetic::Genotype>
+
+=head2 genotypeprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Genetic::Genotypeprop>
+
 =head2 libraries
 
 Type: has_many
@@ -1690,6 +1740,12 @@ Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStoc
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationprop>
+
+=head2 nd_protocols
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdProtocol>
 
 =head2 nd_protocolprops
 

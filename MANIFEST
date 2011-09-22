@@ -118,6 +118,7 @@ lib/Bio/Chado/Schema/Result/Composite/Gff3view.pm
 lib/Bio/Chado/Schema/Result/Composite/Gffatts.pm
 lib/Bio/Chado/Schema/Result/Contact/Contact.pm
 lib/Bio/Chado/Schema/Result/Contact/ContactRelationship.pm
+lib/Bio/Chado/Schema/Result/Cv/Chadoprop.pm
 lib/Bio/Chado/Schema/Result/Cv/CommonAncestorCvterm.pm
 lib/Bio/Chado/Schema/Result/Cv/CommonDescendantCvterm.pm
 lib/Bio/Chado/Schema/Result/Cv/Cv.pm
@@ -153,6 +154,7 @@ lib/Bio/Chado/Schema/Result/Genetic/Environment.pm
 lib/Bio/Chado/Schema/Result/Genetic/EnvironmentCvterm.pm
 lib/Bio/Chado/Schema/Result/Genetic/FeatureGenotype.pm
 lib/Bio/Chado/Schema/Result/Genetic/Genotype.pm
+lib/Bio/Chado/Schema/Result/Genetic/Genotypeprop.pm
 lib/Bio/Chado/Schema/Result/Genetic/Phendesc.pm
 lib/Bio/Chado/Schema/Result/Genetic/PhenotypeComparison.pm
 lib/Bio/Chado/Schema/Result/Genetic/PhenotypeComparisonCvterm.pm

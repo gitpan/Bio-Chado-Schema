@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -27,8 +27,8 @@ __PACKAGE__->add_columns(
     is_nullable       => 0,
     sequence          => "stock_relationship_cvterm_stock_relationship_cvterm_id_seq",
   },
-  "stock_relatiohship_id",
-  { data_type => "integer", is_nullable => 0 },
+  "stock_relationship_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "cvterm_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "pub_id",
@@ -66,8 +66,22 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:z38UWpJfLJ5FyQV4Jeeo9A
+__PACKAGE__->belongs_to(
+  "stock_relationship",
+  "Bio::Chado::Schema::Result::Stock::StockRelationship",
+  { stock_relationship_id => "stock_relationship_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hj9EypW2m0TmbYJV1YSivA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -99,9 +113,10 @@ Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm
   is_nullable: 0
   sequence: 'stock_relationship_cvterm_stock_relationship_cvterm_id_seq'
 
-=head2 stock_relatiohship_id
+=head2 stock_relationship_id
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 0
 
 =head2 cvterm_id
@@ -129,6 +144,12 @@ Related object: L<Bio::Chado::Schema::Result::Pub::Pub>
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
+
+=head2 stock_relationship
+
+Type: belongs_to
+
+Related object: L<Bio::Chado::Schema::Result::Stock::StockRelationship>
 
 =head1 AUTHOR
 

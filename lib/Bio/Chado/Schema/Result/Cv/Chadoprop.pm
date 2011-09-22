@@ -1,9 +1,9 @@
-package Bio::Chado::Schema::Result::Cv::Cvtermprop;
+package Bio::Chado::Schema::Result::Cv::Chadoprop;
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvtermprop::AUTHORITY = 'cpan:RBUELS';
+  $Bio::Chado::Schema::Result::Cv::Chadoprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvtermprop::VERSION = '0.09000';
+  $Bio::Chado::Schema::Result::Cv::Chadoprop::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -16,31 +16,26 @@ use base 'DBIx::Class::Core';
 
 
 
-__PACKAGE__->table("cvtermprop");
+__PACKAGE__->table("chadoprop");
 
 
 __PACKAGE__->add_columns(
-  "cvtermprop_id",
+  "chadoprop_id",
   {
     data_type         => "integer",
     is_auto_increment => 1,
     is_nullable       => 0,
-    sequence          => "cvtermprop_cvtermprop_id_seq",
+    sequence          => "chadoprop_chadoprop_id_seq",
   },
-  "cvterm_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "type_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "value",
-  { data_type => "text", default_value => "", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
   "rank",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("cvtermprop_id");
-__PACKAGE__->add_unique_constraint(
-  "cvtermprop_cvterm_id_key",
-  ["cvterm_id", "type_id", "value", "rank"],
-);
+__PACKAGE__->set_primary_key("chadoprop_id");
+__PACKAGE__->add_unique_constraint("chadoprop_c1", ["type_id", "rank"]);
 
 
 __PACKAGE__->belongs_to(
@@ -57,25 +52,11 @@ __PACKAGE__->belongs_to(
 );
 
 
-__PACKAGE__->belongs_to(
-  "cvterm",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "cvterm_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zh5iGr+9B0FCmXj6pNcyTA
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vMgNqm47sN68nXTS0aRj2g
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;
 
 __END__
@@ -85,30 +66,24 @@ __END__
 
 =head1 NAME
 
-Bio::Chado::Schema::Result::Cv::Cvtermprop
+Bio::Chado::Schema::Result::Cv::Chadoprop
 
 =head1 DESCRIPTION
 
-Additional extensible properties can be attached to a cvterm using this table. Corresponds to -AnnotationProperty- in W3C OWL format.
+This table is different from other prop tables in the database, as it is for storing information about the database itself, like schema version
 
 =head1 NAME
 
-Bio::Chado::Schema::Result::Cv::Cvtermprop
+Bio::Chado::Schema::Result::Cv::Chadoprop
 
 =head1 ACCESSORS
 
-=head2 cvtermprop_id
+=head2 chadoprop_id
 
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
-  sequence: 'cvtermprop_cvtermprop_id_seq'
-
-=head2 cvterm_id
-
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 0
+  sequence: 'chadoprop_chadoprop_id_seq'
 
 =head2 type_id
 
@@ -121,8 +96,7 @@ The name of the property or slot is a cvterm. The meaning of the property is def
 =head2 value
 
   data_type: 'text'
-  default_value: (empty string)
-  is_nullable: 0
+  is_nullable: 1
 
 The value of the property, represented as text. Numeric values are converted to their text representation.
 
@@ -133,7 +107,7 @@ The value of the property, represented as text. Numeric values are converted to 
   is_nullable: 0
 
 Property-Value ordering. Any
-cvterm can have multiple values for any particular property type -
+cv can have multiple values for any particular property type -
 these are ordered in a list using rank, counting from zero. For
 properties that are single-valued rather than multi-valued, the
 default 0 value should be used.
@@ -141,12 +115,6 @@ default 0 value should be used.
 =head1 RELATIONS
 
 =head2 type
-
-Type: belongs_to
-
-Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
-
-=head2 cvterm
 
 Type: belongs_to
 

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Organism::Organism::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Organism::Organism::VERSION = '0.08200';
+  $Bio::Chado::Schema::Result::Organism::Organism::VERSION = '0.09000';
 }
 
 # Created by DBIx::Class::Schema::Loader
