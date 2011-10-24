@@ -301,6 +301,7 @@ t/Phylogeny/phylonode.t
 t/Sequence/010_feature.t
 t/Sequence/synonym.t
 t/Stock/010_stock.t
+t/get_cvterm.t
 t/lib/sqlite.sql
 t/plugins.t
 t/plugins_test/Bio/Chado/Schema/Result/MyPlugin/Foo.pm

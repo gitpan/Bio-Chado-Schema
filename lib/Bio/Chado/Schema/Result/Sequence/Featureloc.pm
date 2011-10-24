@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Featureloc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.09000';
+  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.09010';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -95,7 +95,6 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XvZlFe2W64Rj4c6rbmCM0Q
 
 
-
 sub length {
     my $self = shift;
     no warnings 'uninitialized';
@@ -103,6 +102,18 @@ sub length {
     return $self->fmax - $self->fmin;
 }
 
+
+sub to_range {
+    my ( $self ) = @_;
+
+    require Bio::Range;
+
+    return Bio::Range->new(
+        -start  => $self->fmin + 1,
+        -end    => $self->fmax,
+        -strand => $self->strand,
+      );
+}
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;
@@ -302,6 +313,12 @@ Related object: L<Bio::Chado::Schema::Result::Sequence::FeaturelocPub>
 Read-only.  Number of bases spanned by this featureloc.
 
 Equal to C<fmax - fmin> (since coords are interbase).
+
+=head2 to_range
+
+Make a L<Bio::Range> object containing the information in this
+featureloc.  Note that this converts to BioPerl-style one-based
+coordinates.
 
 =head1 AUTHOR
 

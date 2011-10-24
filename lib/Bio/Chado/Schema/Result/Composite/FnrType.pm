@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Composite::FnrType::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Composite::FnrType::VERSION = '0.09000';
+  $Bio::Chado::Schema::Result::Composite::FnrType::VERSION = '0.09010';
 }
 
 # Created by DBIx::Class::Schema::Loader

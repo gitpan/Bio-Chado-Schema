@@ -20,6 +20,7 @@ meta-spec:
 name: Bio-Chado-Schema
 requires:
   Bio::PrimarySeq: 0
+  Bio::Range: 0
   Bio::Root::Version: 1.005002
   Carp: 0
   Carp::Clan: 0
@@ -32,7 +33,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: http://github.com/solgenomics/bio-chado-schema
-version: 0.09000
+version: 0.09010
 x_Dist_Zilla:
   plugins:
     -

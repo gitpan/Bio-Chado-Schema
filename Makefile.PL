@@ -28,6 +28,7 @@ my %WriteMakefileArgs = (
   'NAME' => 'Bio::Chado::Schema',
   'PREREQ_PM' => {
     'Bio::PrimarySeq' => '0',
+    'Bio::Range' => '0',
     'Bio::Root::Version' => '1.005002',
     'Carp' => '0',
     'Carp::Clan' => '0',
@@ -37,7 +38,7 @@ my %WriteMakefileArgs = (
     'DBIx::Class::Schema' => '0',
     'DBIx::Class::Tree::NestedSet' => '0.07'
   },
-  'VERSION' => '0.09000',
+  'VERSION' => '0.09010',
   'test' => {
     'TESTS' => 't/*.t t/Cv/*.t t/Phylogeny/*.t t/Sequence/*.t t/Stock/*.t'
   }
