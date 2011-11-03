@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvtermpath::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvtermpath::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Cv::Cvtermpath::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,105 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("cvtermpath");
-
-
-__PACKAGE__->add_columns(
-  "cvtermpath_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "cvtermpath_cvtermpath_id_seq",
-  },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "subject_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "object_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "cv_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "pathdistance",
-  { data_type => "integer", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("cvtermpath_id");
-__PACKAGE__->add_unique_constraint(
-  "cvtermpath_c1",
-  ["subject_id", "object_id", "type_id", "pathdistance"],
-);
-
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "object",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "object_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "subject",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "subject_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "cv",
-  "Bio::Chado::Schema::Result::Cv::Cv",
-  { cv_id => "cv_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LIl0GlpFa7htKB72YF8f5w
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Cv::Cvtermpath
@@ -123,9 +24,9 @@ Bio::Chado::Schema::Result::Cv::Cvtermpath
 The reflexive transitive closure of
 the cvterm_relationship relation.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Cv::Cvtermpath
+__PACKAGE__->table("cvtermpath");
 
 =head1 ACCESSORS
 
@@ -179,6 +80,33 @@ The number of steps
 required to get from the subject cvterm to the object cvterm, counting
 from zero (reflexive relationship).
 
+=cut
+
+__PACKAGE__->add_columns(
+  "cvtermpath_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "cvtermpath_cvtermpath_id_seq",
+  },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "subject_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "object_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "cv_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "pathdistance",
+  { data_type => "integer", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("cvtermpath_id");
+__PACKAGE__->add_unique_constraint(
+  "cvtermpath_c1",
+  ["subject_id", "object_id", "type_id", "pathdistance"],
+);
+
 =head1 RELATIONS
 
 =head2 type
@@ -187,11 +115,42 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 object
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "object",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "object_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 subject
 
@@ -199,22 +158,46 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "subject",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "subject_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 cv
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cv>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->belongs_to(
+  "cv",
+  "Bio::Chado::Schema::Result::Cv::Cv",
+  { cv_id => "cv_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LIl0GlpFa7htKB72YF8f5w
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

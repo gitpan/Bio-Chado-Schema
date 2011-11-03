@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Featureloc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -14,114 +14,6 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-
-
-__PACKAGE__->table("featureloc");
-
-
-__PACKAGE__->add_columns(
-  "featureloc_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "featureloc_featureloc_id_seq",
-  },
-  "feature_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "srcfeature_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-  "fmin",
-  { data_type => "integer", is_nullable => 1 },
-  "is_fmin_partial",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "fmax",
-  { data_type => "integer", is_nullable => 1 },
-  "is_fmax_partial",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "strand",
-  { data_type => "smallint", is_nullable => 1 },
-  "phase",
-  { data_type => "integer", is_nullable => 1 },
-  "residue_info",
-  { data_type => "text", is_nullable => 1 },
-  "locgroup",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-  "rank",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("featureloc_id");
-__PACKAGE__->add_unique_constraint("featureloc_c1", ["feature_id", "locgroup", "rank"]);
-
-
-__PACKAGE__->belongs_to(
-  "feature",
-  "Bio::Chado::Schema::Result::Sequence::Feature",
-  { feature_id => "feature_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "srcfeature",
-  "Bio::Chado::Schema::Result::Sequence::Feature",
-  { feature_id => "srcfeature_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->has_many(
-  "featureloc_pubs",
-  "Bio::Chado::Schema::Result::Sequence::FeaturelocPub",
-  { "foreign.featureloc_id" => "self.featureloc_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XvZlFe2W64Rj4c6rbmCM0Q
-
-
-sub length {
-    my $self = shift;
-    no warnings 'uninitialized';
-    return undef unless defined($self->fmax) && defined($self->fmin);
-    return $self->fmax - $self->fmin;
-}
-
-
-sub to_range {
-    my ( $self ) = @_;
-
-    require Bio::Range;
-
-    return Bio::Range->new(
-        -start  => $self->fmin + 1,
-        -end    => $self->fmax,
-        -strand => $self->strand,
-      );
-}
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
 
 =head1 NAME
 
@@ -149,9 +41,9 @@ feature on the mutant strain. The column:rank is used to
 differentiate these different locations. Reflexive locations should
 never be stored - this is for -proper- (i.e. non-self) locations only; nothing should be located relative to itself.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Sequence::Featureloc
+__PACKAGE__->table("featureloc");
 
 =head1 ACCESSORS
 
@@ -288,6 +180,42 @@ assignment of rank is arbitrary. Rank is also used for
 sequence_variant features, such as SNPs. Rank=0 indicates the wildtype
 (or baseline) feature, Rank=1 indicates the mutant (or compared) feature.
 
+=cut
+
+__PACKAGE__->add_columns(
+  "featureloc_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "featureloc_featureloc_id_seq",
+  },
+  "feature_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "srcfeature_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "fmin",
+  { data_type => "integer", is_nullable => 1 },
+  "is_fmin_partial",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "fmax",
+  { data_type => "integer", is_nullable => 1 },
+  "is_fmax_partial",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "strand",
+  { data_type => "smallint", is_nullable => 1 },
+  "phase",
+  { data_type => "integer", is_nullable => 1 },
+  "residue_info",
+  { data_type => "text", is_nullable => 1 },
+  "locgroup",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+  "rank",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("featureloc_id");
+__PACKAGE__->add_unique_constraint("featureloc_c1", ["feature_id", "locgroup", "rank"]);
+
 =head1 RELATIONS
 
 =head2 feature
@@ -296,11 +224,42 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Sequence::Feature>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "feature",
+  "Bio::Chado::Schema::Result::Sequence::Feature",
+  { feature_id => "feature_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 srcfeature
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Sequence::Feature>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "srcfeature",
+  "Bio::Chado::Schema::Result::Sequence::Feature",
+  { feature_id => "srcfeature_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 featureloc_pubs
 
@@ -308,11 +267,33 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::Sequence::FeaturelocPub>
 
+=cut
+
+__PACKAGE__->has_many(
+  "featureloc_pubs",
+  "Bio::Chado::Schema::Result::Sequence::FeaturelocPub",
+  { "foreign.featureloc_id" => "self.featureloc_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XvZlFe2W64Rj4c6rbmCM0Q
+
 =head2 length
 
 Read-only.  Number of bases spanned by this featureloc.
 
 Equal to C<fmax - fmin> (since coords are interbase).
+
+=cut
+
+sub length {
+    my $self = shift;
+    no warnings 'uninitialized';
+    return undef unless defined($self->fmax) && defined($self->fmin);
+    return $self->fmax - $self->fmin;
+}
 
 =head2 to_range
 
@@ -320,16 +301,19 @@ Make a L<Bio::Range> object containing the information in this
 featureloc.  Note that this converts to BioPerl-style one-based
 coordinates.
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+sub to_range {
+    my ( $self ) = @_;
+
+    require Bio::Range;
+
+    return Bio::Range->new(
+        -start  => $self->fmin + 1,
+        -end    => $self->fmax,
+        -strand => $self->strand,
+      );
+}
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

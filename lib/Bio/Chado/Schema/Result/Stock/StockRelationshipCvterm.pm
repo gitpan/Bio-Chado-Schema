@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,83 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("stock_relationship_cvterm");
-
-
-__PACKAGE__->add_columns(
-  "stock_relationship_cvterm_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "stock_relationship_cvterm_stock_relationship_cvterm_id_seq",
-  },
-  "stock_relationship_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "cvterm_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "pub_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("stock_relationship_cvterm_id");
-
-
-__PACKAGE__->belongs_to(
-  "pub",
-  "Bio::Chado::Schema::Result::Pub::Pub",
-  { pub_id => "pub_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    join_type      => "LEFT",
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "cvterm",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "cvterm_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "stock_relationship",
-  "Bio::Chado::Schema::Result::Stock::StockRelationship",
-  { stock_relationship_id => "stock_relationship_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hj9EypW2m0TmbYJV1YSivA
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm
@@ -100,9 +23,9 @@ Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm
 
 For germplasm maintenance and pedigree data, stock_relationship. type_id will record cvterms such as "is a female parent of", "a parent for mutation", "is a group_id of", "is a source_id of", etc The cvterms for higher categories such as "generative", "derivative" or "maintenance" can be stored in table stock_relationship_cvterm
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm
+__PACKAGE__->table("stock_relationship_cvterm");
 
 =head1 ACCESSORS
 
@@ -131,6 +54,25 @@ Bio::Chado::Schema::Result::Stock::StockRelationshipCvterm
   is_foreign_key: 1
   is_nullable: 1
 
+=cut
+
+__PACKAGE__->add_columns(
+  "stock_relationship_cvterm_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "stock_relationship_cvterm_stock_relationship_cvterm_id_seq",
+  },
+  "stock_relationship_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "cvterm_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "pub_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("stock_relationship_cvterm_id");
+
 =head1 RELATIONS
 
 =head2 pub
@@ -139,11 +81,42 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Pub::Pub>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "pub",
+  "Bio::Chado::Schema::Result::Pub::Pub",
+  { pub_id => "pub_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    join_type      => "LEFT",
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 cvterm
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "cvterm",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "cvterm_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 stock_relationship
 
@@ -151,16 +124,25 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Stock::StockRelationship>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->belongs_to(
+  "stock_relationship",
+  "Bio::Chado::Schema::Result::Stock::StockRelationship",
+  { stock_relationship_id => "stock_relationship_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hj9EypW2m0TmbYJV1YSivA
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

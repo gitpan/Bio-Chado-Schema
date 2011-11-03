@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::VERSION = '0.09020';
+  $Bio::Chado::Schema::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -23,56 +23,9 @@ __PACKAGE__->load_namespaces;
 use Carp::Clan qr/^Bio::Chado::Schema/;
 use Bio::Chado::Schema::Util;
 
-
-sub get_cvterm {
-    my ( $self, $cv_name, $term_name ) = @_;
-
-    croak "must provide at least one argument!" unless @_ > 1;
-
-    unless( $term_name ) {
-        ($cv_name, $term_name) = split /:/, $cv_name, 2;
-    }
-
-    return $self->{_bio_chado_schema_cvterm_cache}{$cv_name}{$term_name} ||=
-        $self->resultset('Cv::Cv')
-             ->search({ 'me.name' => $cv_name })
-             ->search_related('cvterms', { 'cvterms.name' => $term_name })
-             ->single;
-}
-
-
-sub get_cvterm_or_die {
-    shift->get_cvterm( @_ ) or croak "cvterm @_ not found";
-}
-
-
-{
-    my @after_load;
-    $_->() for @after_load; #< note that this executes after load_classes above
-
-    sub plugin_add_relationship {
-        my ( $class, $target_moniker, $reltype, @args ) = @_;
-
-        push @after_load, sub {
-            no strict 'refs';
-            my $target_class = $class->class( $target_moniker );
-            $target_class->$reltype( @args );
-            __PACKAGE__->register_class( $target_moniker => $target_class );
-        };
-    }
-}
-
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
-Bio::Chado::Schema
+Bio::Chado::Schema - A standard DBIx::Class layer for the Chado database schema.
 
 =head1 SYNOPSIS
 
@@ -83,6 +36,7 @@ Bio::Chado::Schema
   print "number of rows in feature table: ",
         $chado->resultset('Sequence::Feature')->count,
         "\n";
+
 
 =head1 DESCRIPTION
 
@@ -96,10 +50,6 @@ It is divided into several notional "modules", which are reflected in
 the namespace organization of this package.  Note that modules in the
 Chado context refers to sets of tables, they are not modules in the
 Perl sense.
-
-=head1 NAME
-
-Bio::Chado::Schema - A standard DBIx::Class layer for the Chado database schema.
 
 =head1 GETTING STARTED
 
@@ -173,12 +123,36 @@ method are cached in the schema object itself.  Thus, you only use
 this function in the (relatively common) scenario in which you just
 need convenient access to a handful of different cvterms.
 
+=cut
+
+sub get_cvterm {
+    my ( $self, $cv_name, $term_name ) = @_;
+
+    croak "must provide at least one argument!" unless @_ > 1;
+
+    unless( $term_name ) {
+        ($cv_name, $term_name) = split /:/, $cv_name, 2;
+    }
+
+    return $self->{_bio_chado_schema_cvterm_cache}{$cv_name}{$term_name} ||=
+        $self->resultset('Cv::Cv')
+             ->search({ 'me.name' => $cv_name })
+             ->search_related('cvterms', { 'cvterms.name' => $term_name })
+             ->single;
+}
+
 =head2 get_cvterm_or_die
 
 Same as get_cvterm above, but dies with a "not found" message if the
 cvterm is not found.  This is convenient when you don't want to be
 bothered with checking the return value of C<get_cvterm>, which for me
 is most of the time.
+
+=cut
+
+sub get_cvterm_or_die {
+    shift->get_cvterm( @_ ) or croak "cvterm @_ not found";
+}
 
 =head1 CLASS METHODS
 
@@ -206,6 +180,24 @@ associated SpecialThings.
         );
     );
 
+=cut
+
+{
+    my @after_load;
+    $_->() for @after_load; #< note that this executes after load_classes above
+
+    sub plugin_add_relationship {
+        my ( $class, $target_moniker, $reltype, @args ) = @_;
+
+        push @after_load, sub {
+            no strict 'refs';
+            my $target_class = $class->class( $target_moniker );
+            $target_class->$reltype( @args );
+            __PACKAGE__->register_class( $target_moniker => $target_class );
+        };
+    }
+}
+
 =head1 AUTHOR
 
 Robert Buels, <rmb32@cornell.edu>
@@ -225,16 +217,6 @@ Copyright 2009 Boyce Thompson Institute for Plant Research
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+1;

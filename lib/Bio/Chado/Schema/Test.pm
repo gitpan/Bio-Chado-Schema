@@ -3,14 +3,58 @@ BEGIN {
   $Bio::Chado::Schema::Test::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Test::VERSION = '0.09020';
+  $Bio::Chado::Schema::Test::VERSION = '0.09030';
 }
 use strict;
 use warnings;
 use Carp::Clan qr/^Bio::Chado::Schema/;
 use Bio::Chado::Schema;
 
+=head1 NAME
 
+Bio::Chado::Schema::Test - Library to be used by Bio::Chado::Schema test scripts.
+
+=head1 SYNOPSIS
+
+  use lib qw(t/lib);
+  use Bio::Chado::Schema::Test;
+  use Test::More;
+
+  my $schema = Bio::Chado::Schema::Test->init_schema();
+
+=head1 DESCRIPTION
+
+This module provides the basic utilities to write tests against Bio::Chado::Schema.
+
+=head1 METHODS
+
+=head2 init_schema
+
+  my $schema = Bio::Chado::Schema::Test->init_schema(
+    deploy            => 1,
+    populate          => 1,
+    storage_type      => '::DBI::Replicated',
+    storage_type_args => {
+      balancer_type=>'DBIx::Class::Storage::DBI::Replicated::Balancer::Random'
+    },
+  );
+
+This method removes the test SQLite database in t/var/BCS.db
+and then creates a new, empty database.
+
+This method will call deploy_schema() by default, unless the
+deploy flag is set to 0.
+
+This method will call populate_schema() if the populate argument
+is set to a true value.
+
+=cut
+
+=head2 has_custom_dsn
+
+Returns true if the BCS_TEST_DSN environment variable is set.
+
+=cut
 
 sub has_custom_dsn {
     return $ENV{"BCS_TEST_DSN"} ? 1 : 0;
@@ -75,6 +119,17 @@ sub init_schema {
     return $schema;
 }
 
+=head2 deploy_schema
+
+  Bio::Chado::Schema::Test->deploy_schema( $schema );
+
+This method does one of two things to the schema.  It can either call
+the experimental $schema->deploy() if the BCSTEST_SQLT_DEPLOY environment
+variable is set, otherwise the default is to read in the t/lib/sqlite.sql
+file and execute the SQL within. Either way you end up with a fresh set
+of tables for testing.
+
+=cut
 
 sub deploy_schema {
     my $self = shift;
@@ -85,6 +140,14 @@ sub deploy_schema {
     return;
 }
 
+=head2 populate_schema
+
+  Bio::Chado::Schema::Test->populate_schema( $schema );
+
+After you deploy your schema you can use this method to populate
+the tables with test data.
+
+=cut
 
 sub populate_schema {
     my $self = shift;
@@ -98,85 +161,3 @@ sub populate_schema {
 }
 
 1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Test
-
-=head1 SYNOPSIS
-
-  use lib qw(t/lib);
-  use Bio::Chado::Schema::Test;
-  use Test::More;
-
-  my $schema = Bio::Chado::Schema::Test->init_schema();
-
-=head1 DESCRIPTION
-
-This module provides the basic utilities to write tests against Bio::Chado::Schema.
-
-=head1 NAME
-
-Bio::Chado::Schema::Test - Library to be used by Bio::Chado::Schema test scripts.
-
-=head1 METHODS
-
-=head2 init_schema
-
-  my $schema = Bio::Chado::Schema::Test->init_schema(
-    deploy            => 1,
-    populate          => 1,
-    storage_type      => '::DBI::Replicated',
-    storage_type_args => {
-      balancer_type=>'DBIx::Class::Storage::DBI::Replicated::Balancer::Random'
-    },
-  );
-
-This method removes the test SQLite database in t/var/BCS.db
-and then creates a new, empty database.
-
-This method will call deploy_schema() by default, unless the
-deploy flag is set to 0.
-
-This method will call populate_schema() if the populate argument
-is set to a true value.
-
-=head2 has_custom_dsn
-
-Returns true if the BCS_TEST_DSN environment variable is set.
-
-=head2 deploy_schema
-
-  Bio::Chado::Schema::Test->deploy_schema( $schema );
-
-This method does one of two things to the schema.  It can either call
-the experimental $schema->deploy() if the BCSTEST_SQLT_DEPLOY environment
-variable is set, otherwise the default is to read in the t/lib/sqlite.sql
-file and execute the SQL within. Either way you end up with a fresh set
-of tables for testing.
-
-=head2 populate_schema
-
-  Bio::Chado::Schema::Test->populate_schema( $schema );
-
-After you deploy your schema you can use this method to populate
-the tables with test data.
-
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut
-

@@ -33,7 +33,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Bio-Chado-Schema
   homepage: http://gmod.org/wiki/Bio::Chado::Schema
   repository: http://github.com/solgenomics/bio-chado-schema
-version: 0.09020
+version: 0.09030
 x_Dist_Zilla:
   plugins:
     -
@@ -124,10 +124,6 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::EOLTests
       name: '@Filter/EOLTests'
       version: 0.02
-    -
-      class: Dist::Zilla::Plugin::PodWeaver
-      name: '@Filter/PodWeaver'
-      version: 3.101641
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Filter/AutoPrereqs'

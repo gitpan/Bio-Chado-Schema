@@ -1,17 +1,5 @@
 package Bio::Chado::Schema::Result::Project;
 
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Project
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Project - The project table has been moved from general to its own module and has been
@@ -39,16 +27,6 @@ L<Bio::Chado::Schema::Result::Project::ProjectRelationship>
 
 L<Bio::Chado::Schema::Result::Project::Projectprop>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+1;

@@ -1,17 +1,5 @@
 package Bio::Chado::Schema::Result::Stock;
 
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Stock
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Stock - For tracking stock collections
@@ -58,16 +46,6 @@ L<Bio::Chado::Schema::Result::Stock::Stockprop>
 
 L<Bio::Chado::Schema::Result::Stock::StockpropPub>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+1;

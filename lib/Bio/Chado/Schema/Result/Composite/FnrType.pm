@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Composite::FnrType::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Composite::FnrType::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Composite::FnrType::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,53 +15,13 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
+=head1 NAME
+
+Bio::Chado::Schema::Result::Composite::FnrType
+
+=cut
 
 __PACKAGE__->table("fnr_type");
-
-
-__PACKAGE__->add_columns(
-  "feature_id",
-  { data_type => "integer", is_nullable => 1 },
-  "name",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "dbxref_id",
-  { data_type => "integer", is_nullable => 1 },
-  "type",
-  { data_type => "varchar", is_nullable => 1, size => 1024 },
-  "residues",
-  { data_type => "text", is_nullable => 1 },
-  "seqlen",
-  { data_type => "integer", is_nullable => 1 },
-  "md5checksum",
-  { data_type => "char", is_nullable => 1, size => 32 },
-  "type_id",
-  { data_type => "integer", is_nullable => 1 },
-  "timeaccessioned",
-  { data_type => "timestamp", is_nullable => 1 },
-  "timelastmodified",
-  { data_type => "timestamp", is_nullable => 1 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9uUsY7DcIb7RRXkKVitr4w
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Composite::FnrType
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Composite::FnrType
 
 =head1 ACCESSORS
 
@@ -118,16 +78,35 @@ Bio::Chado::Schema::Result::Composite::FnrType
   data_type: 'timestamp'
   is_nullable: 1
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->add_columns(
+  "feature_id",
+  { data_type => "integer", is_nullable => 1 },
+  "name",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "dbxref_id",
+  { data_type => "integer", is_nullable => 1 },
+  "type",
+  { data_type => "varchar", is_nullable => 1, size => 1024 },
+  "residues",
+  { data_type => "text", is_nullable => 1 },
+  "seqlen",
+  { data_type => "integer", is_nullable => 1 },
+  "md5checksum",
+  { data_type => "char", is_nullable => 1, size => 32 },
+  "type_id",
+  { data_type => "integer", is_nullable => 1 },
+  "timeaccessioned",
+  { data_type => "timestamp", is_nullable => 1 },
+  "timelastmodified",
+  { data_type => "timestamp", is_nullable => 1 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9uUsY7DcIb7RRXkKVitr4w
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

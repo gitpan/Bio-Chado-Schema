@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Util::VERSION = '0.09020';
+  $Bio::Chado::Schema::Util::VERSION = '0.09030';
 }
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
@@ -173,15 +173,11 @@ sub create_properties {
 
 1;
 
-
-
-=pod
-
-=encoding utf-8
+__END__
 
 =head1 NAME
 
-Bio::Chado::Schema::Util
+Bio::Chado::Schema::Util - utility functions shared by Bio::Chado::Schema objects
 
 =head1 SYNOPSIS
 
@@ -208,10 +204,6 @@ Helper functions used by several schema classes.
 Important Note:
 This package is located in the Schema.pm file as secondary package
 and it haven't a file for itself. Nevertheless, the use will be the same.
-
-=head1 NAME
-
-Bio::Chado::Schema::Util - utility functions shared by Bio::Chado::Schema objects
 
 =head1 PACKAGE METHODS
 
@@ -259,6 +251,9 @@ Bio::Chado::Schema::Util - utility functions shared by Bio::Chado::Schema object
              }
   Ret  : hashref of { propname => new row object in property table }
 
+=cut
+
+
 =head1 AUTHOR
 
 Robert Buels, <rmb32@cornell.edu>
@@ -272,21 +267,4 @@ Copyright 2009 Boyce Thompson Institute for Plant Research
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-
-__END__
-
-
-

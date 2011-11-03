@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockCvterm::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Stock::StockCvterm::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,112 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("stock_cvterm");
-
-
-__PACKAGE__->add_columns(
-  "stock_cvterm_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "stock_cvterm_stock_cvterm_id_seq",
-  },
-  "stock_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "cvterm_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "pub_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "is_not",
-  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
-  "rank",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("stock_cvterm_id");
-__PACKAGE__->add_unique_constraint(
-  "stock_cvterm_c1",
-  ["stock_id", "cvterm_id", "pub_id", "rank"],
-);
-
-
-__PACKAGE__->belongs_to(
-  "cvterm",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "cvterm_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "pub",
-  "Bio::Chado::Schema::Result::Pub::Pub",
-  { pub_id => "pub_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "stock",
-  "Bio::Chado::Schema::Result::Stock::Stock",
-  { stock_id => "stock_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->has_many(
-  "stock_cvtermprops",
-  "Bio::Chado::Schema::Result::Stock::StockCvtermprop",
-  { "foreign.stock_cvterm_id" => "self.stock_cvterm_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:14:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lOiXJCZBCZBxj+MAZdMnQw
-
-
-sub create_stock_cvtermprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts->{cv_name} = 'stock_cvterm_property'
-        unless defined $opts->{cv_name};
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'stock_cvtermprops',
-        );
-}
-
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Stock::StockCvterm
@@ -129,9 +23,9 @@ Bio::Chado::Schema::Result::Stock::StockCvterm
 
 stock_cvterm links a stock to cvterms. This is for secondary cvterms; primary cvterms should use stock.type_id.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Stock::StockCvterm
+__PACKAGE__->table("stock_cvterm");
 
 =head1 ACCESSORS
 
@@ -172,6 +66,33 @@ Bio::Chado::Schema::Result::Stock::StockCvterm
   default_value: 0
   is_nullable: 0
 
+=cut
+
+__PACKAGE__->add_columns(
+  "stock_cvterm_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "stock_cvterm_stock_cvterm_id_seq",
+  },
+  "stock_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "cvterm_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "pub_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "is_not",
+  { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "rank",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("stock_cvterm_id");
+__PACKAGE__->add_unique_constraint(
+  "stock_cvterm_c1",
+  ["stock_id", "cvterm_id", "pub_id", "rank"],
+);
+
 =head1 RELATIONS
 
 =head2 cvterm
@@ -180,11 +101,41 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "cvterm",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "cvterm_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 pub
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Pub::Pub>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "pub",
+  "Bio::Chado::Schema::Result::Pub::Pub",
+  { pub_id => "pub_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 stock
 
@@ -192,11 +143,39 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Stock::Stock>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "stock",
+  "Bio::Chado::Schema::Result::Stock::Stock",
+  { stock_id => "stock_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 stock_cvtermprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::Stock::StockCvtermprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "stock_cvtermprops",
+  "Bio::Chado::Schema::Result::Stock::StockCvtermprop",
+  { "foreign.stock_cvterm_id" => "self.stock_cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:14:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lOiXJCZBCZBxj+MAZdMnQw
 
 =head2 create_stock_cvtermprops
 
@@ -234,16 +213,21 @@ Related object: L<Bio::Chado::Schema::Result::Stock::StockCvtermprop>
           }
   Ret  : hashref of { propname => new stock_cvtermprop object }
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+sub create_stock_cvtermprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'stock_cvterm_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'stock_cvtermprops',
+        );
+}
+
+
+1;

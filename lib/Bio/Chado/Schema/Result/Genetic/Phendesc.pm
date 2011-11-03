@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Genetic::Phendesc::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Genetic::Phendesc::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Genetic::Phendesc::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,104 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("phendesc");
-
-
-__PACKAGE__->add_columns(
-  "phendesc_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "phendesc_phendesc_id_seq",
-  },
-  "genotype_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "environment_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "description",
-  { data_type => "text", is_nullable => 0 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "pub_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("phendesc_id");
-__PACKAGE__->add_unique_constraint(
-  "phendesc_c1",
-  ["genotype_id", "environment_id", "type_id", "pub_id"],
-);
-
-
-__PACKAGE__->belongs_to(
-  "environment",
-  "Bio::Chado::Schema::Result::Genetic::Environment",
-  { environment_id => "environment_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "genotype",
-  "Bio::Chado::Schema::Result::Genetic::Genotype",
-  { genotype_id => "genotype_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "pub",
-  "Bio::Chado::Schema::Result::Pub::Pub",
-  { pub_id => "pub_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cLfvsOaIoqU3dxBj+57aDw
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Genetic::Phendesc
@@ -121,9 +23,9 @@ Bio::Chado::Schema::Result::Genetic::Phendesc
 
 A summary of a _set_ of phenotypic statements for any one gcontext made in any one publication.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Genetic::Phendesc
+__PACKAGE__->table("phendesc");
 
 =head1 ACCESSORS
 
@@ -163,6 +65,33 @@ Bio::Chado::Schema::Result::Genetic::Phendesc
   is_foreign_key: 1
   is_nullable: 0
 
+=cut
+
+__PACKAGE__->add_columns(
+  "phendesc_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "phendesc_phendesc_id_seq",
+  },
+  "genotype_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "environment_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "description",
+  { data_type => "text", is_nullable => 0 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "pub_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("phendesc_id");
+__PACKAGE__->add_unique_constraint(
+  "phendesc_c1",
+  ["genotype_id", "environment_id", "type_id", "pub_id"],
+);
+
 =head1 RELATIONS
 
 =head2 environment
@@ -171,11 +100,41 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Genetic::Environment>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "environment",
+  "Bio::Chado::Schema::Result::Genetic::Environment",
+  { environment_id => "environment_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 genotype
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Genetic::Genotype>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "genotype",
+  "Bio::Chado::Schema::Result::Genetic::Genotype",
+  { genotype_id => "genotype_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 pub
 
@@ -183,22 +142,46 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Pub::Pub>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "pub",
+  "Bio::Chado::Schema::Result::Pub::Pub",
+  { pub_id => "pub_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cLfvsOaIoqU3dxBj+57aDw
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

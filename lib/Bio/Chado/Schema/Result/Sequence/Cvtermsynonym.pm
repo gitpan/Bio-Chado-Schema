@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Cvtermsynonym::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Cvtermsynonym::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Sequence::Cvtermsynonym::VERSION = '0.09030';
 }
 
 use strict;
@@ -56,26 +56,3 @@ __PACKAGE__->add_unique_constraint("cvtermsynonym_c1", ["cvterm_id", "synonym"])
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Sequence::Cvtermsynonym
-
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut
-

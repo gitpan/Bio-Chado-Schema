@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockDbxref::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockDbxref::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Stock::StockDbxref::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,91 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("stock_dbxref");
-
-
-__PACKAGE__->add_columns(
-  "stock_dbxref_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "stock_dbxref_stock_dbxref_id_seq",
-  },
-  "stock_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "dbxref_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "is_current",
-  { data_type => "boolean", default_value => \"true", is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("stock_dbxref_id");
-__PACKAGE__->add_unique_constraint("stock_dbxref_c1", ["stock_id", "dbxref_id"]);
-
-
-__PACKAGE__->belongs_to(
-  "dbxref",
-  "Bio::Chado::Schema::Result::General::Dbxref",
-  { dbxref_id => "dbxref_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "stock",
-  "Bio::Chado::Schema::Result::Stock::Stock",
-  { stock_id => "stock_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->has_many(
-  "stock_dbxrefprops",
-  "Bio::Chado::Schema::Result::Stock::StockDbxrefprop",
-  { "foreign.stock_dbxref_id" => "self.stock_dbxref_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pxnrDZQWD/fcN3ciUtGbNA
-
-
-
-sub create_stock_dbxrefprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts->{cv_name} = 'stock_dbxref_property'
-        unless defined $opts->{cv_name};
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'stock_dbxrefprops',
-        );
-}
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Stock::StockDbxref
@@ -108,9 +23,9 @@ Bio::Chado::Schema::Result::Stock::StockDbxref
 
 stock_dbxref links a stock to dbxrefs. This is for secondary identifiers; primary identifiers should use stock.dbxref_id.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Stock::StockDbxref
+__PACKAGE__->table("stock_dbxref");
 
 =head1 ACCESSORS
 
@@ -141,6 +56,26 @@ Bio::Chado::Schema::Result::Stock::StockDbxref
 
 The is_current boolean indicates whether the linked dbxref is the current -official- dbxref for the linked stock.
 
+=cut
+
+__PACKAGE__->add_columns(
+  "stock_dbxref_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "stock_dbxref_stock_dbxref_id_seq",
+  },
+  "stock_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "dbxref_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "is_current",
+  { data_type => "boolean", default_value => \"true", is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("stock_dbxref_id");
+__PACKAGE__->add_unique_constraint("stock_dbxref_c1", ["stock_id", "dbxref_id"]);
+
 =head1 RELATIONS
 
 =head2 dbxref
@@ -149,17 +84,61 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::General::Dbxref>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "dbxref",
+  "Bio::Chado::Schema::Result::General::Dbxref",
+  { dbxref_id => "dbxref_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 stock
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Stock::Stock>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "stock",
+  "Bio::Chado::Schema::Result::Stock::Stock",
+  { stock_id => "stock_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 stock_dbxrefprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::Stock::StockDbxrefprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "stock_dbxrefprops",
+  "Bio::Chado::Schema::Result::Stock::StockDbxrefprop",
+  { "foreign.stock_dbxref_id" => "self.stock_dbxref_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pxnrDZQWD/fcN3ciUtGbNA
+
 
 =head2 create_stock_dbxrefprops
 
@@ -197,16 +176,20 @@ Related object: L<Bio::Chado::Schema::Result::Stock::StockDbxrefprop>
           }
   Ret  : hashref of { propname => new stock_dbxrefprop object }
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+sub create_stock_dbxrefprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'stock_dbxref_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'stock_dbxrefprops',
+        );
+}
+
+1;

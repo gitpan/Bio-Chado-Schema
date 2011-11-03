@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::CommonDescendantCvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::CommonDescendantCvterm::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Cv::CommonDescendantCvterm::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -14,38 +14,6 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-
-
-__PACKAGE__->table("common_descendant_cvterm");
-
-
-__PACKAGE__->add_columns(
-  "cvterm1_id",
-  { data_type => "integer", is_nullable => 1 },
-  "cvterm2_id",
-  { data_type => "integer", is_nullable => 1 },
-  "ancestor_cvterm_id",
-  { data_type => "integer", is_nullable => 1 },
-  "pathdistance1",
-  { data_type => "integer", is_nullable => 1 },
-  "pathdistance2",
-  { data_type => "integer", is_nullable => 1 },
-  "total_pathdistance",
-  { data_type => "integer", is_nullable => 1 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p7fHtjjCUe9DSOACO+T7Yg
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
 
 =head1 NAME
 
@@ -58,9 +26,9 @@ any two terms is the intersection of both terms descendants. Two terms
 can have multiple common descendants. Use total_pathdistance to get
 the least common ancestor
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Cv::CommonDescendantCvterm
+__PACKAGE__->table("common_descendant_cvterm");
 
 =head1 ACCESSORS
 
@@ -94,16 +62,27 @@ Bio::Chado::Schema::Result::Cv::CommonDescendantCvterm
   data_type: 'integer'
   is_nullable: 1
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->add_columns(
+  "cvterm1_id",
+  { data_type => "integer", is_nullable => 1 },
+  "cvterm2_id",
+  { data_type => "integer", is_nullable => 1 },
+  "ancestor_cvterm_id",
+  { data_type => "integer", is_nullable => 1 },
+  "pathdistance1",
+  { data_type => "integer", is_nullable => 1 },
+  "pathdistance2",
+  { data_type => "integer", is_nullable => 1 },
+  "total_pathdistance",
+  { data_type => "integer", is_nullable => 1 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p7fHtjjCUe9DSOACO+T7Yg
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

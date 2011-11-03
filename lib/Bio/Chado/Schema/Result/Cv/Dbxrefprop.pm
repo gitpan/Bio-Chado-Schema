@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Dbxrefprop::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Dbxrefprop::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Cv::Dbxrefprop::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,71 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("dbxrefprop");
-
-
-__PACKAGE__->add_columns(
-  "dbxrefprop_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "dbxrefprop_dbxrefprop_id_seq",
-  },
-  "dbxref_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "value",
-  { data_type => "text", default_value => "", is_nullable => 0 },
-  "rank",
-  { data_type => "integer", default_value => 0, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("dbxrefprop_id");
-__PACKAGE__->add_unique_constraint("dbxrefprop_c1", ["dbxref_id", "type_id", "rank"]);
-
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "dbxref",
-  "Bio::Chado::Schema::Result::General::Dbxref",
-  { dbxref_id => "dbxref_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7wF5gI3DwsAEmU6dfNx3Hw
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Cv::Dbxrefprop
@@ -88,9 +23,9 @@ Bio::Chado::Schema::Result::Cv::Dbxrefprop
 
 Metadata about a dbxref. Note that this is not defined in the dbxref module, as it depends on the cvterm table. This table has a structure analagous to cvtermprop.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Cv::Dbxrefprop
+__PACKAGE__->table("dbxrefprop");
 
 =head1 ACCESSORS
 
@@ -125,6 +60,28 @@ Bio::Chado::Schema::Result::Cv::Dbxrefprop
   default_value: 0
   is_nullable: 0
 
+=cut
+
+__PACKAGE__->add_columns(
+  "dbxrefprop_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "dbxrefprop_dbxrefprop_id_seq",
+  },
+  "dbxref_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "value",
+  { data_type => "text", default_value => "", is_nullable => 0 },
+  "rank",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("dbxrefprop_id");
+__PACKAGE__->add_unique_constraint("dbxrefprop_c1", ["dbxref_id", "type_id", "rank"]);
+
 =head1 RELATIONS
 
 =head2 type
@@ -133,22 +90,46 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 dbxref
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::General::Dbxref>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->belongs_to(
+  "dbxref",
+  "Bio::Chado::Schema::Result::General::Dbxref",
+  { dbxref_id => "dbxref_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7wF5gI3DwsAEmU6dfNx3Hw
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

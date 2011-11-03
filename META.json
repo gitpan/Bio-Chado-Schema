@@ -57,7 +57,7 @@
          "web" : "http://github.com/rbuels/bio-chado-schema"
       }
    },
-   "version" : "0.09020",
+   "version" : "0.09030",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -169,11 +169,6 @@
             "class" : "Dist::Zilla::Plugin::EOLTests",
             "name" : "@Filter/EOLTests",
             "version" : "0.02"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::PodWeaver",
-            "name" : "@Filter/PodWeaver",
-            "version" : "3.101641"
          },
          {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",

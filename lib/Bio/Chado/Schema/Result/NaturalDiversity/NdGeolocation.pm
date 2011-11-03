@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,76 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("nd_geolocation");
-
-
-__PACKAGE__->add_columns(
-  "nd_geolocation_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "nd_geolocation_nd_geolocation_id_seq",
-  },
-  "description",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "latitude",
-  { data_type => "real", is_nullable => 1 },
-  "longitude",
-  { data_type => "real", is_nullable => 1 },
-  "geodetic_datum",
-  { data_type => "varchar", is_nullable => 1, size => 32 },
-  "altitude",
-  { data_type => "real", is_nullable => 1 },
-);
-__PACKAGE__->set_primary_key("nd_geolocation_id");
-
-
-__PACKAGE__->has_many(
-  "nd_experiments",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment",
-  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_geolocationprops",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationprop",
-  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ON4sQF043ybOTaJjiUnQcA
-
-
-
-sub create_geolocationprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts->{cv_name} = 'geolocation_property'
-        unless defined $opts->{cv_name};
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'nd_geolocationprops',
-        );
-}
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation
@@ -93,9 +23,9 @@ Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation
 
 The geo-referencable location of the stock. NOTE: This entity is subject to change as a more general and possibly more OpenGIS-compliant geolocation module may be introduced into Chado.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation
+__PACKAGE__->table("nd_geolocation");
 
 =head1 ACCESSORS
 
@@ -143,6 +73,29 @@ The geodetic system on which the geo-reference coordinates are based. For geo-re
 
 The altitude (elevation) of the location in meters. If the altitude is only known as a range, this is the average, and altitude_dev will hold half of the width of the range.
 
+=cut
+
+__PACKAGE__->add_columns(
+  "nd_geolocation_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "nd_geolocation_nd_geolocation_id_seq",
+  },
+  "description",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "latitude",
+  { data_type => "real", is_nullable => 1 },
+  "longitude",
+  { data_type => "real", is_nullable => 1 },
+  "geodetic_datum",
+  { data_type => "varchar", is_nullable => 1, size => 32 },
+  "altitude",
+  { data_type => "real", is_nullable => 1 },
+);
+__PACKAGE__->set_primary_key("nd_geolocation_id");
+
 =head1 RELATIONS
 
 =head2 nd_experiments
@@ -151,11 +104,34 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiments",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment",
+  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_geolocationprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "nd_geolocationprops",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationprop",
+  { "foreign.nd_geolocation_id" => "self.nd_geolocation_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ON4sQF043ybOTaJjiUnQcA
+
 
 =head2 create_geolocationprops
 
@@ -193,16 +169,22 @@ Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocationpro
           }
   Ret  : hashref of { propname => new geolocationprop object }
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+sub create_geolocationprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'geolocation_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'nd_geolocationprops',
+        );
+}
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

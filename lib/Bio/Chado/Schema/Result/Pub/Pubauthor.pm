@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Pub::Pubauthor::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Pub::Pubauthor::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::Pub::Pubauthor::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,61 +15,6 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
-
-__PACKAGE__->table("pubauthor");
-
-
-__PACKAGE__->add_columns(
-  "pubauthor_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "pubauthor_pubauthor_id_seq",
-  },
-  "pub_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "rank",
-  { data_type => "integer", is_nullable => 0 },
-  "editor",
-  { data_type => "boolean", default_value => \"false", is_nullable => 1 },
-  "surname",
-  { data_type => "varchar", is_nullable => 0, size => 100 },
-  "givennames",
-  { data_type => "varchar", is_nullable => 1, size => 100 },
-  "suffix",
-  { data_type => "varchar", is_nullable => 1, size => 100 },
-);
-__PACKAGE__->set_primary_key("pubauthor_id");
-__PACKAGE__->add_unique_constraint("pubauthor_c1", ["pub_id", "rank"]);
-
-
-__PACKAGE__->belongs_to(
-  "pub",
-  "Bio::Chado::Schema::Result::Pub::Pub",
-  { pub_id => "pub_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VjWjIT569rVLbnuwk7M7XA
-
-
-# You can replace this text with custom content, and it will be preserved on regeneration
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Pub::Pubauthor
@@ -78,9 +23,9 @@ Bio::Chado::Schema::Result::Pub::Pubauthor
 
 An author for a publication. Note the denormalisation (hence lack of _ in table name) - this is deliberate as it is in general too hard to assign IDs to authors.
 
-=head1 NAME
+=cut
 
-Bio::Chado::Schema::Result::Pub::Pubauthor
+__PACKAGE__->table("pubauthor");
 
 =head1 ACCESSORS
 
@@ -134,6 +79,32 @@ First name, initials
 
 Jr., Sr., etc
 
+=cut
+
+__PACKAGE__->add_columns(
+  "pubauthor_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "pubauthor_pubauthor_id_seq",
+  },
+  "pub_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "rank",
+  { data_type => "integer", is_nullable => 0 },
+  "editor",
+  { data_type => "boolean", default_value => \"false", is_nullable => 1 },
+  "surname",
+  { data_type => "varchar", is_nullable => 0, size => 100 },
+  "givennames",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "suffix",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+);
+__PACKAGE__->set_primary_key("pubauthor_id");
+__PACKAGE__->add_unique_constraint("pubauthor_c1", ["pub_id", "rank"]);
+
 =head1 RELATIONS
 
 =head2 pub
@@ -142,16 +113,25 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Pub::Pub>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+__PACKAGE__->belongs_to(
+  "pub",
+  "Bio::Chado::Schema::Result::Pub::Pub",
+  { pub_id => "pub_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VjWjIT569rVLbnuwk7M7XA
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+1;

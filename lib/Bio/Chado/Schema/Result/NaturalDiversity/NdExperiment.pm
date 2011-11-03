@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::VERSION = '0.09020';
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment::VERSION = '0.09030';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -15,159 +15,13 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 
+=head1 NAME
+
+Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment
+
+=cut
 
 __PACKAGE__->table("nd_experiment");
-
-
-__PACKAGE__->add_columns(
-  "nd_experiment_id",
-  {
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-    sequence          => "nd_experiment_nd_experiment_id_seq",
-  },
-  "nd_geolocation_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "type_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-);
-__PACKAGE__->set_primary_key("nd_experiment_id");
-
-
-__PACKAGE__->belongs_to(
-  "nd_geolocation",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation",
-  { nd_geolocation_id => "nd_geolocation_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->belongs_to(
-  "type",
-  "Bio::Chado::Schema::Result::Cv::Cvterm",
-  { cvterm_id => "type_id" },
-  {
-    cascade_copy   => 0,
-    cascade_delete => 0,
-    is_deferrable  => 1,
-    on_delete      => "CASCADE",
-    on_update      => "CASCADE",
-  },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_contacts",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentContact",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_dbxrefs",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentDbxref",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_genotypes",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentGenotype",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_phenotypes",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPhenotype",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_projects",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProject",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experimentprops",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentprop",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_protocols",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_pubs",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-__PACKAGE__->has_many(
-  "nd_experiment_stocks",
-  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStock",
-  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rdopd+NuS4NVDr0dVrREnQ
-
-
-
-sub create_nd_experimentprops {
-    my ($self, $props, $opts) = @_;
-
-    # process opts
-    $opts->{cv_name} = 'nd_experiment_property'
-        unless defined $opts->{cv_name};
-    return Bio::Chado::Schema::Util->create_properties
-        ( properties => $props,
-          options    => $opts,
-          row        => $self,
-          prop_relation_name => 'nd_experimentprops',
-        );
-}
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment
 
 =head1 ACCESSORS
 
@@ -190,6 +44,23 @@ Bio::Chado::Schema::Result::NaturalDiversity::NdExperiment
   is_foreign_key: 1
   is_nullable: 0
 
+=cut
+
+__PACKAGE__->add_columns(
+  "nd_experiment_id",
+  {
+    data_type         => "integer",
+    is_auto_increment => 1,
+    is_nullable       => 0,
+    sequence          => "nd_experiment_nd_experiment_id_seq",
+  },
+  "nd_geolocation_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+);
+__PACKAGE__->set_primary_key("nd_experiment_id");
+
 =head1 RELATIONS
 
 =head2 nd_geolocation
@@ -198,11 +69,41 @@ Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation>
 
+=cut
+
+__PACKAGE__->belongs_to(
+  "nd_geolocation",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdGeolocation",
+  { nd_geolocation_id => "nd_geolocation_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
+
 =head2 type
 
 Type: belongs_to
 
 Related object: L<Bio::Chado::Schema::Result::Cv::Cvterm>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "type",
+  "Bio::Chado::Schema::Result::Cv::Cvterm",
+  { cvterm_id => "type_id" },
+  {
+    cascade_copy   => 0,
+    cascade_delete => 0,
+    is_deferrable  => 1,
+    on_delete      => "CASCADE",
+    on_update      => "CASCADE",
+  },
+);
 
 =head2 nd_experiment_contacts
 
@@ -210,11 +111,29 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentContact>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_contacts",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentContact",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_experiment_dbxrefs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentDbxref>
+
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_dbxrefs",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentDbxref",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
 =head2 nd_experiment_genotypes
 
@@ -222,11 +141,29 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentGenotype>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_genotypes",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentGenotype",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_experiment_phenotypes
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPhenotype>
+
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_phenotypes",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPhenotype",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
 =head2 nd_experiment_projects
 
@@ -234,11 +171,29 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProject>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_projects",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProject",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_experimentprops
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experimentprops",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentprop",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
 =head2 nd_experiment_protocols
 
@@ -246,17 +201,49 @@ Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_protocols",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentProtocol",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_experiment_pubs
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub>
 
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_pubs",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 nd_experiment_stocks
 
 Type: has_many
 
 Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStock>
+
+=cut
+
+__PACKAGE__->has_many(
+  "nd_experiment_stocks",
+  "Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStock",
+  { "foreign.nd_experiment_id" => "self.nd_experiment_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rdopd+NuS4NVDr0dVrREnQ
+
 
 =head2 create_nd_experimentprops
 
@@ -294,16 +281,20 @@ Related object: L<Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentStoc
           }
   Ret  : hashref of { propname => new experimentprop object }
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+sub create_nd_experimentprops {
+    my ($self, $props, $opts) = @_;
+
+    # process opts
+    $opts->{cv_name} = 'nd_experiment_property'
+        unless defined $opts->{cv_name};
+    return Bio::Chado::Schema::Util->create_properties
+        ( properties => $props,
+          options    => $opts,
+          row        => $self,
+          prop_relation_name => 'nd_experimentprops',
+        );
+}
+
+1;

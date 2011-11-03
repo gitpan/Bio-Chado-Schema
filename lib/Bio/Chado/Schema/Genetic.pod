@@ -1,17 +1,5 @@
 package Bio::Chado::Schema::Result::Genetic;
 
-
-1;
-
-__END__
-=pod
-
-=encoding utf-8
-
-=head1 NAME
-
-Bio::Chado::Schema::Result::Genetic
-
 =head1 NAME
 
 Bio::Chado::Schema::Result::Genetic - Genotypes and mutant alleles
@@ -46,16 +34,6 @@ L<Bio::Chado::Schema::Result::Genetic::PhenotypeComparisonCvterm>
 
 L<Bio::Chado::Schema::Result::Genetic::Phenstatement>
 
-=head1 AUTHOR
-
-Robert Buels <rbuels@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Robert Buels.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
 
+1;
