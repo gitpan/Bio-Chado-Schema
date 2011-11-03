@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Feature::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.09010';
+  $Bio::Chado::Schema::Result::Sequence::Feature::VERSION = '0.09020';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -514,7 +514,10 @@ sub desc {
 
 
 sub alphabet {
-    shift()->throw_not_implemented()
+    # yes, this is pretty lame. should traverse up the relationships
+    # using cvtermpath or cvterm_relationship.  patches welcome.
+    my $type_name = shift->type->name;
+    return $type_name eq 'polypeptide' ? 'protein' : 'dna';
 }
 
 # signal to BioPerl that this sequence can't be cloned
@@ -1045,7 +1048,9 @@ found for this feature.
 
 =head2 alphabet
 
-Not implemented. Throws an error if used.
+Returns "protein" if the feature's type name is "polypeptide".
+Otherwise, returns "dna".  This is not very correct, but works in most
+of the use cases we've seen so far.
 
 =head1 AUTHOR
 

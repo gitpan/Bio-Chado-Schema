@@ -4,7 +4,7 @@
       "Robert Buels <rbuels@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.110930",
+   "generated_by" : "Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.112150",
    "license" : [
       "perl_5"
    ],
@@ -57,7 +57,7 @@
          "web" : "http://github.com/rbuels/bio-chado-schema"
       }
    },
-   "version" : "0.09010",
+   "version" : "0.09020",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -231,7 +231,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : 0
+            "is_trial" : "0"
          },
          "version" : "4.200003"
       }

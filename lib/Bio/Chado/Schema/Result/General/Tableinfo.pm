@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::General::Tableinfo::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::General::Tableinfo::VERSION = '0.09010';
+  $Bio::Chado::Schema::Result::General::Tableinfo::VERSION = '0.09020';
 }
 
 # Created by DBIx::Class::Schema::Loader

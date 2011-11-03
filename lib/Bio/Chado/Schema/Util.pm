@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Util::VERSION = '0.09010';
+  $Bio::Chado::Schema::Util::VERSION = '0.09020';
 }
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
