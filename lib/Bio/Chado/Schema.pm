@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::VERSION = '0.09030';
+  $Bio::Chado::Schema::VERSION = '0.09040';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -196,6 +196,14 @@ associated SpecialThings.
             __PACKAGE__->register_class( $target_moniker => $target_class );
         };
     }
+}
+
+sub DESTROY {
+    my $self = shift;
+
+    # need to delete our cvterm cache to avoid memory leaks
+    delete $self->{_bio_chado_schema_cvterm_cache};
+    $self->SUPER::DESTROY( @_ );
 }
 
 =head1 AUTHOR

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Genetic::FeatureGenotype::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Genetic::FeatureGenotype::VERSION = '0.09030';
+  $Bio::Chado::Schema::Result::Genetic::FeatureGenotype::VERSION = '0.09040';
 }
 
 # Created by DBIx::Class::Schema::Loader

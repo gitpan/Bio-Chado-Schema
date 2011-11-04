@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Test::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Test::VERSION = '0.09030';
+  $Bio::Chado::Schema::Test::VERSION = '0.09040';
 }
 use strict;
 use warnings;
