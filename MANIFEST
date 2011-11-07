@@ -233,6 +233,7 @@ lib/Bio/Chado/Schema/Result/Organism/Organismprop.pm
 lib/Bio/Chado/Schema/Result/Phenotype/FeaturePhenotype.pm
 lib/Bio/Chado/Schema/Result/Phenotype/Phenotype.pm
 lib/Bio/Chado/Schema/Result/Phenotype/PhenotypeCvterm.pm
+lib/Bio/Chado/Schema/Result/Phenotype/Phenotypeprop.pm
 lib/Bio/Chado/Schema/Result/Phylogeny/Phylonode.pm
 lib/Bio/Chado/Schema/Result/Phylogeny/PhylonodeDbxref.pm
 lib/Bio/Chado/Schema/Result/Phylogeny/PhylonodeOrganism.pm

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Phylogeny::PhylonodeRelationship::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Phylogeny::PhylonodeRelationship::VERSION = '0.09040';
+  $Bio::Chado::Schema::Result::Phylogeny::PhylonodeRelationship::VERSION = '0.10000';
 }
 
 # Created by DBIx::Class::Schema::Loader

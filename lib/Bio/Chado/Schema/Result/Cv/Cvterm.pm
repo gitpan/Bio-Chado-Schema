@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.09040';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.10000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -1279,6 +1279,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 phenotypeprops
+
+Type: has_many
+
+Related object: L<Bio::Chado::Schema::Result::Phenotype::Phenotypeprop>
+
+=cut
+
+__PACKAGE__->has_many(
+  "phenotypeprops",
+  "Bio::Chado::Schema::Result::Phenotype::Phenotypeprop",
+  { "foreign.type_id" => "self.cvterm_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 phenstatements
 
 Type: has_many
@@ -1730,8 +1745,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-22 08:45:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A6xSfWvDItIEpHLeyupIXA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-11-07 13:19:16
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cPH9EGtsJO7PK5U3UZ9LvA
 
 use Carp;
 
@@ -2231,7 +2246,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.09040';
+  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.10000';
 }
 use base qw/ DBIx::Class::ResultSet /;
 
