@@ -38,7 +38,7 @@ my %WriteMakefileArgs = (
     'DBIx::Class::Schema' => '0',
     'DBIx::Class::Tree::NestedSet' => '0.07'
   },
-  'VERSION' => '0.10000',
+  'VERSION' => '0.10010',
   'test' => {
     'TESTS' => 't/*.t t/Cv/*.t t/Phylogeny/*.t t/Sequence/*.t t/Stock/*.t'
   }

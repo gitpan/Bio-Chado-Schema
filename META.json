@@ -57,7 +57,7 @@
          "web" : "http://github.com/rbuels/bio-chado-schema"
       }
    },
-   "version" : "0.10000",
+   "version" : "0.10010",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

@@ -3,7 +3,7 @@ BEGIN {
   $Bio::Chado::Schema::Result::Mage::Element::AUTHORITY = 'cpan:RBUELS';
 }
 BEGIN {
-  $Bio::Chado::Schema::Result::Mage::Element::VERSION = '0.10000';
+  $Bio::Chado::Schema::Result::Mage::Element::VERSION = '0.10010';
 }
 
 # Created by DBIx::Class::Schema::Loader
