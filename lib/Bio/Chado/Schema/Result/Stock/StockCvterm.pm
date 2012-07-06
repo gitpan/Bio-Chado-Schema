@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Stock::StockCvterm;
 BEGIN {
   $Bio::Chado::Schema::Result::Stock::StockCvterm::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Stock::StockCvterm::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Stock::StockCvterm::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

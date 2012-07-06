@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Pub::Pub;
 BEGIN {
   $Bio::Chado::Schema::Result::Pub::Pub::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Pub::Pub::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Pub::Pub::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

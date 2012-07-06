@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Util;
 BEGIN {
   $Bio::Chado::Schema::Util::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Util::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Util::VERSION = '0.20000';
 }
 use strict;
 use Carp::Clan qr/^Bio::Chado::Schema/;
@@ -259,12 +259,5 @@ and it haven't a file for itself. Nevertheless, the use will be the same.
 Robert Buels, <rmb32@cornell.edu>
 
 Naama Menda, <naama.menda@gmail.com>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 Boyce Thompson Institute for Plant Research
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut

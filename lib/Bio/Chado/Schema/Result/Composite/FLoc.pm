@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Composite::FLoc;
 BEGIN {
   $Bio::Chado::Schema::Result::Composite::FLoc::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Composite::FLoc::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Composite::FLoc::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

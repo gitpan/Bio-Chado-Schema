@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Project::ProjectPub;
 BEGIN {
   $Bio::Chado::Schema::Result::Project::ProjectPub::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Project::ProjectPub::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Project::ProjectPub::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -17,7 +17,7 @@ use base 'DBIx::Class::Core';
 
 =head1 NAME
 
-Bio::Chado::Schema::Result::Project::ProjectPub - Linking project(s) to publication(s)
+Bio::Chado::Schema::Result::Project::ProjectPub - Linking table for associating projects and publications.
 
 =cut
 
@@ -107,8 +107,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-03-16 23:09:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+Fo6t9tHVPFAYWFZy1XgsQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2012-07-06 11:44:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6QUO6Y/AQVy7NgJ9KEvJUQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

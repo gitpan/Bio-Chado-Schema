@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::CellLine::CellLinepropPub;
 BEGIN {
   $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::CellLine::CellLinepropPub::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

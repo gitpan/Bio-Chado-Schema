@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Mage::ElementRelationship;
 BEGIN {
   $Bio::Chado::Schema::Result::Mage::ElementRelationship::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Mage::ElementRelationship::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Mage::ElementRelationship::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

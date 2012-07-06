@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Sequence::Featureloc;
 BEGIN {
   $Bio::Chado::Schema::Result::Sequence::Featureloc::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Sequence::Featureloc::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -294,6 +294,8 @@ sub length {
     return undef unless defined($self->fmax) && defined($self->fmin);
     return $self->fmax - $self->fmin;
 }
+
+=head1 ADDITIONAL METHODS
 
 =head2 to_range
 

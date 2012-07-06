@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Cv::Cvterm;
 BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Cv::Cvterm::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -2245,8 +2245,8 @@ package Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet;
 BEGIN {
   $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Cv::Cvterm::ResultSet::VERSION = '0.20000';
 }
 use base qw/ DBIx::Class::ResultSet /;
 

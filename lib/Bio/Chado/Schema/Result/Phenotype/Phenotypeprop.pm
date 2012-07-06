@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Phenotype::Phenotypeprop;
 BEGIN {
   $Bio::Chado::Schema::Result::Phenotype::Phenotypeprop::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Phenotype::Phenotypeprop::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Phenotype::Phenotypeprop::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Test;
 BEGIN {
   $Bio::Chado::Schema::Test::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Test::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Test::VERSION = '0.20000';
 }
 use strict;
 use warnings;

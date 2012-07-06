@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Cv::CvtermRelationship;
 BEGIN {
   $Bio::Chado::Schema::Result::Cv::CvtermRelationship::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Cv::CvtermRelationship::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Cv::CvtermRelationship::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

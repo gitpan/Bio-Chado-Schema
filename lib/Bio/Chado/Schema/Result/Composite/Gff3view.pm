@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Composite::Gff3view;
 BEGIN {
   $Bio::Chado::Schema::Result::Composite::Gff3view::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Composite::Gff3view::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Composite::Gff3view::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

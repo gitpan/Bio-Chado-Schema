@@ -65,6 +65,7 @@ doc/slides/intro/template/tt2/slide.css
 doc/slides/intro/template/tt2/slide.html
 doc/slides/intro/template/tt2/start.html
 doc/slides/intro/template/tt2/top.html
+lib/Bio/Chado/NaturalDiversity/Reports.pm
 lib/Bio/Chado/Schema.pm
 lib/Bio/Chado/Schema/Result/CellLine.pod
 lib/Bio/Chado/Schema/Result/CellLine/CellLine.pm

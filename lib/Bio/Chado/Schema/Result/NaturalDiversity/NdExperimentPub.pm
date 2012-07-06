@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub;
 BEGIN {
   $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::NaturalDiversity::NdExperimentPub::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader

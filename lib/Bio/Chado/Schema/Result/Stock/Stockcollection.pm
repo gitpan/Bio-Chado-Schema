@@ -2,8 +2,8 @@ package Bio::Chado::Schema::Result::Stock::Stockcollection;
 BEGIN {
   $Bio::Chado::Schema::Result::Stock::Stockcollection::AUTHORITY = 'cpan:RBUELS';
 }
-BEGIN {
-  $Bio::Chado::Schema::Result::Stock::Stockcollection::VERSION = '0.10010';
+{
+  $Bio::Chado::Schema::Result::Stock::Stockcollection::VERSION = '0.20000';
 }
 
 # Created by DBIx::Class::Schema::Loader
